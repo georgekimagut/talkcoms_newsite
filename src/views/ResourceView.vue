@@ -74,7 +74,7 @@ import { supabase } from "../store/supabase";
 
 export default {
   name: "ResourceView",
-  props: ["id"],
+  props: ["id", "type"],
   components: { Navbar, Spinner, HeroSection, RoundedButton, Footer },
   data() {
     return {

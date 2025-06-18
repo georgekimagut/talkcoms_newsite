@@ -62,7 +62,7 @@ const routes = [
     meta: { title: "Success Stories" },
   },
   {
-    path: "/resources/:id",
+    path: "/resources/:type/:id",
     name: "Resource",
     component: ResourceView,
     meta: { title: "Resources" },

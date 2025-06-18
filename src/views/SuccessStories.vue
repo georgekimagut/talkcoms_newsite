@@ -11,7 +11,7 @@
       :page_statement="story.title"
       :big_pic="story.pic"
       :page_min_statement="story.short_description"
-      :blog_link="'/resources/' + story.title"
+      :blog_link="`/resources/${success_story}/${story.title}`"
       has_link
       has_demo_link
     />
@@ -45,7 +45,7 @@
             <p class="mt-4 text-xl">{{ story.title }}</p>
             <div class="w-full flex justify-end pb-4">
               <router-link
-                :to="'/resources/' + story.title"
+                :to="`/resources/${success_story}/${story.title}`"
                 class="custom-link text-secondary mt-5"
               >
                 Read More
@@ -76,6 +76,7 @@ export default {
     return {
       page_is_loading: true,
       success_stories: [],
+      success_story: "story",
     };
   },
   methods: {
