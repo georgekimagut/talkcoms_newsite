@@ -1,0 +1,255 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+@import "tailwindcss";
+
+/* custom classes*/
+* {
+  font-family: "Lato", sans-serif;
+}
+body,
+.bg-body {
+  background-color: #f5f5f5;
+}
+a {
+  text-decoration: none;
+}
+
+/* spinner */
+.spinner {
+  animation: rotator 1.4s linear infinite;
+}
+@keyframes rotator {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+.path {
+  stroke-dasharray: 187;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+@keyframes colors {
+  0% {
+    stroke: #131f6b;
+  }
+  25% {
+    stroke: #007cba;
+  }
+  50% {
+    stroke: #82bc00;
+  }
+  75% {
+    stroke: #1b9a59;
+  }
+  100% {
+    stroke: #4c9462;
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 187;
+  }
+  50% {
+    stroke-dashoffset: 46.75;
+    transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: 187;
+    transform: rotate(450deg);
+  }
+}
+/* end of spinner*/
+.bg-white {
+  background-color: #fefffe;
+}
+.custom-logo {
+  width: 50px;
+}
+.text-default {
+  color: #131f6b;
+}
+.bg-default {
+  background-color: #131f6b;
+}
+.custom-default-hover:hover {
+  color: #82bc00;
+}
+.text-secondary {
+  color: #82bc00;
+}
+.text-third {
+  color: #007cba;
+}
+.bg-third {
+  background-color: #007cba;
+}
+.bg-secondary {
+  background-color: #82bc00;
+}
+.text-muted {
+  color: #e3e3e3;
+}
+.nav-bar.nav-bar-innner a:hover {
+  color: #82bc00;
+}
+
+.custom-btn {
+  height: 35px;
+}
+.bounce-twice {
+  animation: bounce 1s ease-in-out 0s 1;
+}
+.custom-anime-random {
+  animation-name: movearound;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+}
+.custom-anime-movedown {
+  animation-name: movedown;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+}
+.custom-anime-movein {
+  animation-name: movein;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+}
+@keyframes movearound {
+  0% {
+    margin-top: -50px;
+  }
+  40% {
+    margin-top: -40px;
+    margin-left: -20px;
+  }
+  100% {
+    margin-top: 0px;
+    margin-left: 0px;
+  }
+}
+@keyframes movedown {
+  0% {
+    margin-top: -50px;
+  }
+  100% {
+    margin-top: 0px;
+  }
+}
+@keyframes movein {
+  0% {
+    margin-top: -70%;
+    margin-left: -100%;
+  }
+  100% {
+    margin-top: 0;
+    margin-left: 0;
+  }
+}
+.custom-link .fa-solid,
+.pointer-to-show,
+.industry-card.hover,
+.industry-card .fa-arrow-right.mr-6,
+.btn-hover,
+.transition-3 {
+  transition: 0.3s ease-in-out;
+}
+.custom-link:hover .fa-solid {
+  /* margin-left: 18px; */
+  rotate: 0deg;
+}
+.custom-portfolio-hover .c-background.opacity-0,
+.custom-portfolio-hover .c-layer.hidden,
+.industry-card {
+  transition: 0.3s ease-in-out;
+}
+.custom-portfolio-hover:hover .c-background.opacity-0 {
+  opacity: 0.7;
+}
+.custom-portfolio-hover:hover .c-layer.hidden {
+  display: flex !important;
+}
+@keyframes scroll-carousel {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-80%);
+  }
+}
+
+.animate-scroll-carousel {
+  animation: scroll-carousel 120s linear infinite;
+}
+.animate-scroll-carousel:hover {
+  animation-play-state: paused;
+}
+.zoom-animate img {
+  transition: transform 0.3s;
+}
+.zoom-animate {
+  border-bottom: 3px solid transparent;
+  box-shadow: 0 0 20px transparent;
+}
+.zoom-animate:hover {
+  box-shadow: 0 0 20px rgb(200, 200, 200);
+  border-style: solid;
+  border-image: conic-gradient(#131f6b, #82bc00) 1;
+}
+
+.zoom-animate:hover img {
+  transform: scale(1.1);
+}
+.zoom-animate .pointer-to-show {
+  display: none;
+}
+.zoom-animate:hover .pointer-to-show {
+  display: flex;
+}
+.service-card .content {
+  transition: 0.3s ease-in-out;
+}
+.service-card:hover .content {
+  width: 100%;
+  margin-left: 0%;
+}
+.industry-card:hover .fa-arrow-right.mr-6 {
+  margin-right: 0px;
+  opacity: 1;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px; /* height of horizontal scrollbar ← You're missing this */
+  width: 6px; /* width of vertical scrollbar */
+  border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #007cba;
+  border-radius: 3px;
+}
+.custom-card {
+  transition: 0.3s ease-in-out;
+}
+.resource-dropdown {
+  display: none;
+}
+.nav-bar .drop-resource:hover .resource-dropdown {
+  display: block;
+}
+/* This targets the popup content wrapper */
+.leaflet-popup-content-wrapper {
+  background-color: #82bc00 !important;
+  border-radius: 0px !important;
+  padding: 5px !important;
+}
+
+/* Optional: target popup arrow tip */
+.leaflet-popup-tip {
+  background: #82bc00 !important;
+}
+.btn-hover:hover {
+  background-color: #131f6b;
+  color: #ffffff;
+}
