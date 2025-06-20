@@ -1,5 +1,9 @@
 <template>
-  <div class="w-full flex justify-center" :class="class_height">
+  <div
+    class="w-full flex justify-center"
+    :class="class_height"
+    :style="{ backgroundColor: bg_color }"
+  >
     <div class="w-3/4 flex justify-center mt-16">
       <div class="w-1/2" :class="is_shuffled ? 'order-1' : 'order-2'">
         <p class="text-secondary w-3/4">{{ page_title }}</p>
@@ -28,13 +32,13 @@
         <RoundedButton
           v-if="has_demo_link"
           button_link="/contact-us"
-          button_text="Book A Free Demo"
+          button_text="Get A Free Demo"
           button_icon="fa-solid fa-angle-right"
           :defaultColor="'#333'"
           :hoverColor="'#8dc63f'"
           :iconColor="'#262262'"
           button_circle_background="#262262"
-          class="w-fit mt-4"
+          class="w-fit mt-4 p-2"
         />
         <div v-if="is_blog" class="w-full mt-4">
           <router-link :to="blog_link" class="custom-link text-secondary">
@@ -46,17 +50,18 @@
           <RoundedButton
             v-if="has_demo"
             button_link="/contact-us"
-            button_text="Book A Free Demo"
+            button_text="Get A Free Demo"
             button_icon="fa-solid fa-angle-right"
             :defaultColor="'#333'"
             :hoverColor="'#8dc63f'"
             :iconColor="'#262262'"
             button_circle_background="#262262"
+            class="p-2"
           />
           <RoundedButton
-            class="ml-4"
+            class="ml-4 p-2"
             button_link="/contact"
-            button_text="Let's Talk"
+            button_text="Talk To Sales"
             button_icon="fa-solid fa-angle-right text-white"
             :defaultColor="'#333'"
             :hoverColor="'#262262'"
@@ -174,8 +179,13 @@
               <p class="text-sm">{{ sec_review }}</p>
             </div>
           </div>
-          <div class="h-full w-full overflow-hidden rounded-xl">
-            <img :src="big_pic" class="h-full max-w-none" />
+          <div
+            class="h-full w-full overflow-hidden rounded-xl flex justify-center"
+          >
+            <img
+              :src="big_pic"
+              class="h-auto w-auto min-h-full min-w-full max-w-none"
+            />
           </div>
         </div>
       </div>
@@ -207,6 +217,7 @@ export default {
     is_shuffled: Boolean,
     has_link: Boolean,
     has_demo_link: Boolean,
+    bg_color: String,
   },
 };
 </script>

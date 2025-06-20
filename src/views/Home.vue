@@ -205,58 +205,6 @@
             </div>
           </div>
         </div>
-        <!-- <div
-        class="w-[86%] bg-white p-4 h-full flex flex-nowrap transition-transform duration-500 ease-in-out overflow-hidden"
-      >
-        <div
-          v-for="(service, index) in home_services"
-          :key="index"
-          class="w-full h-full flex-shrink-0 p-4 flex rounded-2xl"
-          :style="{ transform: `translateX(-${current_service_slide * 100}%)` }"
-        >
-          <div class="w-[40%] flex flex-col justify-around">
-            <div class="" v-html="service.title"></div>
-
-            <p class="w-3/4 p-2 mt-6">{{ service.description }}</p>
-            <div class="w-fit mt-24 pb-6">
-              <RoundedButton
-                button_link="/contact"
-                button_text="Get Started"
-                button_icon="fa-solid fa-angle-right"
-                :defaultColor="'#333'"
-                :hoverColor="'#8dc63f'"
-                :iconColor="'#262262'"
-                button_circle_background="#262262"
-              />
-            </div>
-          </div>
-          <div class="w-[60%] d-flex justify-center h-full">
-            <div class="w-[90%] relative h-full">
-              <div
-                class="absolute mt-14 w-3/4 h-[70%] bg-linear-[25deg,#262262_40%,#1D65AB_60%,#8DC63F_90%] rounded-xl"
-              >
-                <div class="w-full p-2">
-                  <h1 class="text-2xl text-white font-bold p-4 w-3/4">
-                    {{ service.service_name }}
-                  </h1>
-                </div>
-                <div class="w-[40%] p-4">
-                  <li
-                    v-for="(feat, index) in service.features"
-                    :key="index"
-                    class="text-white w-full"
-                  >
-                    {{ feat.feature_title }}
-                  </li>
-                </div>
-              </div>
-              <div class="absolute z-10 w-[65%] mt-32 left-[40%] h-[250px]">
-                <img :src="service.pic" class="h-full w-full rounded-xl" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
       </div>
     </div>
     <!-- portfolio -->

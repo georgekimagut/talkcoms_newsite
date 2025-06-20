@@ -253,3 +253,18 @@ a {
   background-color: #131f6b;
   color: #ffffff;
 }
+.shift-hover {
+  border: 1px solid #e3e3e3;
+}
+.custom-linear-bg {
+  background: linear-gradient(to right, #131f6b, #82bc00);
+}
+.scrollable::-webkit-scrollbar {
+  display: none;
+}
+.custom-link .arrow {
+  display: none;
+}
+.custom-link:hover .arrow {
+  display: block;
+}

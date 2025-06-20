@@ -4,8 +4,12 @@
   <div v-if="page_is_loading === false" class="w-full">
     <Navbar />
     <HeroSection
-      class_height="h-[65vh] bg-[#131f6b] pb-16 text-white"
-      page_title="STORY"
+      :class_height="
+        random_bg === '#fefffe'
+          ? 'h-[65vh] bg-[#131f6b] pb-16'
+          : 'h-[65vh] bg-[#131f6b] pb-16 text-white'
+      "
+      :bg_color="random_bg"
       :big_pic="resource.pic"
       :page_statement="resource.title"
       :page_min_statement="resource.short_description"
@@ -70,6 +74,7 @@ import HeroSection from "../components/HeroSection.vue";
 import Footer from "../components/Footer.vue";
 import Navbar from "../components/Navbar.vue";
 import Spinner from "../components/Spinner.vue";
+import { theme_colors, get_services } from "../store/store";
 import { supabase } from "../store/supabase";
 
 export default {
@@ -80,10 +85,13 @@ export default {
     return {
       page_is_loading: true,
       resource: [],
+      random_bg: "",
     };
   },
   async mounted() {
     this.page_is_loading = true;
+    this.randomize_color();
+    console.log(get_services);
 
     try {
       await this.get_resource();
@@ -94,32 +102,42 @@ export default {
     }
   },
   methods: {
+    randomize_color() {
+      const random_color =
+        theme_colors[Math.floor(Math.random() * theme_colors.length)];
+      this.random_bg = random_color.color_name;
+    },
     async get_resource() {
       try {
-        const { data, error } = await supabase
-          .from("success_stories")
-          .select("*")
-          .eq("title", this.id)
-          .limit(1);
+        //check the type of service before retrieval
+        if (this.type === "story") {
+          const { data, error } = await supabase
+            .from("success_stories")
+            .select("*")
+            .eq("title", this.id)
+            .limit(1);
 
-        if (error) {
-          console.log(error);
-          return;
+          if (error) {
+            console.log(error);
+            return;
+          }
+
+          this.services = data.map((service) => {
+            const { data: imageData } = supabase.storage
+              .from("talkcoms")
+              .getPublicUrl(`stories/${service.pic}`);
+
+            return {
+              ...service,
+              imageUrl: imageData.publicUrl,
+            };
+          });
+
+          //map data
+          this.resource = data[0];
+        } else {
+          alert("not story");
         }
-
-        this.services = data.map((service) => {
-          const { data: imageData } = supabase.storage
-            .from("talkcoms")
-            .getPublicUrl(`stories/${service.pic}`);
-
-          return {
-            ...service,
-            imageUrl: imageData.publicUrl,
-          };
-        });
-
-        //map data
-        this.resource = data[0];
       } catch (error) {
         console.log(error);
       }

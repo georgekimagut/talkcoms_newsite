@@ -2,7 +2,7 @@
   <div
     class="nav-bar w-full sticky top-0 bg-white z-[1000] border-b-1 border-[#e3e3e3]"
   >
-    <div class="w-full h-[10vh] flex justify-center">
+    <div class="w-full h-[12vh] flex justify-center">
       <div class="w-full flex">
         <div class="w-1/6 flex justify-end p-4">
           <router-link to="/"
@@ -17,27 +17,54 @@
             class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
             active-class="text-secondary font-medium"
           >
-            <router-link
-              to="/"
-              class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
-              active-class="text-secondary font-medium"
-              >Home</router-link
-            >
+            Home
           </router-link>
           <router-link
-            to="/services"
+            to="#"
             class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
-            active-class="text-secondary font-medium"
-            @mouseenter="show_service_dropdown"
-            @mouseleave="hide_service_dropdown"
+            @mouseenter="show_service_dropdown('product')"
+            @mouseleave="hide_service_dropdown('product')"
+          >
+            <div class="w-full h-full flex flex-row">
+              <div class="h-full flex flex-col justify-center">Products</div>
+              <div class="h-full flex flex-col justify-center ml-1 mt-1">
+                <i
+                  class="fa-solid fa-angle-down transition-all duration-300 ease-in-out"
+                  :style="{
+                    transform: product_dropdown
+                      ? 'rotate(180deg) translateY(2px)'
+                      : 'rotate(0deg) translateY(0)',
+                  }"
+                ></i>
+              </div>
+            </div>
+          </router-link>
+          <router-link
+            to="#"
+            class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
+            @mouseenter="show_service_dropdown('service')"
+            @mouseleave="hide_service_dropdown('service')"
           >
             <div class="w-full h-full flex flex-row">
               <div class="h-full flex flex-col justify-center">Services</div>
               <div class="h-full flex flex-col justify-center ml-1 mt-1">
-                <i class="fa-solid fa-angle-down"></i>
+                <i
+                  class="fa-solid fa-angle-down transition-all duration-300 ease-in-out"
+                  :style="{
+                    transform: service_dropdown
+                      ? 'rotate(180deg) translateY(2px)'
+                      : 'rotate(0deg) translateY(0)',
+                  }"
+                ></i>
               </div>
             </div>
           </router-link>
+          <router-link
+            to="/about"
+            class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
+            active-class="text-secondary font-medium"
+            >About us</router-link
+          >
           <router-link
             to="/solutions"
             class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
@@ -52,31 +79,25 @@
               </div>
             </div>
           </router-link>
-
           <!-- <router-link
             to="/success"
             class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
             active-class="text-secondary font-medium"
             >Success Stories</router-link
           > -->
-          <router-link
-            to="/about"
-            class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
-            active-class="text-secondary font-medium"
-            >About us</router-link
-          >
+
           <div
             class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4 relative drop-resource"
             active-class="text-secondary font-medium"
           >
             <div class="w-full h-full flex flex-row cursor-pointer">
-              <div class="h-full flex flex-col justify-center">Resource</div>
+              <div class="h-full flex flex-col justify-center">Resources</div>
               <div class="h-full flex flex-col justify-center ml-1 mt-1">
                 <i class="fa-solid fa-angle-down"></i>
               </div>
             </div>
             <div
-              class="w-[200px] absolute bg-white p-4 pt-0 top-[10vh] z-[100] resource-dropdown border-1 border-[#e3e3e3] rounded-sm"
+              class="w-[200px] absolute bg-white p-4 pt-0 top-[12vh] z-[100] resource-dropdown border-1 border-[#e3e3e3] rounded-sm"
             >
               <li class="mb-2 list-none">
                 <router-link to="/blogs" class="custom-default-hover"
@@ -121,108 +142,100 @@
         </div>
       </div>
     </div>
-    <!-- services dropdown -->
+    <!-- new service dropdown -->
     <div
       class="w-full h-[100vh] ml-0 absolute service-dropdown services top-[10vh] flex z-2000"
       v-show="service_dropdown"
     >
       <div class="w-full h-full relative">
-        <div class="absolute w-full h-full z-20001 bg-default opacity-40"></div>
+        <div class="absolute w-full h-full z-20001 bg-default opacity-40">
+          <!-- dark panel -->
+        </div>
         <div
-          class="absolute w-full h-fit bg-white z-20005 border-t-1 border-[#e3e3e3] flex flex-wrap justify-center"
-          @mouseenter="show_service_dropdown"
-          @mouseleave="hide_service_dropdown"
+          class="absolute w-full h-fit flex flex-wrap justify-center"
+          @mouseenter="show_service_dropdown('service')"
+          @mouseleave="hide_service_dropdown('service')"
         >
-          <div class="w-[90%] flex">
-            <div class="w-[70%] flex mt-8 flex-wrap p-4">
-              <div class="w-[60%] flex flex-wrap">
+          <div
+            class="w-[95%] flex flex-wrap bg-white z-20005 border-t-1 border-[#e3e3e3] rounded-sm"
+          >
+            <div class="w-full flex pl-4 pr-4 mt-8">
+              <h1 class="text-default ml-4 font-semibold text-sm uppercase">
+                Services
+              </h1>
+            </div>
+            <div class="w-full flex flex-wrap p-4 p-t-0 p-b-0">
+              <div class="w-full flex justify-center">
                 <div
-                  v-for="(product, index) in products"
+                  v-for="(service, index) in services"
                   :key="index"
-                  class="w-1/2 p-2 flex flex-nowrap mb-4"
+                  class="p-4 mr-2 w-[30%]"
                 >
-                  <div class="w-[40px] h-[40px] relative">
-                    <div
-                      class="w-full h-full absolute z-10 bg-secondary opacity-40 rounded-xl"
-                    ></div>
-                    <div
-                      class="w-full h-full absolute flex justify-center z-20"
-                    >
-                      <div class="h-full flex flex-col justify-center">
-                        <i class="text-secondary" :class="product.icon"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ml-2">
-                    <p class="text-third font-semibold text-sm">
-                      <router-link :to="'/' + product.name">{{
-                        product.name
-                      }}</router-link>
-                    </p>
-                    <p class="mt-2 text-sm">{{ product.product_subtitle }}</p>
+                  <h1 class="font-semibold mt-4">
+                    <router-link :to="'/service/' + service.name">{{
+                      service.name
+                    }}</router-link>
+                  </h1>
+                  <p class="mt-4">
+                    {{ service.title_description }}
+                  </p>
+                  <div class="w-full mt-6 flex justify-end">
+                    <Link
+                      :link_to="`/service/${service.name}`"
+                      link_text="READ MORE"
+                    />
                   </div>
                 </div>
               </div>
-              <div class="w-[20%]">
-                <p class="mt-2 mb-2 font-semibold">Services</p>
-                <p
-                  v-for="(service, index) in services"
-                  :key="index"
-                  class="mt-2 text-sm"
-                >
-                  <router-link
-                    :to="'/service/' + service.name"
-                    class="custom-default-hover"
-                    >{{ service.name }}</router-link
-                  >
-                </p>
-              </div>
-              <div class="w-[20%]">
-                <p class="mt-2 mb-2 font-semibold">Our Fields</p>
-                <p
-                  v-for="(filed, index) in fields"
-                  :key="index"
-                  class="mt-2 text-sm"
-                >
-                  <router-link to="#" class="custom-default-hover">{{
-                    filed.name
-                  }}</router-link>
-                </p>
-              </div>
-              <!-- bottom bar -->
-              <div class="border-t-1 border-[#e3e3e3] w-full p-2 mt-8 flex">
-                <a
-                  v-for="(social, index) in socials"
-                  :key="index"
-                  :href="
-                    social.name === 'phone'
-                      ? 'tel:' + social.phone
-                      : social.link
-                  "
-                  target="_blank"
-                  class="text-secondary mr-2"
-                  ><i :class="social.icon"></i>
-                </a>
-              </div>
             </div>
-            <div class="w-[30%] bg-body flex justify-center pt-4 pb-4">
-              <div class="h-full flex-col justify-center">
-                <img src="/services/pbx.png" />
-                <p class="mt-2 font-semibold ml-2">Our Newest Product</p>
-                <p class="mt-2 text-sm ml-2">
-                  Check out the latest product from our collection
-                </p>
-                <p class="mt-4 ml-2">
-                  <router-link
-                    to="#"
-                    class="custom-link text-secondary text-sm"
-                  >
-                    Know More
-                    <i
-                      class="fa-solid fa-angle-right text-sm ml-2 rotate-[-45deg]"
-                    ></i>
-                  </router-link>
-                </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- products dropdown -->
+    <div
+      class="w-full h-[100vh] ml-0 absolute service-dropdown services top-[10vh] flex z-2000"
+      v-show="product_dropdown"
+    >
+      <div class="w-full h-full relative">
+        <div class="absolute w-full h-full z-20001 bg-default opacity-40">
+          <!-- dark panel -->
+        </div>
+        <div
+          class="absolute w-full h-fit flex flex-wrap justify-center"
+          @mouseenter="show_service_dropdown('product')"
+          @mouseleave="hide_service_dropdown('product')"
+        >
+          <div
+            class="w-[95%] flex bg-white z-20005 border-t-1 border-[#e3e3e3] rounded-sm flex-wrap"
+          >
+            <div class="w-full flex pl-4 pr-4 mt-8">
+              <h1 class="text-default ml-4 font-semibold text-sm uppercase">
+                Products
+              </h1>
+            </div>
+            <div class="w-full flex flex-wrap p-4 p-t-0 p-b-0">
+              <div class="w-full flex justify-center">
+                <div
+                  v-for="(product, index) in products"
+                  :key="index"
+                  class="p-4 mr-2 w-[30%]"
+                >
+                  <h1 class="font-semibold mt-2">
+                    <router-link :to="'/service/' + product.name">{{
+                      product.name
+                    }}</router-link>
+                  </h1>
+                  <p class="mt-2">
+                    {{ product.title_description }}
+                  </p>
+                  <div class="w-full mt-6 flex justify-end">
+                    <Link
+                      :link_to="`/service/${product.name}`"
+                      link_text="READ MORE"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -234,13 +247,15 @@
 <script>
 import DefaultButton from "./buttons/RoundedButton.vue";
 import { supabase } from "../store/supabase.js";
+import Link from "./text/Link.vue";
 
 export default {
   name: "Navbar",
-  components: { DefaultButton },
+  components: { DefaultButton, Link },
   data() {
     return {
       service_dropdown: false,
+      product_dropdown: false,
       site_logo: "/logo.svg",
       products: [],
       socials: [
@@ -286,20 +301,38 @@ export default {
     this.get_services();
   },
   methods: {
-    show_service_dropdown() {
-      this.service_dropdown = true;
+    show_service_dropdown(key) {
+      if (key === "service") {
+        this.service_dropdown = true;
+      } else if (key === "product") {
+        this.product_dropdown = true;
+      }
     },
-    hide_service_dropdown() {
-      this.service_dropdown = false;
+    hide_service_dropdown(key) {
+      if (key === "service") {
+        this.service_dropdown = false;
+      } else if (key === "product") {
+        this.product_dropdown = false;
+      }
     },
     async get_services() {
       try {
         const { data, error } = await supabase
           .from("services")
-          .select("icon, name, is_product, product_subtitle")
+          .select("*")
           .order("created_at", { ascending: false });
 
-        data.forEach((item) => {
+        const retrieved_data = data.map((service) => {
+          const { data: imageData } = supabase.storage
+            .from("talkcoms")
+            .getPublicUrl(`services/${service.pic}`);
+
+          return {
+            ...service,
+            pic: imageData.publicUrl,
+          };
+        });
+        retrieved_data.forEach((item) => {
           if (item.is_product === 1) {
             this.products.push(item);
           } else {

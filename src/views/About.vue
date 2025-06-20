@@ -89,7 +89,7 @@
             class="w-[60%] flex justify-center overflow-hidden h-full rounded-2xl"
           >
             <img
-              src="/carousel/about-statement.png"
+              src="/services/why.png"
               class="h-full max-w-none min-w-full min-h-full max-h-none"
             />
           </div>
@@ -190,7 +190,7 @@
       </div>
     </div>
     <!--  -->
-    <div
+    <!-- <div
       class="w-full flex flex-wrap justify-center overflow-hidden top-56 mt-36"
     >
       <div class="w-3/4">
@@ -223,7 +223,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- location -->
     <div class="w-full flex justify-center mt-32">
       <div class="w-[90%] flex justify-center">

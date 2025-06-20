@@ -6,7 +6,7 @@ import Services from "../views/Services.vue";
 import ContactUs from "../views/ContactUs.vue";
 import Faqs from "../views/Faqs.vue";
 import Blogs from "../views/Blogs.vue";
-import SingleService from "../views/SingleService.vue";
+import ServiceView from "../views/ServiceView.vue";
 import SuccessStories from "../views/SuccessStories.vue";
 import ResourceView from "../views/ResourceView.vue";
 
@@ -51,7 +51,7 @@ const routes = [
   {
     path: "/service/:id",
     name: "Single Service",
-    component: SingleService,
+    component: ServiceView,
     meta: { title: "Service" },
     props: true,
   },

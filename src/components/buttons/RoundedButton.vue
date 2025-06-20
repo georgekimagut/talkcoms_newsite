@@ -21,7 +21,7 @@
 
     <!-- Button text -->
     <span
-      class="pl-6 pr-12 py-2 z-10 relative"
+      class="pl-6 pr-12 py-2 pt-3 pb-3 z-10 relative"
       :style="{ color: button_border ? button_border : '' }"
     >
       {{ button_text }}

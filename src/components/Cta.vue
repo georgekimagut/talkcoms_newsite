@@ -25,9 +25,10 @@
             button_border="#8dc63f"
             button_background="#fefffe"
             button_circle_background="#8dc63f"
+            class="p-2"
           />
           <RoundedButton
-            class="ml-4"
+            class="ml-4 p-2"
             button_link="/contact"
             button_text="Contact us"
             button_icon="fa-solid fa-angle-right"
