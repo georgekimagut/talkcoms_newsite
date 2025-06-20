@@ -1,12 +1,35 @@
 <template>
+  <div class="w-full flex justify-center flex-wrap bg-white">
+    <div class="w-[90%] flex">
+      <div class="w-full flex justify-end">
+        <a
+          class="mr-2 inline-flex items-center"
+          v-for="(social, index) in socials"
+          :key="index"
+          :href="social.phone ? `tel:${social.phone}` : social.link"
+          :target="!social.phone ? '_blank' : null"
+          :rel="!social.phone ? 'noopener noreferrer' : null"
+        >
+          <template v-if="social.phone">
+            <span class="text-gray-500">Talk to an expert:</span>
+            <span class="ml-1 border-b border-dotted">{{ social.phone }}</span>
+          </template>
+          <template v-else>
+            <i :class="social.icon" class="text-secondary"></i>
+          </template>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- end -->
   <div
-    class="nav-bar w-full sticky top-0 bg-white z-[1000] border-b-1 border-[#e3e3e3]"
+    class="nav-bar w-full flex justify-center flex-wrap sticky top-0 bg-white z-[1000] border-b-1 border-[#e3e3e3]"
   >
-    <div class="w-full h-[12vh] flex justify-center">
+    <div class="w-[90%] h-[12vh] flex justify-center">
       <div class="w-full flex">
-        <div class="w-1/6 flex justify-end p-4">
+        <div class="w-1/6 flex justify-start p-4">
           <router-link to="/"
-            ><img :src="site_logo" class="custom-logo"
+            ><img :src="site_logo" class="custom-logo min-w-[50px]"
           /></router-link>
         </div>
         <div
@@ -127,18 +150,17 @@
             </div>
           </div>
         </div>
-        <div class="w-1/4 h-full flex flex-col justify-center">
-          <div class="w-1/2">
-            <DefaultButton
-              button_link="/contact-us"
-              button_text="Contact Us"
-              button_icon="fa-solid fa-angle-right"
-              :defaultColor="'#333'"
-              :hoverColor="'#8dc63f'"
-              :iconColor="'#262262'"
-              button_circle_background="#262262"
-            />
-          </div>
+        <div class="w-1/6 flex justify-end p-4">
+          <DefaultButton
+            button_link="/contact-us"
+            button_text="Contact Us"
+            button_icon="fa-solid fa-angle-right"
+            :defaultColor="'#333'"
+            :hoverColor="'#8dc63f'"
+            :iconColor="'#262262'"
+            button_circle_background="#262262"
+            class="w-fit h-fit"
+          />
         </div>
       </div>
     </div>
@@ -222,7 +244,7 @@
                   class="p-4 mr-2 w-[30%]"
                 >
                   <h1 class="font-semibold mt-2">
-                    <router-link :to="'/service/' + product.name">{{
+                    <router-link :to="'/product/' + product.name">{{
                       product.name
                     }}</router-link>
                   </h1>
@@ -231,7 +253,7 @@
                   </p>
                   <div class="w-full mt-6 flex justify-end">
                     <Link
-                      :link_to="`/service/${product.name}`"
+                      :link_to="`/product/${product.name}`"
                       link_text="READ MORE"
                     />
                   </div>
@@ -248,6 +270,7 @@
 import DefaultButton from "./buttons/RoundedButton.vue";
 import { supabase } from "../store/supabase.js";
 import Link from "./text/Link.vue";
+import TopBar from "./TopBar.vue";
 
 export default {
   name: "Navbar",

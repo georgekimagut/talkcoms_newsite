@@ -2,8 +2,8 @@
   <div class="w-full mt-36 p-4 bg-white">
     <!-- Header -->
     <div class="w-full p-10">
-      <p class="text-secondary w-full flex justify-center">CLIENTS</p>
-      <h1 class="text-4xl font-bold mt-4 p-2 flex justify-center">
+      <p class="text-secondary w-full flex justify-center text-lg">CLIENTS</p>
+      <h1 class="text-5xl font-extrabold mt-4 p-2 flex justify-center">
         Trusted by <span class="mr-2 ml-2 text-secondary">10+</span> Companies
         since 2016
       </h1>
@@ -19,7 +19,7 @@
               :key="index"
               class="w-[10%] flex-shrink-0 p-4"
             >
-              <div class="h-[10vh] flex items-center justify-center">
+              <div class="h-[15vh] flex items-center justify-center">
                 <img :src="card.client_pic" class="h-3/4 w-auto" />
               </div>
             </div>

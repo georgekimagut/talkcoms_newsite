@@ -186,19 +186,18 @@ a {
 .animate-scroll-carousel:hover {
   animation-play-state: paused;
 }
-.zoom-animate img {
+.zoom-animate img,
+.custom-portfolio-hover img {
   transition: transform 0.3s;
 }
 .zoom-animate {
-  border-bottom: 3px solid transparent;
   box-shadow: 0 0 20px transparent;
 }
 .zoom-animate:hover {
   box-shadow: 0 0 20px rgb(200, 200, 200);
-  border-style: solid;
-  border-image: conic-gradient(#131f6b, #82bc00) 1;
+  margin-top: -5px;
 }
-
+.custom-portfolio-hover:hover img,
 .zoom-animate:hover img {
   transform: scale(1.1);
 }
@@ -208,7 +207,8 @@ a {
 .zoom-animate:hover .pointer-to-show {
   display: flex;
 }
-.service-card .content {
+.service-card .content,
+.zoom-animate {
   transition: 0.3s ease-in-out;
 }
 .service-card:hover .content {

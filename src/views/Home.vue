@@ -15,7 +15,7 @@
         <!-- <img src="/icons/hero-lines-light.svg" class="top-[-20vh]" /> -->
       </div>
       <div class="w-full h-full flex justify-center overflow-hidden">
-        <div class="w-3/4 flex flex-wrap mt-16 relative overflow-hidden">
+        <div class="w-[90%] flex flex-wrap mt-16 relative overflow-hidden">
           <!-- animation classes -->
           <div
             class="w-[100px] h-[100px] border-8 bg-body rounded-full absolute top-[40vh] border-[#8dc63f] opacity-15 custom-anime-random"
@@ -73,7 +73,7 @@
                   </div>
                   <!-- stats board -->
                   <div
-                    class="w-[65%] h-1/2 absolute z-10 bg-body top-[25vh] rounded-tr-2xl p-4 left-[-10%]"
+                    class="w-[65%] h-1/2 absolute z-10 bg-body top-[30vh] rounded-tr-2xl p-4 left-[-10%]"
                   >
                     <div
                       class="wrapper w-full bg-white rounded-tr-2xl rounded-bl-2xl"
@@ -114,7 +114,7 @@
                   </div>
                   <!-- reviews board -->
                   <div
-                    class="w-[40%] absolute z-10 top-[42vh] rounded-tr-2xl rounded-br-2xl rounded-bl-2xl left-[55%] bg-white"
+                    class="w-[40%] absolute z-10 top-[50vh] rounded-tr-2xl rounded-br-2xl rounded-bl-2xl left-[55%] bg-white"
                   >
                     <p class="w-ful p-2">Verified by Google</p>
                     <div class="w-full flex p-2">
@@ -159,51 +159,26 @@
     <div
       class="w-full flex flex-wrap justify-center overflow-hidden top-56 mt-36"
     >
-      <div class="w-3/4">
-        <p class="text-secondary flex justify-center">
-          <router-link to="/services">OUR SERVICES</router-link>
-        </p>
+      <div class="w-[90%] flex justify-center flex-wrap">
+        <div class="w-full">
+          <p class="text-secondary text-center text-lg">OUR SERVICES</p>
 
-        <h1 class="text-4xl font-bold mt-4 p-2 flex justify-center">
-          Services <span class="text-secondary mr-2 ml-2">Tailored</span>
-          To Meet Your Business Needs
-        </h1>
-      </div>
-      <!-- prev h-[60vh] -->
-      <div class="w-[90%] flex justify-center mt-16">
-        <div class="w-full flex flex-wrap">
-          <div
+          <h1 class="text-4xl font-bold mt-4 p-2 text-center">
+            Services <span class="text-secondary mr-2 ml-2">Tailored</span>
+            To Meet Your Business Needs
+          </h1>
+        </div>
+        <div class="w-full flex justify-center mt-16 gap-4">
+          <CustomCard
             v-for="(service, index) in home_services"
             :key="index"
-            class="service-card h-[40vh] w-[45%] z-10 ml-[2.5%] flex flex-nowrap mb-4 relative"
-          >
-            <div
-              class="w-[35%] absolute h-full flex justify-center overflow-hidden"
-            >
-              <img :src="service.imageUrl" class="max-w-none max-h-none
-              min-h-full min-w-fullj abso"
-            </div>
-            <div
-              class="w-[65%] content bg-white h-full z-20 p-4 absolute ml-[35%]"
-            >
-              <i class="text-secondary mt-4 text-3xl" :class="service.icon"></i>
-              <h1 class="text-xl font-semibold text-default w-[96%] mt-6">
-                {{ service.name }}
-              </h1>
-              <p class="mt-6 w-[96%]">{{ service.title_description }}</p>
-              <div class="w-[96%] flex justify-end mt-6">
-                <router-link
-                  :to="'/service/' + service.name"
-                  class="custom-link text-secondary"
-                >
-                  Get Started
-                  <i
-                    class="fa-solid fa-angle-right text-xl ml-1 rotate-[-45deg]"
-                  ></i>
-                </router-link>
-              </div>
-            </div>
-          </div>
+            :card_pic="service.imageUrl"
+            :card_title="service.name"
+            :card_description="service.title_description"
+            card_class="w-[25%] "
+            link_text="LEARN MORE"
+            :link_to="`/service/${service.name}`"
+          />
         </div>
       </div>
     </div>
@@ -212,10 +187,10 @@
       class="w-full flex flex-nowrap overflow-hidden justify-center top-56 mt-36"
     >
       <div
-        class="w-[86%] bg-white p-4 h-full flex flex-nowrap transition-transform duration-500 ease-in-out overflow-hidden"
+        class="w-[90%] bg-white p-4 h-full flex flex-nowrap transition-transform duration-500 ease-in-out overflow-hidden"
       >
         <div class="w-[30%] h-full p-6">
-          <p class="text-secondary w-3/4">PORTFOLIO</p>
+          <p class="text-secondary w-3/4 text-lg">PORTFOLIO</p>
           <h1 class="text-4xl font-bold mt-10 p-2">
             <span class="text-secondary">Solutions</span> We've Built For
             <span class="text-secondary">Businesses</span> Like Yours
@@ -262,7 +237,7 @@
           <!-- end of list -->
         </div>
         <!-- 2nd part -->
-        <div class="w-[70%] h-[65vh] flex justify-center">
+        <div class="w-[70%] h-[65vh] flex justify-center pt-6">
           <div
             class="w-[96%] flex overflow-x-scroll overflow-y-hidden custom-scrollbar relative"
           >
@@ -270,7 +245,7 @@
             <div
               v-for="(project, index) in home_portfolio"
               :key="index"
-              class="w-[36%] min-w-[36%] h-[90%] relative cursor-pointer rounded-2xl overflow-hidden ml-4 custom-portfolio-hover"
+              class="w-[36%] min-w-[36%] h-[90%] relative cursor-pointer overflow-hidden ml-4 custom-portfolio-hover"
             >
               <img
                 :src="project.pic"
@@ -286,15 +261,11 @@
                   <h2 class="text-4xl text-white w-[70%] flex p-2">
                     {{ project.project }}
                   </h2>
-                  <a :href="project.link" target="_blank"
-                    ><p
-                      class="custom-link text-secondary mt-3 w-[70%] flex p-2"
-                    >
-                      Visit Site
-                      <i
-                        class="fa-solid fa-angle-right ml-2 rotate-[-45deg] text-xl"
-                      ></i></p
-                  ></a>
+                  <ExternalLink
+                    :link_to="project.link"
+                    link_text="Visit Site"
+                    class="w-fit mt-4 ml-2"
+                  />
                 </div>
               </div>
             </div>
@@ -340,7 +311,7 @@
     <div class="w-full flex justify-center bg-white mt-32 pb-16">
       <div class="w-[90%]">
         <div class="w-full">
-          <h1 class="text-4xl font-bold mt-10 p-2">
+          <h1 class="text-5xl font-extrabold mt-10 p-2 text-default">
             Select your industry. Discover our impact.
           </h1>
         </div>
@@ -351,8 +322,11 @@
             class="industry-card w-[49%] ml-[1%] flex flex-nowrap cursor-pointer pt-3 pb-3 ease-in-out border-b-1 border-[#dfdfdf] hover:border-b-2"
           >
             <div class="w-[90%] flex flex-nowrap">
-              <i :class="industry.icon" class="text-secondary ml-2 pt-2"></i>
-              <p class="ml-4 text-2xl text-default">{{ industry.name }}</p>
+              <div class="w-[20px]">
+                <i :class="industry.icon" class="text-secondary ml-2 pt-2"></i>
+              </div>
+
+              <p class="ml-4 text-2xl">{{ industry.name }}</p>
             </div>
             <div class="w-[10%] flex justify-end">
               <i
@@ -367,60 +341,48 @@
     <Partners />
     <!-- stories -->
     <div class="w-full mt-36 p-4 flex justify-center">
-      <div class="w-[90%]">
+      <div class="w-[90%] flex justify-center flex-wrap">
         <div class="w-full">
-          <p class="text-secondary w-full flex justify-center">STORIES</p>
-          <h1 class="text-3xl font-bold mt-3 w-full flex justify-center">
+          <p class="text-secondary text-center text-lg">
+            <router-link to="/stories">STORIES</router-link>
+          </p>
+
+          <h1 class="text-4xl font-extrabold mt-4 p-2 text-center">
             Success Stories From Our Clients
           </h1>
         </div>
-        <div class="w-full flex justify-center mt-16">
-          <div
-            v-for="story in stories"
-            :key="story.id"
-            class="w-[28%] m-2 bg-white overflow-hidden zoom-animate"
-          >
-            <div class="w-full h-[30vh] overflow-hidden">
-              <img :src="story.pic" class="h-full w-auto max-w-none" />
-            </div>
-            <div class="p-2">
-              <router-link to="#"
-                ><h3 class="font-semibold text-xl">
-                  {{ story.company_name }}
-                </h3></router-link
-              >
-              <p class="mt-4">{{ story.description }}</p>
-              <div class="w-full flex justify-end pb-4">
-                <router-link to="#" class="custom-link text-secondary mt-12">
-                  Read More
-                  <i
-                    class="fa-solid fa-angle-right text-xl ml-2 rotate-[-45deg]"
-                  ></i>
-                </router-link>
-              </div>
-            </div>
-          </div>
+        <div class="w-full flex justify-center mt-16 gap-4">
+          <CustomCard
+            v-for="(story, index) in stories"
+            :key="index"
+            :card_pic="story.pic"
+            :card_title="story.company_name"
+            :card_description="story.description"
+            card_class="w-[25%]"
+            link_text="READ MORE"
+            :link_to="`/story/${story.name}`"
+          />
         </div>
       </div>
     </div>
     <!-- blogs -->
-    <div class="w-full mt-36 p-4">
-      <div class="w-full p-10">
+    <div class="w-full flex justify-center flex-wrap mt-36 p-4">
+      <div class="w-[90%]">
         <p class="text-secondary w-full flex justify-center">
-          <router-link to="/blogs">BLOG</router-link>
+          <router-link to="/blogs" class="text-lg">BLOG</router-link>
         </p>
-        <h1 class="text-3xl font-bold mt-3 w-full flex justify-center">
+        <h1 class="text-3xl font-extrabold mt-3 w-full flex justify-center">
           Tech <span class="text-secondary">Tips</span> &
           <span class="text-secondary">Trends</span>
         </h1>
       </div>
-      <div class="w-full flex justify-center">
+      <div class="w-full flex justify-center gap-4 mt-16">
         <div class="w-[80%] flex">
           <div class="w-[40%] m-1 flex justify-center">
             <div
               v-for="blog in blogs.slice(0, 1)"
               :key="blog.id"
-              class="w-[90%] m-2 bg-white overflow-hidden zoom-animate"
+              class="w-[90%] m-2 bg-white overflow-hidden zoom-animate p-2"
             >
               <div class="w-full h-[40vh] overflow-hidden relative">
                 <div
@@ -529,10 +491,21 @@ import Spinner from "../components/Spinner.vue";
 import Cta from "../components/Cta.vue";
 import Partners from "../components/Partners.vue";
 import { supabase } from "../store/supabase";
+import CustomCard from "../components/cards/CustomCard.vue";
+import ExternalLink from "../components/text/ExternalLink.vue";
 
 export default {
   name: "Home",
-  components: { Navbar, Footer, RoundedButton, Spinner, Cta, Partners },
+  components: {
+    Navbar,
+    Footer,
+    RoundedButton,
+    Spinner,
+    Cta,
+    Partners,
+    CustomCard,
+    ExternalLink,
+  },
   data() {
     return {
       //spinner
@@ -542,8 +515,11 @@ export default {
       //service carousel
       current_service_slide: 0,
       total_service_slides: 3,
-      x: 0,
-      y: 0,
+      //drag
+      isDragging: false,
+      startX: 0,
+      scrollLeft: 0,
+
       //carousel data
       carousel_data: [
         {
@@ -605,6 +581,13 @@ export default {
           id: 3,
           pic: "/stories/3.png",
           company_name: "Chunic LTD",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed aliquet tellus, et dignissim leo. ",
+        },
+        {
+          id: 4,
+          pic: "/carousel/faqs-banner-big.png",
+          company_name: "Simba Chai",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed aliquet tellus, et dignissim leo. ",
         },
@@ -717,9 +700,8 @@ export default {
       } catch (error) {
         console.log(error);
       }
-
-      console.log(this.home_services);
     },
+    //drag functions
   },
 };
 </script>

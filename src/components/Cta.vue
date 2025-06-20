@@ -1,15 +1,15 @@
 <template>
   <div class="w-full h-[60vh] mt-36 pt-8 pb-8 flex justify-center bg-white">
-    <div class="w-[80%] h-full flex justify-center">
+    <div class="w-[90%] h-full flex justify-center">
       <div class="h-full flex flex-col justify-center">
         <div class="w-full">
-          <h1 class="text-4xl font-bold mt-4 p-2 flex justify-center">
+          <h1 class="text-5xl font-extrabold mt-4 p-2 text-center">
             Ready To
             <span class="text-secondary ml-2 mr-2">Transform</span> Your
             Business
             <span class="text-secondary ml-2 mr-2">With Tech?</span>
           </h1>
-          <p class="mt-2 flex justify-center">
+          <p class="mt-2 text-center">
             Join thousands of professionals who have transformed their business
             with our solutions
           </p>
@@ -25,10 +25,9 @@
             button_border="#8dc63f"
             button_background="#fefffe"
             button_circle_background="#8dc63f"
-            class="p-2"
           />
           <RoundedButton
-            class="ml-4 p-2"
+            class="ml-4"
             button_link="/contact"
             button_text="Contact us"
             button_icon="fa-solid fa-angle-right"

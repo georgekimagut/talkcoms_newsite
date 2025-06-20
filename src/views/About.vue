@@ -96,7 +96,7 @@
         </div>
       </div>
     </div>
-    <Partners has_numbers="true" />
+    <Partners has_numbers />
     <!-- values -->
     <div
       class="w-full flex flex-wrap justify-center overflow-hidden top-56 mt-36"

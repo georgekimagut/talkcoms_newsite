@@ -56,6 +56,13 @@ const routes = [
     props: true,
   },
   {
+    path: "/product/:id",
+    name: "Single Product",
+    component: ServiceView,
+    meta: { title: "Service" },
+    props: true,
+  },
+  {
     path: "/success-stories",
     name: "Success Stories",
     component: SuccessStories,
