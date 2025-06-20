@@ -4,15 +4,9 @@
   <div v-if="page_is_loading === false" class="w-full">
     <Navbar />
     <!-- hero section -->
-    <div class="w-full h-[80vh]">
-      <!-- hero lines -->
-      <!-- <div
-        class="h-[400px] w-[500px] absolute left-[-20%] top-[-10vh] opacity-90 custom-anime-movein"
-      > -->
+    <div class="w-full h-[90vh]">
       <div class="h-full w-full absolute opacity-40">
         <img src="/icons/g26.svg" class="" />
-        <!-- <img src="/icons/lines.svg" class="h-auto w-full" /> -->
-        <!-- <img src="/icons/hero-lines-light.svg" class="top-[-20vh]" /> -->
       </div>
       <div class="w-full h-full flex justify-center overflow-hidden">
         <div class="w-[90%] flex flex-wrap mt-16 relative overflow-hidden">

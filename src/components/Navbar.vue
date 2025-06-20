@@ -83,12 +83,6 @@
             </div>
           </router-link>
           <router-link
-            to="/about"
-            class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
-            active-class="text-secondary font-medium"
-            >About us</router-link
-          >
-          <router-link
             to="/solutions"
             class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
             active-class="text-secondary font-medium"
@@ -102,13 +96,6 @@
               </div>
             </div>
           </router-link>
-          <!-- <router-link
-            to="/success"
-            class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
-            active-class="text-secondary font-medium"
-            >Success Stories</router-link
-          > -->
-
           <div
             class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4 relative drop-resource"
             active-class="text-secondary font-medium"
@@ -149,6 +136,12 @@
               </li>
             </div>
           </div>
+          <router-link
+            to="/about"
+            class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
+            active-class="text-secondary font-medium"
+            >About us</router-link
+          >
         </div>
         <div class="w-1/6 flex justify-end p-4">
           <DefaultButton
