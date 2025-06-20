@@ -64,8 +64,8 @@
   <Footer />
 </template>
 <script>
-import RoundedButton from "./buttons/RoundedButton.vue";
-import Footer from "./footer.vue";
+import RoundedButton from "../components/buttons/RoundedButton.vue";
+import Footer from "../components/Footer.vue";
 export default {
   name: "NotFound",
   components: { RoundedButton, Footer },
