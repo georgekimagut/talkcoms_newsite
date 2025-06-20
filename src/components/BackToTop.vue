@@ -2,7 +2,7 @@
   <button
     v-show="isVisible"
     @click="scrollToTop"
-    class="fixed z-5000 bottom-6 right-[4%] bg-white p-2 px-3 rounded-sm cursor-pointer shadow-lg border-1 border-[#82bc00] hover:mb-2 transition-all duration-300"
+    class="fixed z-5000 bottom-6 right-[4%] bg-white p-2 px-3 rounded-sm cursor-pointer border-1 border-[#82bc00] hover:mb-2 transition-all duration-300"
     aria-label="Back to top"
   >
     <i class="fa-solid fa-angle-up text-3xl text-secondary"></i>

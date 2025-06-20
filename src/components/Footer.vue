@@ -72,12 +72,12 @@
           <p class="mt-2 font-semibold">Services</p>
           <div class="w-full mt-4">
             <p
-              v-for="(product, index) in footer_products"
+              v-for="(service, index) in footer_services"
               :key="index"
               class="mb-2"
             >
-              <router-link :to="product.link" class="hover:text-[#8dc63f]">
-                {{ product.title }}
+              <router-link :to="service.link" class="hover:text-[#8dc63f]">
+                {{ service.title }}
               </router-link>
             </p>
           </div>
@@ -146,10 +146,12 @@ export default {
         { title: "Blog", link: "/blogs" },
       ],
       footer_products: [
-        { title: "Outsourced CC", link: "#" },
         { title: "Contact Center Solution", link: "#" },
         { title: "Web/App Development", link: "#" },
         { title: "iTaaS", link: "#" },
+      ],
+      footer_services: [
+        { title: "Outsourced CC", link: "#" },
         { title: "CRM", link: "#" },
         { title: "PBX", link: "#" },
       ],

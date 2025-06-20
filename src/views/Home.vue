@@ -171,7 +171,7 @@
             :card_description="service.title_description"
             card_class="w-[25%] "
             link_text="LEARN MORE"
-            :link_to="`/service/${service.name}`"
+            link_to="#"
           />
         </div>
       </div>
