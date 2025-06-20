@@ -131,7 +131,7 @@
   <BacktoTop />
 </template>
 <script>
-import BacktoTop from "./BacktoTop.vue";
+import BacktoTop from "./BackToTop.vue";
 import DefaultSquareButton from "./buttons/SquareButton.vue";
 
 export default {
@@ -165,7 +165,7 @@ export default {
       ],
       footer_emails: [
         { title: "support@talkcoms.co.uk" },
-        { title: "support@talkcoms.co.uk" },
+        { title: "solutions@talkcoms.co.uk" },
       ],
       footer_locations: [
         {
