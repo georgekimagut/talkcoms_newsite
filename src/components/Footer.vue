@@ -131,12 +131,12 @@
   <BacktoTop />
 </template>
 <script>
-import BacktoTop from "./BackToTop.vue";
+import BackToTop from "./buttons/BackToTop.vue";
 import DefaultSquareButton from "./buttons/SquareButton.vue";
 
 export default {
   name: "Footer",
-  components: { DefaultSquareButton, BacktoTop },
+  components: { DefaultSquareButton, BackToTop },
   data() {
     return {
       site_logo: "/logo.svg",

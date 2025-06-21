@@ -91,7 +91,6 @@ export default {
   async mounted() {
     this.page_is_loading = true;
     this.randomize_color();
-    console.log(get_services);
 
     try {
       await this.get_resource();

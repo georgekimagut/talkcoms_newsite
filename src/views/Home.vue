@@ -5,7 +5,7 @@
     <Navbar />
     <!-- hero section -->
     <div class="w-full h-[90vh]">
-      <div class="h-full w-full absolute opacity-40">
+      <div class="h-full w-full absolute opacity-80">
         <img src="/icons/g26.svg" class="" />
       </div>
       <div class="w-full h-full flex justify-center overflow-hidden">
@@ -29,7 +29,7 @@
               class="w-full flex-shrink-0 h-full flex"
             >
               <div class="w-1/2 h-full block">
-                <p class="text-secondary w-3/4">{{ slide.sm_title }}</p>
+                <p class="text-secondary text-lg w-3/4">{{ slide.sm_title }}</p>
                 <h1 class="text-4xl font-extrabold mt-10 w-3/4">
                   {{ slide.title }}
                 </h1>
@@ -132,7 +132,7 @@
           </div>
 
           <!-- Navigation Arrows -->
-          <div class="w-full flex justify-end h-[10vh]">
+          <div class="w-full flex justify-center h-[10vh]">
             <div class="h-full flex flex-col justify-center">
               <div class="flex flex-row flex-nowrap">
                 <i
@@ -140,7 +140,7 @@
                   @click="prevSlide"
                 ></i>
                 <i
-                  class="fa-solid fa-angle-right text-2xl text-secondary p-2 pr-4 pl-4 border border-[#8dc63f] ml-2 cursor-pointer"
+                  class="fa-solid fa-angle-right text-2xl text-secondary p-2 pr-4 pl-4 border border-[#8dc63f] ml-6 cursor-pointer"
                   @click="nextSlide"
                 ></i>
               </div>
@@ -151,7 +151,7 @@
     </div>
     <!-- services highlights -->
     <div
-      class="w-full flex flex-wrap justify-center overflow-hidden top-56 mt-36"
+      class="w-full flex flex-wrap justify-center overflow-hidden top-56 mt-30"
     >
       <div class="w-[90%] flex justify-center flex-wrap">
         <div class="w-full">

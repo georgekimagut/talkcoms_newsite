@@ -187,13 +187,18 @@
                   class="p-4 mr-2 w-[30%]"
                 >
                   <h1 class="font-semibold mt-4">
-                    <router-link to="#">{{ service.name }}</router-link>
+                    <router-link :to="`/service/${service.name}`">{{
+                      service.name
+                    }}</router-link>
                   </h1>
                   <p class="mt-4">
                     {{ service.title_description }}
                   </p>
                   <div class="w-full mt-6 flex justify-end">
-                    <Link link_to="#" link_text="READ MORE" />
+                    <Link
+                      :link_to="`/service/${service.name}`"
+                      link_text="READ MORE"
+                    />
                   </div>
                 </div>
               </div>
@@ -204,7 +209,7 @@
     </div>
     <!-- products dropdown -->
     <div
-      class="w-full h-[100vh] ml-0 absolute service-dropdown services top-[10vh] flex z-2000"
+      class="w-full h-[100vh] ml-0 absolute service-dropdown services top-[10vh] flex z-3000"
       v-show="product_dropdown"
     >
       <div class="w-full h-full relative">
@@ -232,13 +237,18 @@
                   class="p-4 mr-2 w-[30%]"
                 >
                   <h1 class="font-semibold mt-2">
-                    <router-link to="#">{{ product.name }}</router-link>
+                    <router-link :to="`/service/${product.name}`">{{
+                      product.name
+                    }}</router-link>
                   </h1>
                   <p class="mt-2">
                     {{ product.title_description }}
                   </p>
                   <div class="w-full mt-6 flex justify-end">
-                    <Link link_to="#" link_text="READ MORE" />
+                    <Link
+                      :link_to="`/service/${product.name}`"
+                      link_text="READ MORE"
+                    />
                   </div>
                 </div>
               </div>

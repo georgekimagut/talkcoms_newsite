@@ -3,61 +3,65 @@
   <Spinner v-if="page_is_loading" />
   <div v-if="page_is_loading === false" class="w-full">
     <Navbar />
-    <HeroSection
-      v-if="is_side_hero === true"
-      class_height="h-[70vh] bg-white pb-16"
-      :page_title="this.id"
-      :big_pic="service_pic"
-      :page_statement="service_title"
-      :page_min_statement="service_description"
-      is_service
-      has_demo
-    />
-    <div
-      v-if="is_side_hero === false"
-      class="centered-hero w-full flex justify-center mt-10 h[70vh] overflow-y-hidden"
-    >
-      <div class="w-[90%] flex justify-center flex-wrap">
-        <div class="w-[70%] flex justify-center flex-wrap">
-          <p class="flex justify-center text-secondary text-lg uppercase">
-            {{ this.id }}
+    <div class="w-full flex justify-center flex-wrap h-[60vh] relative">
+      <div class="w-full h-3/4 custom-linear-bg opacity-10 absolute"></div>
+      <div
+        class="w-[90%] flex h-full gap-4 overflow-hidden mt-16 absolute z-10"
+      >
+        <div class="w-1/2">
+          <SmallTitle :text="this.id" />
+          <BigTitle :text="service_title" title_class="mt-10" />
+          <p class="w-3/4 mt-10">
+            {{ service_description }}
           </p>
-          <h1 class="w-full text-5xl font-bold text-default text-center mt-4">
-            {{ this.service_description }}
-          </h1>
+          <div class="w-fit mt-10">
+            <RoundedButton
+              :button_link="`/demo/${this.id}`"
+              button_text="Book A Free Demo"
+              button_icon="fa-solid fa-angle-right"
+              :defaultColor="'#333'"
+              :hoverColor="'#8dc63f'"
+              :iconColor="'#262262'"
+              button_circle_background="#262262"
+            />
+          </div>
         </div>
-        <div class="w-full flex justify-center mt-16">
-          <img :src="service_pic" class="w-3/4 h-auto" />
+        <div class="w-1/2 h-full">
+          <div class="w-full h-3/4 rounded-xl overflow-hidden">
+            <img
+              :src="service_pic"
+              class="w-full min-w-full max-w-none h-auto max-h-none"
+            />
+          </div>
         </div>
       </div>
     </div>
-    <!-- other page details -->
-    <div class="w-full flex flex-wrap justify-center mt-20">
-      <!-- <div v-if="channels != ''" class="w-1/2 flex justify-center flex-wrap">
-        <h1 class="text-5xl font-bold text-center text-default">
-          Channels Supported By Omnichannel CC
-        </h1>
-      </div> -->
-      <div class="w-[90%] flex justify-center">
+    <!-- main features -->
+    <div class="w-full flex flex-wrap justify-center mt-32">
+      <div class="w-[90%] flex overflow-x-hidden gap-4 hide-scrollbar relative">
         <div
           v-for="(channel, index) in channels"
           :key="index"
-          class="shift-hover w-[20%] p-2 rounded-xl h-fit ml-1 mr-1"
+          class="shift-hover w-[25%] p-4 rounded-xl h-fit"
         >
-          <div class="w-full flex flex-nowrap">
+          <div
+            class="w-[50px] h-[50px] min-w-[50px] min-h-[50px] flex justify-center rounded-sm mt-6 relative overflow-hidden"
+          >
             <div
-              class="w-[50px] h-[50px] min-w-[50px] min-h-[50px] flex justify-center border-1 border-[#82bc00] rounded-xl"
-            >
+              class="w-full h-full absolute z-5 opacity-30"
+              :style="{ backgroundColor: random_bg }"
+            ></div>
+            <div class="h-full w-full absolute flex justify-center z-10">
               <div class="h-full flex flex-col justify-center">
-                <i class="text-secondary" :class="channel.icon"></i>
+                <i :style="{ color: random_bg }" :class="channel.icon"></i>
               </div>
             </div>
-            <h1 class="font-semibold text-xl mt-2 text-default ml-4">
-              {{ channel.name }}
-            </h1>
           </div>
           <div class="bottom-part">
-            <p class="mt-2">
+            <h1 class="font-semibold text-xl mt-4 text-default">
+              {{ channel.name }}
+            </h1>
+            <p class="mt-4">
               {{ channel.description }}
             </p>
           </div>
@@ -193,6 +197,9 @@ import Footer from "../components/Footer.vue";
 import HeroSection from "../components/HeroSection.vue";
 import Navbar from "../components/Navbar.vue";
 import Spinner from "../components/Spinner.vue";
+import BigTitle from "../components/text/BigTitle.vue";
+import SmallTitle from "../components/text/SmallTitle.vue";
+import { text_colors } from "../store/store";
 import { supabase } from "../store/supabase";
 
 export default {
@@ -205,6 +212,8 @@ export default {
     RoundedButton,
     Footer,
     Accordion,
+    SmallTitle,
+    BigTitle,
     Cta,
   },
   data() {
@@ -224,35 +233,15 @@ export default {
       channels: [],
       related_story: "",
       success_story: "story",
+      random_bg: "",
     };
-  },
-  watch: {
-    $route: {
-      immediate: true, // Runs immediately on component creation
-      async handler(route) {
-        this.page_is_loading = true;
-        try {
-          await Promise.all([
-            this.get_service(),
-            this.get_features(),
-            this.get_packages(),
-            this.get_channels(),
-            this.get_faqs(),
-            this.get_story(),
-          ]);
-        } catch (error) {
-          console.error("Loading failed:", error);
-        } finally {
-          this.page_is_loading = false;
-        }
-      },
-    },
   },
   async mounted() {
     this.page_is_loading = true;
 
     try {
       await this.get_service();
+      this.randomize_color();
       await this.get_features();
       await this.get_packages();
       await this.get_channels();
@@ -298,6 +287,12 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    //randomize color
+    randomize_color() {
+      const random_color =
+        text_colors[Math.floor(Math.random() * text_colors.length)];
+      this.random_bg = random_color.color_name;
     },
     async get_features() {
       try {
