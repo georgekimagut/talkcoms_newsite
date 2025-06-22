@@ -3,18 +3,14 @@
   <Spinner v-if="page_is_loading" />
   <div v-if="page_is_loading === false" class="w-full">
     <Navbar />
-    <div
-      class="w-full flex justify-center flex-wrap h-[60vh] relative bg-white"
-    >
-      <div class="w-full h-3/4 custom-linear-bg opacity-20 absolute"></div>
-      <div
-        class="w-[90%] flex h-full gap-4 overflow-hidden mt-16 absolute z-10"
-      >
+    <div class="w-full flex justify-center flex-wrap h-[60vh] bg-white">
+      <!-- <div class="w-full h-3/4 custom-linear-bg opacity-20 absolute"></div> -->
+      <div class="w-[90%] flex h-full gap-4 overflow-hidden mt-16">
         <div class="w-1/2">
           <SmallTitle :text="this.id" />
-          <BigTitle :text="service_title" title_class="mt-10" />
+          <BigTitle :text="service.title_description" title_class="mt-10" />
           <p class="w-3/4 mt-10">
-            {{ service_description }}
+            {{ service.product_subtitle }}
           </p>
           <div class="w-fit mt-10">
             <RoundedButton
@@ -31,8 +27,8 @@
         <div class="w-1/2 h-full">
           <div class="w-full h-3/4 rounded-xl overflow-hidden">
             <img
-              :src="service_pic"
-              class="w-full min-w-full max-w-none h-auto max-h-none"
+              :src="service.imageUrl"
+              class="w-full min-w-full max-w-none h-auto max-h-none object-cover"
             />
           </div>
         </div>
@@ -92,17 +88,19 @@
               <h1
                 class="text-5xl font-extrabold text-default sticky top-0 py-4"
               >
-                Talkcoms Omnichannel
+                {{ this.id }}
                 <span class="text-secondary static">Features</span>
               </h1>
               <div
-                v-for="(feature, index) in service_features"
+                v-for="(feature, index) in features"
                 :key="index"
                 class="w-[90%] py-4 border-b border-[#e3e3e3]"
               >
-                <h1 class="text-xl font-semibold mt-4">{{ feature.title }}</h1>
+                <h1 class="text-xl font-semibold mt-4">
+                  {{ feature.feature_name }}
+                </h1>
                 <p class="mt-4 text-[#828282]">
-                  {{ feature.description }}
+                  {{ feature.feature_description }}
                 </p>
               </div>
               <!-- call to action -->
@@ -148,7 +146,7 @@
                 class="text-5xl font-extrabold text-default sticky top-0 py-4 text-secondary"
               >
                 Why Choose
-                <span class="text-default">Talkcoms Omnichannel CC</span>
+                <span class="text-default">{{ this.id }}</span>
               </h1>
               <div
                 v-for="(benefit, index) in benefits"
@@ -163,10 +161,10 @@
                 </div>
                 <div class="">
                   <h1 class="text-xl font-semibold mt-4">
-                    {{ benefit.title }}
+                    {{ benefit.feature_name }}
                   </h1>
                   <p class="mt-4 text-[#828282]">
-                    {{ benefit.description }}
+                    {{ benefit.feature_description }}
                   </p>
                 </div>
               </div>
@@ -280,13 +278,16 @@
       </div>
     </div>
     <!-- related story -->
-    <div class="w-full flex flex-wrap mt-16 bg-white py-16">
+    <div
+      v-if="related_story != ''"
+      class="w-full flex flex-wrap mt-16 bg-white py-16"
+    >
       <div class="w-1/2 flex h-full justify-center">
         <div class="w-[90%] flex flex-wrap justify-center">
           <div class="w-[80%] rounded-2xl flex justify-center overflow-hidden">
             <img
               :src="related_story.pic"
-              class="h-full max-w-none min-w-full min-h-full max-h-none"
+              class="h-full max-w-none min-w-full min-h-full max-h-none object-cover"
             />
           </div>
         </div>
@@ -324,7 +325,7 @@
       </div>
     </div>
     <!-- Cta -->
-    <Cta />
+    <Cta cta_class="pt-32" />
     <!-- footer -->
     <Footer />
   </div>
@@ -392,11 +393,13 @@ export default {
       page_is_loading: true,
       is_side_hero: true,
       //service details
+      service: "",
       service_title: "",
       service_description: "",
       service_pic: "",
       content: "",
-      // features: [],
+      features: [],
+      benefits: [],
       packages: [],
       services: [],
       service_id: "",
@@ -404,92 +407,20 @@ export default {
       related_story: "",
       success_story: "story",
       random_bg: "",
-      service_features: [
-        {
-          title: "Predictive Dialer",
-          description:
-            "Experience seamless and customer centric inbound call center services. From inquiries to issue resolution, we ensure every interaction leaves a positive impression.",
-        },
-        {
-          title: "Real-Time Analytics",
-          description:
-            "Leverage real-time analytics and reporting tools to gain insights into agent performance, customer interactions, and overall contact center efficiency, enabling data-driven decision-making.",
-        },
-        {
-          title: "Omnichannel Support",
-          description:
-            "Empower your agents to engage with customers across various channels, including voice, email, chat, and social media, ensuring a consistent and seamless customer experience.",
-        },
-        {
-          title: "Quality Monitoring",
-          description:
-            "Implement quality monitoring tools to assess agent performance, evaluate customer interactions, and maintain service excellence across every touchpoint.",
-        },
-        {
-          title: "Intelligent Call Routing",
-          description:
-            "Optimize call handling with intelligent routing algorithms. Ensure each call is directed to the most qualified agent, reducing wait times and enhancing customer satisfaction.",
-        },
-        {
-          title: "Workforce Management",
-          description:
-            "Efficiently manage agent schedules, track attendance, and optimize workforce distribution to ensure a balanced and productive contact center environment.",
-        },
-        {
-          title: "Interactive Voice Response (IVR)",
-          description:
-            "Implement customizable multi-level IVR menus to automate call routing and provide self-service options, streamlining the customer journey and improving overall efficiency.",
-        },
-        {
-          title: "CRM System Integration",
-          description:
-            "Integrate with leading CRM systems to centralize customer data. Equip agents with comprehensive information to provide personalized interactions and build lasting customer relationships.",
-        },
-        {
-          title: "Remote Agent Support",
-          description:
-            "Enable remote agents to deliver exceptional customer service from anywhere. Maintain operational continuity and adapt to evolving work environments.",
-        },
-      ],
-      benefits: [
-        {
-          title: "Enhanced Customer Experience",
-          description:
-            "Provide a superior customer experience with omnichannel support, personalized service, and efficient query resolution. Our software ensures that every interaction is handled with care and professionalism.",
-        },
-        {
-          title: "Increased Efficiency",
-          description:
-            "Improve your operational efficiency with intelligent call routing, automated workflows, and AI-powered analytics. This reduces response times and enhances agent productivity.",
-        },
-        {
-          title: "Cost Saving",
-          description:
-            "Reduce operational costs by streamlining processes and optimizing resource allocation. Our cloud-based solution also eliminates the need for expensive on-premise infrastructure.",
-        },
-        {
-          title: "Flexibility and Scalability",
-          description:
-            "Our digital contact center software is designed to grow with your business. Easily adapt to changing needs and scale your operations based on demand.",
-        },
-        {
-          title: "Improved Decision-Making",
-          description:
-            "Make informed decisions with access to real-time data and advanced analytics. Identify areas for improvement, track performance, and implement strategies to enhance your customer service operations.",
-        },
-      ],
     };
   },
   async mounted() {
     this.page_is_loading = true;
+    this.randomize_color();
 
     try {
       await this.get_service();
-      this.randomize_color();
+      await this.get_main_service_features();
       await this.get_features();
       await this.get_packages();
-      await this.get_channels();
-      await this.get_story();
+      if (this.service_id != "") {
+        this.get_story();
+      }
     } catch (error) {
       console.error("Loading failed:", error);
     } finally {
@@ -522,8 +453,9 @@ export default {
         });
 
         //map data
+        this.service = this.services[0];
         this.service_title = this.services[0].title_description;
-        this.service_description = this.services[0].title_description;
+        this.service_description = this.services[0].product_subtitle;
         this.service_pic = this.services[0].imageUrl;
         this.content = this.services[0].description;
         this.service_id = this.services[0].id;
@@ -548,7 +480,15 @@ export default {
           console.log(error);
           return;
         }
-        this.features = data;
+        const retrieved_data = data;
+        retrieved_data.forEach((feature) => {
+          if (feature.is_benefit === true) {
+            this.benefits.push(feature);
+          } else {
+            this.features.push(feature);
+          }
+        });
+        // this.features = data;
       } catch (error) {
         console.log(error);
       }
@@ -572,10 +512,10 @@ export default {
         console.log(error);
       }
     },
-    async get_channels() {
+    async get_main_service_features() {
       try {
         const { data, error } = await supabase
-          .from("channels")
+          .from("main_service_features")
           .select("*")
           .eq("service_id", this.service_id);
 

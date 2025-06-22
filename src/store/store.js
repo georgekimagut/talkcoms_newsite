@@ -27,22 +27,22 @@ export async function get_services() {
       return null; // or throw error;
     }
 
-    const services = data.map((service) => {
-      const { data: imageData } = supabase.storage
-        .from("talkcoms")
-        .getPublicUrl(`services/${service.pic}`);
-
-      return {
-        ...service,
-        imageUrl: imageData.publicUrl,
-      };
+    const retrieved_data = data;
+    const products = [];
+    const services = [];
+    retrieved_data.forEach((item) => {
+      if (item.is_product === 1) {
+        products.push(item);
+      } else {
+        services.push(item);
+      }
     });
-    return services;
+    return { products, services };
   } catch (error) {
     console.log(error);
-    return null; // or throw error;
+    return null;
   }
 }
 
-//run methods here
+//run methods
 get_services();

@@ -263,7 +263,6 @@
 import DefaultButton from "./buttons/RoundedButton.vue";
 import { supabase } from "../store/supabase.js";
 import Link from "./text/Link.vue";
-import TopBar from "./TopBar.vue";
 
 export default {
   name: "Navbar",

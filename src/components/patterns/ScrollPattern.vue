@@ -9,7 +9,7 @@
       :style="{ backgroundColor: bg_color }"
     ></div>
     <div
-      class="absolute rounded-4xl opacity-5"
+      class="absolute rounded-4xl opacity-10"
       style="
         width: 35%;
         height: 80vh;
@@ -18,16 +18,6 @@
         background-color: #82bc00;
       "
     ></div>
-    <!-- <div
-      class="absolute rounded-2xl opacity-90 custom-"
-      style="
-        width: 23%;
-        height: 30vh;
-        top: calc(90vh + 35%);
-        left: 20%;
-        background-color: #131f6b;
-      "
-    ></div> -->
   </div>
   <!-- ********************************* end of dots ************************************* -->
 </template>

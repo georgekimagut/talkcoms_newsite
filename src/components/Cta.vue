@@ -1,5 +1,8 @@
 <template>
-  <div class="w-full h-[60vh] mt-36 pt-8 pb-8 flex justify-center bg-white">
+  <div
+    class="w-full h-[60vh] pt-8 pb-8 flex justify-center bg-white"
+    :class="cta_class"
+  >
     <div class="w-[55%] h-full flex justify-center">
       <div class="h-full flex flex-col justify-center">
         <div class="w-full">
@@ -47,5 +50,6 @@ import RoundedButton from "./buttons/RoundedButton.vue";
 export default {
   name: "Cta",
   components: { RoundedButton },
+  props: { cta_class: String },
 };
 </script>

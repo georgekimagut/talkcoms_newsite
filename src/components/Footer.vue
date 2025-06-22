@@ -1,4 +1,19 @@
 <template>
+  <!-- back to top -->
+  <button
+    v-show="isVisible"
+    @click="scrollToTop"
+    class="fixed z-5000 bottom-6 right-[4%] w-[50px] h-[50px] flex justify-center rounded-sm cursor-pointer hover:mb-2 transition-all duration-300"
+    aria-label="Back to top"
+  >
+    <div class="w-full h-full bg-default"></div>
+    <div class="w-full h-full flex justify-center absolute">
+      <div class="h-full flex flex-col justify-center">
+        <i class="fa-solid fa-angle-up text-3xl text-white"></i>
+      </div>
+    </div>
+  </button>
+  <!-- end of back to top -->
   <div class="w-full flex flex-wrap mt-32 p-4">
     <div class="w-full flex justify-center">
       <div class="w-[90%] flex">
@@ -128,17 +143,16 @@
       </div>
     </div>
   </div>
-  <BacktoTop />
 </template>
 <script>
-import BackToTop from "./buttons/BackToTop.vue";
 import DefaultSquareButton from "./buttons/SquareButton.vue";
 
 export default {
   name: "Footer",
-  components: { DefaultSquareButton, BackToTop },
+  components: { DefaultSquareButton },
   data() {
     return {
+      isVisible: false,
       site_logo: "/logo.svg",
       footer_company_links: [
         { title: "About us", link: "/about" },
@@ -178,6 +192,23 @@ export default {
         { title: "ELDAMA RAVINE", name: "Skyrise Plaza, Eldama Ravine" },
       ],
     };
+  },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
+  methods: {
+    handleScroll() {
+      this.isVisible = window.scrollY > 300;
+    },
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    },
   },
 };
 </script>
