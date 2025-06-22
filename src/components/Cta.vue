@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-[60vh] mt-36 pt-8 pb-8 flex justify-center bg-white">
-    <div class="w-[90%] h-full flex justify-center">
+    <div class="w-[55%] h-full flex justify-center">
       <div class="h-full flex flex-col justify-center">
         <div class="w-full">
           <h1 class="text-5xl font-extrabold mt-4 p-2 text-center">

@@ -132,7 +132,7 @@
           </div>
 
           <!-- Navigation Arrows -->
-          <div class="w-full flex justify-center h-[10vh]">
+          <div class="w-full flex justify-end h-[10vh]">
             <div class="h-full flex flex-col justify-center">
               <div class="flex flex-row flex-nowrap">
                 <i

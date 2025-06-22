@@ -3,8 +3,10 @@
   <Spinner v-if="page_is_loading" />
   <div v-if="page_is_loading === false" class="w-full">
     <Navbar />
-    <div class="w-full flex justify-center flex-wrap h-[60vh] relative">
-      <div class="w-full h-3/4 custom-linear-bg opacity-10 absolute"></div>
+    <div
+      class="w-full flex justify-center flex-wrap h-[60vh] relative bg-white"
+    >
+      <div class="w-full h-3/4 custom-linear-bg opacity-20 absolute"></div>
       <div
         class="w-[90%] flex h-full gap-4 overflow-hidden mt-16 absolute z-10"
       >
@@ -37,7 +39,7 @@
       </div>
     </div>
     <!-- main features -->
-    <div class="w-full flex flex-wrap justify-center mt-32">
+    <div class="w-full flex flex-wrap justify-center bg-white py-30">
       <div class="w-[90%] flex overflow-x-hidden gap-4 hide-scrollbar relative">
         <div
           v-for="(channel, index) in channels"
@@ -67,10 +69,148 @@
           </div>
         </div>
       </div>
-      <div v-html="content" class="w-full flex flex-wrap mt-10"></div>
     </div>
-    <!-- content wrapper -->
+    <!-- description -->
+    <div class="w-full flex justify-center">
+      <div class="w-[90%] flex mt-30 gap-8 flex-wrap relative">
+        <ScrollDots :bg_color="random_bg" />
+        <div ref="feature_section" class="w-full flex gap-8 relative z-10">
+          <!-- Left: Image -->
+          <div class="w-[40%] overflow-hidden rounded-xl sticky top-0 h-[80vh]">
+            <img
+              src="/articles/pic-3.png"
+              class="w-full h-full object-cover rounded-xl"
+            />
+          </div>
 
+          <!-- Right: Features -->
+          <div class="w-[60%] flex justify-end">
+            <div
+              class="w-[80%] overflow-hidden transition-all duration-500 relative"
+              :class="{ 'overflow-y-scroll h-[80vh] pr-4': isInView }"
+            >
+              <h1
+                class="text-5xl font-extrabold text-default sticky top-0 py-4"
+              >
+                Talkcoms Omnichannel
+                <span class="text-secondary static">Features</span>
+              </h1>
+              <div
+                v-for="(feature, index) in service_features"
+                :key="index"
+                class="w-[90%] py-4 border-b border-[#e3e3e3]"
+              >
+                <h1 class="text-xl font-semibold mt-4">{{ feature.title }}</h1>
+                <p class="mt-4 text-[#828282]">
+                  {{ feature.description }}
+                </p>
+              </div>
+              <!-- call to action -->
+              <div class="w-full flex mt-8">
+                <RoundedButton
+                  button_link="/contact"
+                  button_text="Request Free Demo"
+                  button_icon="fa-solid fa-angle-right"
+                  :defaultColor="'#333'"
+                  :hoverColor="'#8dc63f'"
+                  :iconColor="'#262262'"
+                  button_circle_background="#262262"
+                />
+                <RoundedButton
+                  class="ml-4"
+                  button_link="/contact"
+                  button_text="Learn More"
+                  button_icon="fa-solid fa-angle-right text-white"
+                  :defaultColor="'#333'"
+                  :hoverColor="'#262262'"
+                  :iconColor="'#f5f5f5'"
+                  button_border="#8dc63f"
+                  button_background="#f5f5f5"
+                  button_circle_background="#8dc63f"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- benefits -->
+    <div class="w-full flex justify-center mt-30">
+      <div class="w-[90%] flex mt-30 gap-8 flex-wrap relative">
+        <div ref="feature_section" class="w-full flex gap-8 relative z-10">
+          <!-- Right: Features -->
+          <div class="w-[50%] flex">
+            <div
+              class="w-[90%] overflow-hidden transition-all duration-500 relative"
+              :class="{ 'overflow-y-scroll h-[40vh] pr-4': isInView }"
+            >
+              <h1
+                class="text-5xl font-extrabold text-default sticky top-0 py-4 text-secondary"
+              >
+                Why Choose
+                <span class="text-default">Talkcoms Omnichannel CC</span>
+              </h1>
+              <div
+                v-for="(benefit, index) in benefits"
+                :key="index"
+                class="w-[90%] py-4 border-b border-[#e3e3e3] flex gap-4"
+              >
+                <div class="">
+                  <i
+                    class="fa-regular fa-circle-check mt-6 text-2xl"
+                    :style="{ color: random_bg }"
+                  ></i>
+                </div>
+                <div class="">
+                  <h1 class="text-xl font-semibold mt-4">
+                    {{ benefit.title }}
+                  </h1>
+                  <p class="mt-4 text-[#828282]">
+                    {{ benefit.description }}
+                  </p>
+                </div>
+              </div>
+              <!-- call to action -->
+              <div class="w-full flex mt-8">
+                <RoundedButton
+                  button_link="/contact"
+                  button_text="Book A Demo"
+                  button_icon="fa-solid fa-angle-right"
+                  :defaultColor="'#333'"
+                  :hoverColor="'#8dc63f'"
+                  :iconColor="'#262262'"
+                  button_circle_background="#262262"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Left: Image -->
+          <div
+            class="w-[50%] overflow-hidden rounded-xl sticky top-0 h-[80vh] relative"
+          >
+            <div class="w-full absolute">
+              <div
+                class="w-[300px] h-[300px] rounded-xl custom-linear-bg p-5 -z-10"
+              ></div>
+            </div>
+            <div class="w-full h-full flex justify-end absolute">
+              <div class="h-full flex flex-col justify-end">
+                <div
+                  class="w-[300px] h-[300px] rounded-xl custom-linear-bg p-5 -z-10"
+                ></div>
+              </div>
+            </div>
+
+            <div class="h-full w-full p-8 absolute z-20">
+              <img
+                src="/articles/pic-3.png"
+                class="w-full h-full object-cover rounded-xl"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- end of content wrapper -->
     <!-- packages -->
     <div
@@ -79,10 +219,10 @@
     >
       <div class="w-3/4">
         <p class="text-secondary flex justify-center text-2xl">
-          <router-link to="#">PACKAGES</router-link>
+          <SmallTitle text="PACKAGES" />
         </p>
 
-        <h1 class="text-4xl font-bold mt-4 p-2 flex justify-center">
+        <h1 class="text-4xl font-extrabold mt-4 p-2 flex justify-center">
           Our Pricing Plans
         </h1>
         <p class="flex justify-center mt-2">
@@ -140,7 +280,7 @@
       </div>
     </div>
     <!-- related story -->
-    <div class="w-full flex flex-wrap mt-20 bg-white pb-8 pt-8">
+    <div class="w-full flex flex-wrap mt-16 bg-white py-16">
       <div class="w-1/2 flex h-full justify-center">
         <div class="w-[90%] flex flex-wrap justify-center">
           <div class="w-[80%] rounded-2xl flex justify-center overflow-hidden">
@@ -156,12 +296,22 @@
           <h1 class="text-5xl font-bold mt-4 text-default">
             {{ related_story.title }}
           </h1>
+          <p class="mt-6">{{ related_story.short_description }}</p>
           <p class="mt-6">{{ related_story.client }}</p>
+
+          <div class="w-full h-[26px] flex flex-col justify-center mt-16">
+            <p>
+              Product/Service:
+              <span class="p-2 border-1 border-[#007cba] rounded-full ml-4">
+                {{ this.id }}
+              </span>
+            </p>
+          </div>
         </div>
         <div class="w-full mt-10 flex">
           <RoundedButton
             :button_link="`/resources/${success_story}/${related_story.title}`"
-            button_text="Read Story"
+            button_text="Read Full Story"
             button_icon="fa-solid fa-angle-right text-white"
             :defaultColor="'#333'"
             :hoverColor="'#262262'"
@@ -169,18 +319,8 @@
             button_border="#8dc63f"
             button_background="#ffffff"
             button_circle_background="#8dc63f"
-            class="p-1"
           />
         </div>
-      </div>
-    </div>
-    <!-- faqs -->
-    <div class="w-full flex justify-center mt-32 flex-wrap">
-      <div class="w-full flex justify-center">
-        <h1 class="text-4xl font-bold mt-4">FAQs</h1>
-      </div>
-      <div class="w-full flex justify-center mt-10">
-        <Accordion :faqs="faqs" />
       </div>
     </div>
     <!-- Cta -->
@@ -196,11 +336,41 @@ import Cta from "../components/Cta.vue";
 import Footer from "../components/Footer.vue";
 import HeroSection from "../components/HeroSection.vue";
 import Navbar from "../components/Navbar.vue";
+import ScrollDots from "../components/patterns/ScrollPattern.vue";
 import Spinner from "../components/Spinner.vue";
 import BigTitle from "../components/text/BigTitle.vue";
 import SmallTitle from "../components/text/SmallTitle.vue";
 import { text_colors } from "../store/store";
 import { supabase } from "../store/supabase";
+
+//scroll within features
+import { ref, onMounted, onBeforeUnmount } from "vue";
+const isInView = ref(false);
+const feature_section = ref(null);
+
+let observer = null;
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    ([entry]) => {
+      isInView.value = entry.isIntersecting;
+    },
+    {
+      threshold: 0.3,
+    }
+  );
+  if (feature_section.value) {
+    observer.observe(feature_section.value);
+  }
+});
+
+onBeforeUnmount(() => {
+  if (observer && feature_section.value) {
+    observer.unobserve(feature_section.value);
+  }
+});
+
+//end of scrolling
 
 export default {
   name: "SingleService",
@@ -215,6 +385,7 @@ export default {
     SmallTitle,
     BigTitle,
     Cta,
+    ScrollDots,
   },
   data() {
     return {
@@ -229,11 +400,84 @@ export default {
       packages: [],
       services: [],
       service_id: "",
-      faqs: [],
       channels: [],
       related_story: "",
       success_story: "story",
       random_bg: "",
+      service_features: [
+        {
+          title: "Predictive Dialer",
+          description:
+            "Experience seamless and customer centric inbound call center services. From inquiries to issue resolution, we ensure every interaction leaves a positive impression.",
+        },
+        {
+          title: "Real-Time Analytics",
+          description:
+            "Leverage real-time analytics and reporting tools to gain insights into agent performance, customer interactions, and overall contact center efficiency, enabling data-driven decision-making.",
+        },
+        {
+          title: "Omnichannel Support",
+          description:
+            "Empower your agents to engage with customers across various channels, including voice, email, chat, and social media, ensuring a consistent and seamless customer experience.",
+        },
+        {
+          title: "Quality Monitoring",
+          description:
+            "Implement quality monitoring tools to assess agent performance, evaluate customer interactions, and maintain service excellence across every touchpoint.",
+        },
+        {
+          title: "Intelligent Call Routing",
+          description:
+            "Optimize call handling with intelligent routing algorithms. Ensure each call is directed to the most qualified agent, reducing wait times and enhancing customer satisfaction.",
+        },
+        {
+          title: "Workforce Management",
+          description:
+            "Efficiently manage agent schedules, track attendance, and optimize workforce distribution to ensure a balanced and productive contact center environment.",
+        },
+        {
+          title: "Interactive Voice Response (IVR)",
+          description:
+            "Implement customizable multi-level IVR menus to automate call routing and provide self-service options, streamlining the customer journey and improving overall efficiency.",
+        },
+        {
+          title: "CRM System Integration",
+          description:
+            "Integrate with leading CRM systems to centralize customer data. Equip agents with comprehensive information to provide personalized interactions and build lasting customer relationships.",
+        },
+        {
+          title: "Remote Agent Support",
+          description:
+            "Enable remote agents to deliver exceptional customer service from anywhere. Maintain operational continuity and adapt to evolving work environments.",
+        },
+      ],
+      benefits: [
+        {
+          title: "Enhanced Customer Experience",
+          description:
+            "Provide a superior customer experience with omnichannel support, personalized service, and efficient query resolution. Our software ensures that every interaction is handled with care and professionalism.",
+        },
+        {
+          title: "Increased Efficiency",
+          description:
+            "Improve your operational efficiency with intelligent call routing, automated workflows, and AI-powered analytics. This reduces response times and enhances agent productivity.",
+        },
+        {
+          title: "Cost Saving",
+          description:
+            "Reduce operational costs by streamlining processes and optimizing resource allocation. Our cloud-based solution also eliminates the need for expensive on-premise infrastructure.",
+        },
+        {
+          title: "Flexibility and Scalability",
+          description:
+            "Our digital contact center software is designed to grow with your business. Easily adapt to changing needs and scale your operations based on demand.",
+        },
+        {
+          title: "Improved Decision-Making",
+          description:
+            "Make informed decisions with access to real-time data and advanced analytics. Identify areas for improvement, track performance, and implement strategies to enhance your customer service operations.",
+        },
+      ],
     };
   },
   async mounted() {
@@ -245,7 +489,6 @@ export default {
       await this.get_features();
       await this.get_packages();
       await this.get_channels();
-      await this.get_faqs();
       await this.get_story();
     } catch (error) {
       console.error("Loading failed:", error);
@@ -310,6 +553,8 @@ export default {
         console.log(error);
       }
     },
+    //carousel scrollbar
+
     async get_packages() {
       try {
         const { data, error } = await supabase
@@ -323,22 +568,6 @@ export default {
         }
         this.packages = data;
         console.log(this.packages);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    async get_faqs() {
-      try {
-        const { data, error } = await supabase
-          .from("faqs")
-          .select("*")
-          .eq("service_id", this.service_id);
-
-        if (error) {
-          console.log(error);
-          return;
-        }
-        this.faqs = data;
       } catch (error) {
         console.log(error);
       }

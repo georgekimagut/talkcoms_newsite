@@ -107,7 +107,7 @@
               </div>
             </div>
             <div
-              class="w-[200px] absolute bg-white p-4 pt-0 top-[12vh] z-[100] resource-dropdown border-1 border-[#e3e3e3] rounded-sm"
+              class="w-[200px] absolute bg-white p-4 pt-0 top-[12vh] z-[100] resource-dropdown border-1 border-[#e3e3e3] rounded-b-sm"
             >
               <li class="mb-2 list-none">
                 <router-link to="/blogs" class="custom-default-hover"
@@ -172,7 +172,7 @@
           @mouseleave="hide_service_dropdown('service')"
         >
           <div
-            class="w-[95%] flex flex-wrap bg-white z-20005 border-t-1 border-[#e3e3e3] rounded-sm"
+            class="w-[95%] flex flex-wrap bg-white z-20005 border-t-1 border-[#e3e3e3] rounded-b-sm"
           >
             <div class="w-full flex pl-4 pr-4 mt-8">
               <h1 class="text-default ml-4 font-semibold text-sm uppercase">
@@ -222,7 +222,7 @@
           @mouseleave="hide_service_dropdown('product')"
         >
           <div
-            class="w-[95%] flex bg-white z-20005 border-t-1 border-[#e3e3e3] rounded-sm flex-wrap"
+            class="w-[95%] flex bg-white z-20005 border-t-1 border-[#e3e3e3] rounded-b-sm flex-wrap"
           >
             <div class="w-full flex pl-4 pr-4 mt-8">
               <h1 class="text-default ml-4 font-semibold text-sm uppercase">
