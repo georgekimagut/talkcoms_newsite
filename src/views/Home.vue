@@ -305,7 +305,9 @@
     <div class="w-full flex justify-center bg-white mt-32 pb-16">
       <div class="w-[90%]">
         <div class="w-full">
-          <h1 class="text-5xl font-extrabold mt-10 p-2 text-default">
+          <h1
+            class="text-5xl font-extrabold mt-10 p-2 text-default text-center"
+          >
             Select your industry. Discover our impact.
           </h1>
         </div>

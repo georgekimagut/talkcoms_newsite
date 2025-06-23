@@ -1,9 +1,58 @@
 <template>
+  <!-- chat with us -->
+  <div
+    v-show="chat_is_visible"
+    class="fixed z-1000 bottom-0 left-[5%] h-fit w-[20%] flex justify-center flex-wrap transition-all duration-300"
+  >
+    <div class="w-full relative flex justify-center h-[30px] cursor-pointer">
+      <div
+        class="w-full h-full flex justify-around bg-third px-2 pt-1 rounded-t-sm"
+      >
+        <div @click="show_full_chat = !show_full_chat" class="w-[10%] flex">
+          <div class="h-full flex flex-col justify-center">
+            <i
+              class="fa-solid"
+              :class="show_full_chat ? 'fa-angle-down' : 'fa-angle-up'"
+            ></i>
+          </div>
+        </div>
+        <div
+          @click="show_full_chat = !show_full_chat"
+          class="w-[90%] flex justify-center"
+        >
+          <div class="h-full flex justify-center">Live chat</div>
+        </div>
+        <div class="w-[10%] flex justify-center">
+          <div class="h-full flex flex-col justify-center">
+            <i @click="chat_is_visible = false" class="fa-solid fa-close"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- chat box -->
+    <div
+      v-show="show_full_chat"
+      class="h-[350px] w-full p-4 border-1 border-[#007cba] bg-white rounded-b-sm mb-4 flex flex-col justify-around"
+    >
+      <div class="w-full chat-body h-[300px]"></div>
+      <div class="w-full chat-footer h-[50px] flex flex-nowrap">
+        <DefaultInput
+          input_type="text"
+          input_class="border-1 border-[#e3e3e3] p-2 w-full mt-[5px] focus:outline-none"
+          input_placeholder="Message..."
+          is_required="true"
+        />
+        <button class="border-0 p-2 cursor-pointer">
+          <i class="fa-solid fa-paper-plane text-third text-xl"></i>
+        </button>
+      </div>
+    </div>
+  </div>
   <!-- back to top -->
   <button
     v-show="isVisible"
     @click="scrollToTop"
-    class="fixed z-5000 bottom-6 right-[4%] w-[50px] h-[50px] flex justify-center rounded-sm cursor-pointer hover:mb-2 transition-all duration-300"
+    class="fixed z-1000 bottom-0 right-[4%] w-[50px] h-[50px] flex justify-center rounded-sm cursor-pointer transition-all duration-300"
     aria-label="Back to top"
   >
     <div class="w-full h-full bg-default"></div>
@@ -146,13 +195,16 @@
 </template>
 <script>
 import DefaultSquareButton from "./buttons/SquareButton.vue";
+import DefaultInput from "./inputs/DefaultInput.vue";
 
 export default {
   name: "Footer",
-  components: { DefaultSquareButton },
+  components: { DefaultSquareButton, DefaultInput },
   data() {
     return {
       isVisible: false,
+      chat_is_visible: true,
+      show_full_chat: false,
       site_logo: "/logo.svg",
       footer_company_links: [
         { title: "About us", link: "/about" },

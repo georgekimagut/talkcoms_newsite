@@ -76,7 +76,7 @@
           <!-- Left: Image -->
           <div class="w-[40%] overflow-hidden rounded-xl sticky top-0 h-[80vh]">
             <img
-              src="/articles/pic-3.png"
+              :src="service.feature_pic"
               class="w-full h-full object-cover rounded-xl"
             />
           </div>
@@ -203,7 +203,7 @@
 
             <div class="h-full w-full p-8 absolute z-20">
               <img
-                src="/articles/pic-3.png"
+                :src="service.benefit_pic"
                 class="w-full h-full object-cover rounded-xl"
               />
             </div>
@@ -212,6 +212,11 @@
       </div>
     </div>
     <!-- end of content wrapper -->
+    <!-- intergrations -->
+    <div class="w-full flex justify-center">
+      <div class="w-[90%] flex justify-center flex-wrap"></div>
+    </div>
+    <!-- PBX -->
     <!-- packages -->
     <div
       v-if="packages != ''"
