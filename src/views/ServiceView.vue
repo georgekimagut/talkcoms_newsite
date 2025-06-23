@@ -134,8 +134,86 @@
         </div>
       </div>
     </div>
+    <!-- intergrations -->
+    <div v-if="intergrations != ''" class="w-full flex justify-center mt-30">
+      <div class="w-[90%] flex gap-4">
+        <div class="w-[40%]">
+          <div class="w-[90%] flex flex-wrap">
+            <SmallTitle text="INTERGRATIONS" />
+            <BigTitle
+              title_class="mt-10"
+              text="Customize your customer experience with custom intergrations"
+            />
+            <p class="text-center mt-10">
+              Create a unique customer experience, customized to your contact
+              center operations. Our tools range from fully integrated partners
+              like CRMs to digital channels and custom workflow builders.
+            </p>
+          </div>
+
+          <div class="w-[90%] flex mt-20">
+            <RoundedButton
+              button_link="/contact"
+              button_text="Get Started"
+              button_icon="fa-solid fa-angle-right"
+              :defaultColor="'#333'"
+              :hoverColor="'#8dc63f'"
+              :iconColor="'#262262'"
+              button_circle_background="#262262"
+            />
+            <RoundedButton
+              class="ml-4"
+              button_link="/contact"
+              button_text="Learn More"
+              button_icon="fa-solid fa-angle-right text-white"
+              :defaultColor="'#333'"
+              :hoverColor="'#262262'"
+              :iconColor="'#f5f5f5'"
+              button_border="#8dc63f"
+              button_background="#f5f5f5"
+              button_circle_background="#8dc63f"
+            />
+          </div>
+        </div>
+        <div class="w-[60%]">
+          <div class="w-full flex flex-wrap">
+            <div
+              v-for="(intergration, index) in intergrations"
+              :key="index"
+              class="shift-hover w-[48%] mr-[2%] p-4 rounded-xl mb-4"
+            >
+              <div
+                class="w-[50px] h-[50px] min-w-[50px] min-h-[50px] flex justify-center rounded-sm mt-6 relative overflow-hidden"
+              >
+                <div
+                  class="w-full h-full absolute z-5 opacity-30"
+                  :style="{ backgroundColor: random_bg }"
+                ></div>
+                <div class="h-full w-full absolute flex justify-center z-10">
+                  <div class="h-full flex flex-col justify-center">
+                    <i
+                      :style="{ color: random_bg }"
+                      class="fa-solid fa-check"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+              <div class="bottom-part">
+                <h1 class="font-semibold text-xl mt-4 text-default">
+                  {{ intergration.feature_name }}
+                </h1>
+                <p class="mt-4">
+                  {{ intergration.feature_description }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- PBX -->
     <!-- benefits -->
-    <div class="w-full flex justify-center mt-30">
+    <div class="w-full flex justify-center mt-30 pb-20">
       <div class="w-[90%] flex mt-30 gap-8 flex-wrap relative">
         <div ref="feature_section" class="w-full flex gap-8 relative z-10">
           <!-- Right: Features -->
@@ -212,15 +290,10 @@
       </div>
     </div>
     <!-- end of content wrapper -->
-    <!-- intergrations -->
-    <div class="w-full flex justify-center">
-      <div class="w-[90%] flex justify-center flex-wrap"></div>
-    </div>
-    <!-- PBX -->
     <!-- packages -->
     <div
       v-if="packages != ''"
-      class="w-full flex flex-wrap justify-center overflow-hidden top-56 mt-36"
+      class="w-full flex flex-wrap justify-center overflow-hidden top-56 mt-36 pb-20"
     >
       <div class="w-3/4">
         <p class="text-secondary flex justify-center text-2xl">
@@ -408,6 +481,7 @@ export default {
       features: [],
       benefits: [],
       packages: [],
+      intergrations: [],
       services: [],
       service_id: "",
       channels: [],
@@ -491,6 +565,8 @@ export default {
         retrieved_data.forEach((feature) => {
           if (feature.is_benefit === true) {
             this.benefits.push(feature);
+          } else if (feature.is_intergration === true) {
+            this.intergrations.push(feature);
           } else {
             this.features.push(feature);
           }

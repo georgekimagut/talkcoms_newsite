@@ -32,13 +32,15 @@
     <!-- chat box -->
     <div
       v-show="show_full_chat"
-      class="h-[350px] w-full p-4 border-1 border-[#007cba] bg-white rounded-b-sm mb-4 flex flex-col justify-around"
+      class="h-[350px] w-full mt-0 p-4 border-1 border-[#007cba] bg-white rounded-b-sm mb-4 flex flex-col justify-around"
     >
       <div class="w-full chat-body h-[300px]"></div>
-      <div class="w-full chat-footer h-[50px] flex flex-nowrap">
+      <div
+        class="w-full chat-footer h-[50px] flex flex-nowrap border-t-1 border-[#e3e3e3]"
+      >
         <DefaultInput
           input_type="text"
-          input_class="border-1 border-[#e3e3e3] p-2 w-full mt-[5px] focus:outline-none"
+          input_class=" p-2 w-full mt-[5px] focus:outline-none"
           input_placeholder="Message..."
           is_required="true"
         />
