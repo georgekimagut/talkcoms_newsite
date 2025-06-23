@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="w-1/2 h-full">
-          <div class="w-full h-3/4 rounded-xl overflow-hidden">
+          <div class="w-full h-[90%] rounded-xl overflow-hidden">
             <img
               :src="service.imageUrl"
               class="w-full min-w-full max-w-none h-auto max-h-none object-cover"
@@ -36,11 +36,13 @@
     </div>
     <!-- main features -->
     <div class="w-full flex flex-wrap justify-center bg-white py-30">
-      <div class="w-[90%] flex overflow-x-hidden gap-4 hide-scrollbar relative">
+      <div
+        class="w-[90%] flex justify-center overflow-x-hidden gap-4 hide-scrollbar relative"
+      >
         <div
           v-for="(channel, index) in channels"
           :key="index"
-          class="shift-hover w-[25%] p-4 rounded-xl h-fit"
+          class="shift-hover w-[25%] p-4 rounded-xl"
         >
           <div
             class="w-[50px] h-[50px] min-w-[50px] min-h-[50px] flex justify-center rounded-sm mt-6 relative overflow-hidden"

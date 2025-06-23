@@ -90,7 +90,7 @@
           >
             <img
               src="/services/why.png"
-              class="h-full max-w-none min-w-full min-h-full max-h-none"
+              class="h-full max-w-none min-w-full min-h-full max-h-none object-cover"
             />
           </div>
         </div>
@@ -119,7 +119,7 @@
           >
             <img
               src="/carousel/values.png"
-              class="h-full max-w-none min-w-full min-h-full max-h-none"
+              class="h-full max-w-none min-w-full min-h-full max-h-none object-cover"
             />
           </div>
         </div>
