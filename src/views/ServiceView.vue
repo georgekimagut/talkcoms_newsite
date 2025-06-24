@@ -172,7 +172,7 @@
               <!-- call to action -->
               <div class="w-full flex mt-8">
                 <RoundedButton
-                  button_link="/contact"
+                  button_link="/contact-us"
                   button_text="Request Free Demo"
                   button_icon="fa-solid fa-angle-right"
                   :defaultColor="'#333'"
@@ -181,9 +181,23 @@
                   button_circle_background="#262262"
                 />
                 <RoundedButton
+                  v-if="!service.material_link"
                   class="ml-4"
-                  button_link="/contact"
+                  button_link="/contact-us"
                   button_text="Learn More"
+                  button_icon="fa-solid fa-angle-right text-white"
+                  :defaultColor="'#333'"
+                  :hoverColor="'#262262'"
+                  :iconColor="'#f5f5f5'"
+                  button_border="#8dc63f"
+                  button_background="#f5f5f5"
+                  button_circle_background="#8dc63f"
+                />
+                <RoundedExternal
+                  v-if="service.material_link"
+                  class="ml-4"
+                  :button_link="service.material_link"
+                  button_text="Download Material"
                   button_icon="fa-solid fa-angle-right text-white"
                   :defaultColor="'#333'"
                   :hoverColor="'#262262'"
@@ -477,6 +491,7 @@
 <script>
 import Accordion from "../components/Accordion.vue";
 import RoundedButton from "../components/buttons/RoundedButton.vue";
+import RoundedExternal from "../components/buttons/RoundedExternal.vue";
 import Cta from "../components/Cta.vue";
 import Footer from "../components/Footer.vue";
 import HeroSection from "../components/HeroSection.vue";
@@ -533,6 +548,7 @@ export default {
     Cta,
     ScrollDots,
     ExternalLink,
+    RoundedExternal,
   },
   data() {
     return {
