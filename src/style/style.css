@@ -162,6 +162,7 @@ a {
 }
 .custom-portfolio-hover .c-background.opacity-0,
 .custom-portfolio-hover .c-layer.hidden,
+.custom-portfolio-hover .bg-body,
 .industry-card {
   transition: 0.3s ease-in-out;
 }
@@ -170,6 +171,10 @@ a {
 }
 .custom-portfolio-hover:hover .c-layer.hidden {
   display: flex !important;
+}
+.custom-portfolio-hover:hover .bg-white,
+.custom-portfolio-hover:hover .bg-body {
+  display: none;
 }
 @keyframes scroll-carousel {
   0% {

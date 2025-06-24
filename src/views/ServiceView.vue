@@ -12,7 +12,7 @@
           <p class="w-3/4 mt-10">
             {{ service.product_subtitle }}
           </p>
-          <div class="w-fit mt-10">
+          <div class="w-full flex mt-10">
             <RoundedButton
               :button_link="`/demo/${this.id}`"
               button_text="Book A Free Demo"
@@ -21,6 +21,18 @@
               :hoverColor="'#8dc63f'"
               :iconColor="'#262262'"
               button_circle_background="#262262"
+            />
+            <RoundedButton
+              class="ml-4"
+              button_link="/contact"
+              button_text="Talk to sales"
+              button_icon="fa-solid fa-angle-right text-white"
+              :defaultColor="'#333'"
+              :hoverColor="'#262262'"
+              :iconColor="'#ffffff'"
+              button_border="#8dc63f"
+              button_background="#ffffff"
+              button_circle_background="#8dc63f"
             />
           </div>
         </div>
@@ -64,6 +76,58 @@
             <p class="mt-4">
               {{ channel.description }}
             </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- portfolio -->
+    <div v-if="portfolio_items != ''" class="w-full flex justify-center mt-4">
+      <div class="w-[90%] flex justify-center flex-wrap">
+        <div class="w-full flex justify-center">
+          <SmallTitle text="PORTFOLIO" text_class="text-center w-full" />
+        </div>
+        <div class="w-full flex justify-center">
+          <BigTitle
+            text="For a Clean & Professional Look"
+            title_class="text-default text-center mt-10"
+          />
+        </div>
+        <div
+          class="w-full flex justify-center overflow-hidden h-[70vh] mt-16 gap-4"
+        >
+          <div
+            v-if="portfolio_items"
+            v-for="(project, index) in portfolio_items"
+            :key="index"
+            class="w-[25%] h-[90%] relative cursor-pointer overflow-hidden custom-portfolio-hover rounded-xl"
+          >
+            <img
+              :src="project.pic"
+              class="h-full absolute w-auto max-w-none object-cover"
+            />
+            <div class="h-full w-full flex flex-col absolute z-10">
+              <div class="h-[40%] w-full bg-white">
+                <BigTitle :text="project.name" title_class="text-5xl p-4" />
+              </div>
+            </div>
+            <div
+              class="h-full w-full absolute z-10 bg-black opacity-0 c-background"
+            ></div>
+            <div
+              class="h-full w-full absolute z-20 bg-transparent flex justify-center"
+            >
+              <div class="h-full flex-col justify-center c-layer hidden">
+                <BigTitle
+                  :text="project.name"
+                  title_class="text-5xl text-white ml-4"
+                />
+                <ExternalLink
+                  :link_to="project.link"
+                  link_text="Visit Site"
+                  class="w-fit mt-4 ml-6"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -144,7 +208,7 @@
               title_class="mt-10"
               text="Customize your customer experience with custom intergrations"
             />
-            <p class="text-center mt-10">
+            <p class="mt-10">
               Create a unique customer experience, customized to your contact
               center operations. Our tools range from fully integrated partners
               like CRMs to digital channels and custom workflow builders.
@@ -225,7 +289,7 @@
               <h1
                 class="text-5xl font-extrabold text-default sticky top-0 py-4 text-secondary"
               >
-                Why Choose
+                Here’s Why You’ll Love Talkcoms'
                 <span class="text-default">{{ this.id }}</span>
               </h1>
               <div
@@ -420,6 +484,7 @@ import Navbar from "../components/Navbar.vue";
 import ScrollDots from "../components/patterns/ScrollPattern.vue";
 import Spinner from "../components/Spinner.vue";
 import BigTitle from "../components/text/BigTitle.vue";
+import ExternalLink from "../components/text/ExternalLink.vue";
 import SmallTitle from "../components/text/SmallTitle.vue";
 import { text_colors } from "../store/store";
 import { supabase } from "../store/supabase";
@@ -467,6 +532,7 @@ export default {
     BigTitle,
     Cta,
     ScrollDots,
+    ExternalLink,
   },
   data() {
     return {
@@ -485,6 +551,7 @@ export default {
       services: [],
       service_id: "",
       channels: [],
+      portfolio_items: [],
       related_story: "",
       success_story: "story",
       random_bg: "",
@@ -496,9 +563,11 @@ export default {
 
     try {
       await this.get_service();
+      await this.get_portfolio_items();
       await this.get_main_service_features();
       await this.get_features();
       await this.get_packages();
+
       if (this.service_id != "") {
         this.get_story();
       }
@@ -607,6 +676,22 @@ export default {
           return;
         }
         this.channels = data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async get_portfolio_items() {
+      try {
+        const { data, error } = await supabase
+          .from("portfolio")
+          .select("*")
+          .eq("service_id", this.service_id);
+
+        if (error) {
+          console.log(error);
+          return;
+        }
+        this.portfolio_items = data;
       } catch (error) {
         console.log(error);
       }

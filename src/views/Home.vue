@@ -237,7 +237,7 @@
           >
             <!-- portfolio item -->
             <div
-              v-for="(project, index) in home_portfolio"
+              v-for="(project, index) in portfolio_items"
               :key="index"
               class="w-[36%] min-w-[36%] h-[90%] relative cursor-pointer overflow-hidden ml-4 custom-portfolio-hover"
             >
@@ -245,6 +245,11 @@
                 :src="project.pic"
                 class="h-full absolute w-auto max-w-none"
               />
+              <div class="h-full w-full flex flex-col absolute z-10">
+                <div class="h-[40%] w-full bg-body">
+                  <BigTitle :text="project.name" title_class="text-5xl p-4" />
+                </div>
+              </div>
               <div
                 class="h-full w-full absolute z-10 bg-black opacity-0 c-background"
               ></div>
@@ -252,50 +257,20 @@
                 class="h-full w-full absolute z-20 bg-transparent flex justify-center"
               >
                 <div class="h-full flex-col justify-center c-layer hidden">
-                  <h2 class="text-4xl text-white w-[70%] flex p-2">
-                    {{ project.project }}
-                  </h2>
+                  <BigTitle
+                    :text="project.name"
+                    title_class="text-5xl p-2 text-white ml-4"
+                  />
                   <ExternalLink
                     :link_to="project.link"
                     link_text="Visit Site"
-                    class="w-fit mt-4 ml-2"
+                    class="w-fit mt-4 ml-6"
                   />
                 </div>
               </div>
             </div>
             <!-- end of it -->
-            <!-- portfolio item -->
-            <div
-              v-for="(project, index) in home_portfolio"
-              :key="index"
-              class="w-[36%] h-[90%] relative cursor-pointer rounded-2xl overflow-hidden ml-4 custom-portfolio-hover"
-            >
-              <img
-                :src="project.pic"
-                class="h-full absolute w-auto max-w-none"
-              />
-              <div
-                class="h-full w-full absolute z-10 bg-black opacity-0 c-background"
-              ></div>
-              <div
-                class="h-full w-full absolute z-20 bg-transparent flex justify-center"
-              >
-                <div class="h-full flex-col justify-center c-layer hidden">
-                  <h2 class="text-4xl text-white w-[70%] flex p-2">
-                    {{ project.project }}
-                  </h2>
-                  <a :href="project.link" target="_blank"
-                    ><p
-                      class="custom-link text-secondary mt-3 w-[70%] flex p-2"
-                    >
-                      Visit Site
-                      <i
-                        class="fa-solid fa-angle-right ml-2 rotate-[-45deg] text-xl"
-                      ></i></p
-                  ></a>
-                </div>
-              </div>
-            </div>
+
             <!-- end of it -->
           </div>
         </div>
@@ -489,6 +464,7 @@ import Partners from "../components/Partners.vue";
 import { supabase } from "../store/supabase";
 import CustomCard from "../components/cards/CustomCard.vue";
 import ExternalLink from "../components/text/ExternalLink.vue";
+import BigTitle from "../components/text/BigTitle.vue";
 
 export default {
   name: "Home",
@@ -501,6 +477,7 @@ export default {
     Partners,
     CustomCard,
     ExternalLink,
+    BigTitle,
   },
   data() {
     return {
@@ -541,23 +518,7 @@ export default {
         },
       ],
       home_services: [],
-      home_portfolio: [
-        {
-          project: "Chunic Machinery",
-          pic: "/portfolio/chunic.png",
-          link: "https://machinery.chunic.com/",
-        },
-        {
-          project: "Chunic Logistics",
-          pic: "/portfolio/chunic-2.png",
-          link: "/portfolio/chunic-2.png",
-        },
-        {
-          project: "Boresha Sacco",
-          pic: "/portfolio/portfolio1.png",
-          link: "#",
-        },
-      ],
+      portfolio_items: [],
       stories: [
         {
           id: 1,
@@ -631,9 +592,9 @@ export default {
   },
   async mounted() {
     this.page_is_loading = true;
-
     try {
       await this.get_services();
+      await this.get_portfolio_items();
     } catch (error) {
       console.error("Loading failed:", error);
     } finally {
@@ -693,6 +654,20 @@ export default {
             imageUrl: imageData.publicUrl,
           };
         });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    //get portfolio
+    async get_portfolio_items() {
+      try {
+        const { data, error } = await supabase.from("portfolio").select("*");
+
+        if (error) {
+          console.log(error);
+          return;
+        }
+        this.portfolio_items = data;
       } catch (error) {
         console.log(error);
       }
