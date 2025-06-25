@@ -612,7 +612,7 @@ export default {
       service_id: "",
       channels: [],
       portfolio_items: [],
-      related_story: "",
+      related_story: [],
       success_story: "story",
       random_bg: "",
     };
