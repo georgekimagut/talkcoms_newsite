@@ -5,7 +5,7 @@
     <Navbar />
     <!-- hero section -->
     <div class="w-full h-[90vh]">
-      <div class="h-full w-full absolute opacity-80">
+      <div class="h-full w-full absolute opacity-50">
         <img src="/icons/g26.svg" class="" />
       </div>
       <div class="w-full h-full flex justify-center overflow-hidden">

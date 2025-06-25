@@ -8,7 +8,10 @@
       <div class="w-[90%] flex h-full gap-4 overflow-hidden mt-16">
         <div class="w-1/2">
           <SmallTitle :text="this.id" />
-          <BigTitle :text="service.title_description" title_class="mt-10" />
+          <BigTitle
+            :text="service.title_description"
+            title_class="mt-10 w-[90%]"
+          />
           <p class="w-3/4 mt-10">
             {{ service.product_subtitle }}
           </p>
@@ -92,10 +95,20 @@
             title_class="text-default text-center mt-10"
           />
         </div>
-        <div
-          class="w-full flex justify-center overflow-hidden h-[70vh] mt-16 gap-4"
-        >
-          <div
+        <div class="w-full flex justify-center mt-16 overflow-hidden gap-4">
+          <CustomCard
+            v-if="portfolio_items"
+            v-for="(project, index) in portfolio_items"
+            :key="index"
+            :card_pic="project.pic"
+            :card_title="project.name"
+            card_class="w-[33%]"
+            link_text="VISIT SITE"
+            :link_to="project.link"
+            has_external_link
+          />
+
+          <!-- <div
             v-if="portfolio_items"
             v-for="(project, index) in portfolio_items"
             :key="index"
@@ -128,7 +141,7 @@
                 />
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -213,7 +226,7 @@
       </div>
     </div>
     <!-- intergrations -->
-    <div v-if="intergrations != ''" class="w-full flex justify-center mt-30">
+    <div v-if="intergrations != ''" class="w-full flex justify-center mt-32">
       <div class="w-[90%] flex gap-4">
         <div class="w-[40%]">
           <div class="w-[90%] flex flex-wrap">
@@ -291,7 +304,7 @@
     </div>
     <!-- PBX -->
     <!-- benefits -->
-    <div class="w-full flex justify-center mt-30 pb-20">
+    <div class="w-full flex justify-center mt-30 pb-20 bg-third">
       <div class="w-[90%] flex mt-30 gap-8 flex-wrap relative">
         <div ref="feature_section" class="w-full flex gap-8 relative z-10">
           <!-- Right: Features -->
@@ -300,11 +313,9 @@
               class="w-[90%] overflow-hidden transition-all duration-500 relative"
               :class="{ 'overflow-y-scroll h-[40vh] pr-4': isInView }"
             >
-              <h1
-                class="text-5xl font-extrabold text-default sticky top-0 py-4 text-secondary"
-              >
+              <h1 class="text-5xl font-extrabold text-white sticky top-0 py-4">
                 Here’s Why You’ll Love Talkcoms'
-                <span class="text-default">{{ this.id }}</span>
+                <span class="text-white">{{ this.id }}</span>
               </h1>
               <div
                 v-for="(benefit, index) in benefits"
@@ -313,15 +324,14 @@
               >
                 <div class="">
                   <i
-                    class="fa-regular fa-circle-check mt-6 text-2xl"
-                    :style="{ color: random_bg }"
+                    class="fa-regular fa-circle-check mt-6 text-2xl text-white"
                   ></i>
                 </div>
                 <div class="">
-                  <h1 class="text-xl font-semibold mt-4">
+                  <h1 class="text-xl font-semibold text-default mt-4">
                     {{ benefit.feature_name }}
                   </h1>
-                  <p class="mt-4 text-[#828282]">
+                  <p class="mt-4">
                     {{ benefit.feature_description }}
                   </p>
                 </div>
@@ -330,7 +340,7 @@
               <div class="w-full flex mt-8">
                 <RoundedButton
                   button_link="/contact"
-                  button_text="Book A Demo"
+                  button_text="Get Started"
                   button_icon="fa-solid fa-angle-right"
                   :defaultColor="'#333'"
                   :hoverColor="'#8dc63f'"
@@ -368,6 +378,38 @@
       </div>
     </div>
     <!-- end of content wrapper -->
+    <!-- if has free demo -->
+    <div
+      v-if="service.has_demo"
+      class="w-full flex justify-center bg-white pb-20"
+    >
+      <div
+        class="w-[80%] flex rounded-2xl h-[50vh] border-1 border-[#82bc00] mt-32 overflow-hidden"
+      >
+        <div class="w-[64%] mr-[1%] h-full p-4 flex flex-col justify-center">
+          <BigTitle text="Experience the Power—Live!" title_class="m-4" />
+          <p class="text-xl m-4">
+            Book a free demo and see how our solution can simplify your workflow
+            and boost efficiency—live and personalized.
+          </p>
+          <RoundedButton
+            class="m-4 w-fit"
+            button_link="/contact"
+            button_text="BOOK FREE DEMO"
+            button_icon="fa-solid fa-angle-right text-white"
+            :defaultColor="'#333'"
+            :hoverColor="'#262262'"
+            :iconColor="'#ffffff'"
+            button_border="#8dc63f"
+            button_background="#ffffff"
+            button_circle_background="#8dc63f"
+          />
+        </div>
+        <div class="w-[35%] flex justify-center overflow-hidden">
+          <img :src="service.imageUrl" class="w-full h-full object-cover" />
+        </div>
+      </div>
+    </div>
     <!-- packages -->
     <div
       v-if="packages != ''"
@@ -492,6 +534,7 @@
 import Accordion from "../components/Accordion.vue";
 import RoundedButton from "../components/buttons/RoundedButton.vue";
 import RoundedExternal from "../components/buttons/RoundedExternal.vue";
+import CustomCard from "../components/cards/CustomCard.vue";
 import Cta from "../components/Cta.vue";
 import Footer from "../components/Footer.vue";
 import HeroSection from "../components/HeroSection.vue";
@@ -549,6 +592,7 @@ export default {
     ScrollDots,
     ExternalLink,
     RoundedExternal,
+    CustomCard,
   },
   data() {
     return {

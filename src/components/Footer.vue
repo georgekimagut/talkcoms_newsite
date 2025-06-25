@@ -4,7 +4,7 @@
   <button
     v-show="isVisible"
     @click="scrollToTop"
-    class="fixed z-1000 bottom-2 right-[4%] w-[50px] h-[50px] flex justify-center rounded-sm cursor-pointer transition-all duration-300"
+    class="fixed z-1000 bottom-2 right-[4%] w-[50px] h-[50px] flex justify-center rounded-sm overflow-hidden cursor-pointer transition-all duration-300"
     aria-label="Back to top"
   >
     <div class="w-full h-full bg-default"></div>

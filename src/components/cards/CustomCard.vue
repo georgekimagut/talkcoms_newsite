@@ -6,7 +6,7 @@
     <div class="w-full h-[30vh] flex justify-center overflow-hidden">
       <img
         :src="card_pic"
-        class="h-auto min-h-none min-w-full w-auto max-w-none"
+        class="h-auto min-h-none min-w-full w-auto max-w-none object-cover"
       />
     </div>
     <div class="w-full mt-4">
@@ -15,17 +15,27 @@
       >
       <p class="mt-4">{{ card_description }}</p>
       <div class="w-full flex justify-end pb-4 mt-10">
-        <Link :link_to="link_to" :link_text="link_text" />
+        <Link
+          :link_to="link_to"
+          :link_text="link_text"
+          v-if="!has_external_link"
+        />
+        <ExternalLink
+          :link_to="link_to"
+          :link_text="link_text"
+          v-if="has_external_link"
+        />
       </div>
     </div>
   </div>
 </template>
 <script>
 import Link from "../text/Link.vue";
+import ExternalLink from "../text/ExternalLink.vue";
 
 export default {
   name: "Card",
-  components: { Link },
+  components: { Link, ExternalLink },
   props: {
     card_pic: { type: String, required: true },
     card_title: { type: String, required: true },
@@ -33,6 +43,7 @@ export default {
     card_class: String,
     link_text: String,
     link_to: String,
+    has_external_link: Boolean,
   },
 };
 </script>
