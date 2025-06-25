@@ -478,7 +478,7 @@
       </div>
     </div>
     <!-- related story -->
-    <div
+    <!-- <div
       v-if="related_story != ''"
       class="w-full flex flex-wrap mt-16 bg-white py-16"
     >
@@ -523,7 +523,7 @@
           />
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- Cta -->
     <Cta cta_class="pt-32" />
     <!-- footer -->
