@@ -255,7 +255,7 @@
                   </div>
                   <div class="w-full h-1/4 flex">
                     <Link
-                      :link_to="`/service/${product.name}`"
+                      :link_to="`/service/${product.name}/${product.id}`"
                       link_text="READ MORE"
                       class="h-fit"
                     />
@@ -322,7 +322,7 @@ export default {
       ],
     };
   },
-  mounted() {
+  created() {
     this.get_services();
   },
   methods: {
@@ -344,7 +344,7 @@ export default {
       try {
         const { data, error } = await supabase
           .from("services")
-          .select("*")
+          .select("id, name, title_description, is_product")
           .order("created_at", { ascending: false });
 
         const retrieved_data = data.map((service) => {

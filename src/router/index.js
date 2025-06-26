@@ -42,19 +42,19 @@ const routes = [
     meta: { title: "Blogs" },
   },
   {
-    path: "/service/:id",
+    path: "/service/:id/:service_id",
     name: "Single Service",
     component: ServiceView,
     meta: { title: "Service" },
     props: true,
   },
-  {
-    path: "/product/:id",
-    name: "Single Product",
-    component: ServiceView,
-    meta: { title: "Service" },
-    props: true,
-  },
+  // {
+  //   path: "/product/:id",
+  //   name: "Single Product",
+  //   component: ServiceView,
+  //   meta: { title: "Service" },
+  //   props: true,
+  // },
   {
     path: "/success-stories",
     name: "Success Stories",
