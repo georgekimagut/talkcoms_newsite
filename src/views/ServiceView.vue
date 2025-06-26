@@ -423,7 +423,7 @@
     </div>
     <!-- packages -->
     <div
-      v-if="packages"
+      v-if="packages != ''"
       class="w-full flex flex-wrap justify-center overflow-hidden top-56 mt-36 pb-20"
     >
       <div class="w-3/4">
@@ -557,6 +557,10 @@ import ExternalLink from "../components/text/ExternalLink.vue";
 import SmallTitle from "../components/text/SmallTitle.vue";
 import { text_colors } from "../store/store";
 import { supabase } from "../store/supabase";
+// import { watch } from "vue";
+// import { useRoute } from "vue-router";
+
+// const route = useRoute();
 
 //scroll within features
 import { ref, onMounted, onBeforeUnmount } from "vue";
@@ -628,7 +632,7 @@ export default {
       random_bg: "",
     };
   },
-  async mounted() {
+  async created() {
     this.page_is_loading = true;
     this.randomize_color();
 
@@ -647,6 +651,31 @@ export default {
     } finally {
       this.page_is_loading = false;
     }
+
+    //watch route changes
+    this.$watch(
+      () => this.$route.params,
+      async () => {
+        this.page_is_loading = true;
+        this.randomize_color();
+
+        try {
+          await this.get_service();
+          await this.get_portfolio_items();
+          await this.get_main_service_features();
+          await this.get_features();
+          await this.get_packages();
+
+          if (this.service_id != "") {
+            this.get_story();
+          }
+        } catch (error) {
+          console.error("Loading failed:", error);
+        } finally {
+          this.page_is_loading = false;
+        }
+      }
+    );
   },
   methods: {
     async get_service() {
