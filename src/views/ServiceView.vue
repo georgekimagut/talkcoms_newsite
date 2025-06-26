@@ -423,7 +423,7 @@
     </div>
     <!-- packages -->
     <div
-      v-if="packages != ''"
+      v-if="packages"
       class="w-full flex flex-wrap justify-center overflow-hidden top-56 mt-36 pb-20"
     >
       <div class="w-3/4">
