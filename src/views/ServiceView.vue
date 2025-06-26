@@ -389,13 +389,24 @@
         <div class="w-[64%] mr-[1%] h-full p-4 flex flex-col justify-center">
           <BigTitle text="Experience the Power—Live!" title_class="m-4" />
           <p class="text-xl m-4">
-            Book a free demo and see how our solution can simplify your workflow
-            and boost efficiency—live and personalized.
+            Book a free
+            <span v-if="service.has_demo === 1">demo</span>
+            <span v-else-if="service.has_demo === 2">site visit</span>
+            <span v-else-if="service.has_demo === 3">call</span>
+            and see how our solution can simplify your workflow and boost
+            efficiency—live and personalized.
           </p>
+
           <RoundedButton
             class="m-4 w-fit"
             button_link="/contact"
-            button_text="BOOK FREE DEMO"
+            :button_text="
+              service.has_demo === 1
+                ? 'BOOK A FREEM DEMO'
+                : service.has_demo === 2
+                ? 'BOOK A SITE VISIT'
+                : 'BOOK A FREE CALL'
+            "
             button_icon="fa-solid fa-angle-right text-white"
             :defaultColor="'#333'"
             :hoverColor="'#262262'"
@@ -478,7 +489,7 @@
       </div>
     </div>
     <!-- related story -->
-    <!-- <div
+    <div
       v-if="related_story != ''"
       class="w-full flex flex-wrap mt-16 bg-white py-16"
     >
@@ -523,7 +534,7 @@
           />
         </div>
       </div>
-    </div> -->
+    </div>
     <!-- Cta -->
     <Cta cta_class="pt-32" />
     <!-- footer -->
@@ -719,7 +730,6 @@ export default {
           return;
         }
         this.packages = data;
-        console.log(this.packages);
       } catch (error) {
         console.log(error);
       }
