@@ -640,7 +640,7 @@ export default {
       await this.get_packages();
 
       if (this.service_id != "") {
-        this.get_story();
+        await this.get_story();
       }
     } catch (error) {
       console.error("Loading failed:", error);

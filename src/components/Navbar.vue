@@ -172,32 +172,37 @@
           @mouseleave="hide_service_dropdown('service')"
         >
           <div
-            class="w-[95%] flex flex-wrap bg-white z-20005 border-t-1 border-[#e3e3e3] rounded-b-sm"
+            class="w-[95%] flex h-[40vh] bg-white z-20005 border-t-1 border-[#e3e3e3] rounded-b-sm flex-wrap"
           >
-            <div class="w-full flex pl-4 pr-4 mt-8">
-              <h1 class="text-default ml-4 font-semibold text-sm uppercase">
+            <div class="w-full h-[5vh] flex pl-4 pr-4">
+              <h1
+                class="text-default ml-4 font-semibold text-sm uppercase pt-4"
+              >
                 Services
               </h1>
             </div>
-            <div class="w-full flex flex-wrap p-4 p-t-0 p-b-0">
-              <div class="w-full flex justify-center">
+            <div class="w-full h-[35vh] flex flex-wrap p-4 p-t-0 p-b-0">
+              <div class="w-full h-full flex justify-center">
                 <div
                   v-for="(service, index) in services"
                   :key="index"
-                  class="p-4 mr-2 w-[30%]"
+                  class="p-4 mr-2 w-[30%] h-full flex flex-col justify-around"
                 >
-                  <h1 class="font-semibold mt-4">
-                    <router-link :to="`/service/${service.name}`">{{
-                      service.name
-                    }}</router-link>
-                  </h1>
-                  <p class="mt-4">
-                    {{ service.title_description }}
-                  </p>
-                  <div class="w-full mt-6 flex justify-end">
+                  <div class="w-full h-3/4">
+                    <h1 class="font-semibold mt-2">
+                      <router-link :to="`/service/${service.name}`">{{
+                        service.name
+                      }}</router-link>
+                    </h1>
+                    <p class="mt-2">
+                      {{ service.title_description }}
+                    </p>
+                  </div>
+                  <div class="w-full h-1/4 flex">
                     <Link
                       :link_to="`/service/${service.name}`"
                       link_text="READ MORE"
+                      class="h-fit"
                     />
                   </div>
                 </div>
@@ -217,37 +222,42 @@
           <!-- dark panel -->
         </div>
         <div
-          class="absolute w-full h-fit flex flex-wrap justify-center"
+          class="absolute w-full flex flex-wrap justify-center"
           @mouseenter="show_service_dropdown('product')"
           @mouseleave="hide_service_dropdown('product')"
         >
           <div
-            class="w-[95%] flex bg-white z-20005 border-t-1 border-[#e3e3e3] rounded-b-sm flex-wrap"
+            class="w-[95%] flex h-[40vh] bg-white z-20005 border-t-1 border-[#e3e3e3] rounded-b-sm flex-wrap"
           >
-            <div class="w-full flex pl-4 pr-4 mt-8">
-              <h1 class="text-default ml-4 font-semibold text-sm uppercase">
+            <div class="w-full h-[5vh] flex pl-4 pr-4">
+              <h1
+                class="text-default ml-4 font-semibold text-sm uppercase pt-4"
+              >
                 Products
               </h1>
             </div>
-            <div class="w-full flex flex-wrap p-4 p-t-0 p-b-0">
-              <div class="w-full flex justify-center">
+            <div class="w-full h-[35vh] flex flex-wrap p-4 p-t-0 p-b-0">
+              <div class="w-full h-full flex justify-center">
                 <div
                   v-for="(product, index) in products"
                   :key="index"
-                  class="p-4 mr-2 w-[30%]"
+                  class="p-4 mr-2 w-[30%] h-full flex flex-col justify-around"
                 >
-                  <h1 class="font-semibold mt-2">
-                    <router-link :to="`/service/${product.name}`">{{
-                      product.name
-                    }}</router-link>
-                  </h1>
-                  <p class="mt-2">
-                    {{ product.title_description }}
-                  </p>
-                  <div class="w-full mt-6 flex justify-end">
+                  <div class="w-full h-3/4">
+                    <h1 class="font-semibold mt-2">
+                      <router-link :to="`/service/${product.name}`">{{
+                        product.name
+                      }}</router-link>
+                    </h1>
+                    <p class="mt-2">
+                      {{ product.title_description }}
+                    </p>
+                  </div>
+                  <div class="w-full h-1/4 flex">
                     <Link
                       :link_to="`/service/${product.name}`"
                       link_text="READ MORE"
+                      class="h-fit"
                     />
                   </div>
                 </div>
