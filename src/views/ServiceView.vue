@@ -490,7 +490,7 @@
     </div>
     <!-- related story -->
     <div
-      v-if="related_story != ''"
+      v-if="related_story"
       class="w-full flex flex-wrap mt-16 bg-white py-16"
     >
       <div class="w-1/2 flex h-full justify-center">
@@ -640,7 +640,7 @@ export default {
       await this.get_packages();
 
       if (this.service_id != "") {
-        await this.get_story();
+        this.get_story();
       }
     } catch (error) {
       console.error("Loading failed:", error);
