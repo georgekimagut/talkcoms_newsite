@@ -3,76 +3,55 @@
   <Spinner v-if="page_is_loading" />
   <div v-if="page_is_loading === false" class="w-full">
     <Navbar />
-    <HeroSection
-      v-for="(blog, index) in blogs.slice(0, 1)"
-      :key="index"
-      class_height="h-[60vh]"
-      page_title="BLOG"
-      :page_statement="blog.title"
-      :blog_category="blog.category"
-      :blog_date="blog.date"
-      :big_pic="blog.pic"
-      :page_min_statement="blog.description"
-      :blog_link="blog.title"
-      is_blog
-    />
-    <!-- blog panel -->
-    <div
-      class="w-full flex flex-wrap justify-center overflow-hidden top-56 mt-36"
-    >
-      <div class="w-3/4">
-        <p class="text-secondary flex justify-center">BLOG</p>
-
-        <h1 class="text-4xl font-bold mt-4 p-2 flex justify-center">
-          <span class="text-secondary mr-2 ml-2">Latest</span>
-          Blogs
-        </h1>
-      </div>
-      <!-- latest blog -->
-      <div class="w-[94%] flex justify-center mt-16">
-        <div
-          v-for="(blog, index) in blogs.slice(0, 3)"
-          :key="index"
-          class="w-[28%] m-2 bg-white overflow-hidden zoom-animate"
-        >
-          <div class="w-full h-[30vh] overflow-hidden">
-            <img :src="blog.pic" class="h-full min-w-full w-auto max-w-none" />
-          </div>
-          <div class="p-2">
-            <div class="w-full flex mt-6">
-              <span
-                class="pr-4 pl-4 rounded-full text-sm bg-secondary text-white"
-                >{{ blog.category }}</span
-              >
-              <div class="bg-secondary h-[20px] w-[1px] ml-6">
-                <!-- this is the green line -->
-              </div>
-              <span class="ml-6 text-sm">{{ blog.date }}</span>
+    <div class="w-full flex justify-center flex-wrap h-[60vh]">
+      <!-- <div class="w-full h-3/4 custom-linear-bg opacity-20 absolute"></div> -->
+      <!-- new hero section -->
+      <div
+        v-for="(blog, index) in blogs.slice(0, 1)"
+        :key="index"
+        class="w-[90%] flex h-full gap-4 overflow-hidden mt-16"
+      >
+        <div class="w-1/2">
+          <SmallTitle text="BLOGS" />
+          <BigTitle :text="blog.title" title_class="mt-10 w-[90%]" />
+          <p class="w-3/4 mt-10">
+            {{ blog.description }}
+          </p>
+          <div class="w-full flex flex-wrap mt-10">
+            <div class="w-full flex">
+              <span class="bg-secondary rounded-full text-white pr-4 pl-4">
+                {{ blog.category }}
+              </span>
+              <span class="ml-12"> {{ blog.created_at }} </span>
             </div>
-            <router-link to="#"
-              ><h3 class="font-semibold text-xl mt-4">
-                {{ blog.title }}
-              </h3></router-link
-            >
-            <div class="w-full flex pb-4 mt-8">
-              <div
-                class="w-[40px] h-[40px] bg-[#556080] rounded-full overflow-hidden flex justify-center"
-              >
-                <div class="h-full flex flex-col justify-center">
-                  <i :class="blog.icon"></i>
-                </div>
-              </div>
-              <div class="ml-4">
-                <p class="font-semibold">{{ blog.writer }}</p>
-                <p class="text-sm">{{ blog.writer_position }}</p>
-              </div>
+            <div class="w-full mt-10">
+              <Link
+                text="READ FULL STORY"
+                :link_to="`/blog/${this.id}`"
+                class="text-third"
+              />
             </div>
           </div>
         </div>
+        <div class="w-1/2 h-full">
+          <div class="w-full h-[90%] rounded-xl overflow-hidden">
+            <img
+              :src="blog.pic"
+              alt="Blog image header"
+              class="w-full min-w-full max-w-none h-auto max-h-none object-cover"
+            />
+          </div>
+        </div>
       </div>
+      <!-- end of new hero -->
+    </div>
+    <!-- blog panel -->
+    <div
+      class="w-full flex flex-wrap justify-center overflow-hidden top-56 mt-10"
+    >
       <!-- panel -->
-      <div class="w-[94%] flex flex-wrap justify-center mt-32">
-        <div class="w-[90%] flex justify-center">
+      <div class="w-[90%] flex flex-wrap justify-center mt-32">
+        <div class="w-full flex justify-center">
           <div
             v-for="(category, index) in categories"
             :key="index"
@@ -109,7 +88,7 @@
             <div class="w-full h-[30vh] overflow-hidden">
               <img
                 :src="blog.pic"
-                class="h-full min-w-full w-auto max-w-none"
+                class="h-full min-w-full w-auto max-w-none object-cover"
               />
             </div>
             <div class="p-2">
@@ -123,7 +102,7 @@
                 </div>
                 <span class="ml-6 text-sm">{{ blog.date }}</span>
               </div>
-              <router-link to="#"
+              <router-link :to="`/blog/${this.id}`"
                 ><h3 class="font-semibold text-xl mt-4">
                   {{ blog.title }}
                 </h3></router-link
@@ -133,12 +112,12 @@
                   class="w-[40px] h-[40px] bg-[#556080] rounded-full overflow-hidden flex justify-center"
                 >
                   <div class="h-full flex flex-col justify-center">
-                    <i :class="blog.icon"></i>
+                    <i class="fa-solid fa-user text-white"></i>
                   </div>
                 </div>
                 <div class="ml-4">
                   <p class="font-semibold">{{ blog.writer }}</p>
-                  <p class="text-sm">{{ blog.writer_position }}</p>
+                  <p class="text-sm">{{ blog.position }}</p>
                 </div>
               </div>
             </div>
@@ -152,104 +131,34 @@
   </div>
 </template>
 <script>
+import CustomCard from "../components/cards/CustomCard.vue";
 import Cta from "../components/Cta.vue";
 import Footer from "../components/Footer.vue";
 import HeroSection from "../components/HeroSection.vue";
 import Navbar from "../components/Navbar.vue";
 import Spinner from "../components/Spinner.vue";
+import BigTitle from "../components/text/BigTitle.vue";
+import Link from "../components/text/Link.vue";
+import { supabase } from "../store/supabase";
+import SmallTitle from "../components/text/SmallTitle.vue";
 
 export default {
   name: "Blogs",
-  components: { HeroSection, Navbar, Spinner, Cta, Footer },
+  components: {
+    HeroSection,
+    Navbar,
+    Spinner,
+    Cta,
+    Footer,
+    Link,
+    BigTitle,
+    CustomCard,
+    SmallTitle,
+  },
   data() {
     return {
       page_is_loading: true,
-      blogs: [
-        {
-          title:
-            "The role of AI lorem ipsum dolor sit amet. Neque porro quisquam est qui dolorem ips",
-          description:
-            "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.",
-          category: "Artifical Intelligence",
-          date: "12 May 2025",
-          pic: "/carousel/blogs/blog.jpg",
-          icon: "fa-solid fa-user text-xl text-white",
-          writer: "Caroline Mwikali",
-          writer_position: "Marketing Lead",
-        },
-        {
-          title:
-            "The role of AI lorem ipsum dolor sit amet. Neque porro quisquam est qui dolorem ips",
-          description:
-            "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.",
-          category: "Artifical Intelligence",
-          date: "12 May 2025",
-          pic: "/carousel/blogs/blog-1.png",
-          icon: "fa-solid fa-user text-xl text-white",
-          writer: "Caleb Ruto",
-          writer_position: "General Manager",
-        },
-        {
-          title:
-            "The role of AI lorem ipsum dolor sit amet. Neque porro quisquam est qui dolorem ips",
-          description:
-            "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.",
-          category: "Artifical Intelligence",
-          date: "12 May 2025",
-          pic: "/carousel/blogs/blog-2.png",
-          icon: "fa-solid fa-user text-xl text-white",
-          writer: "Caroline Mwikali",
-          writer_position: "Marketing Lead",
-        },
-        {
-          title:
-            "The role of AI lorem ipsum dolor sit amet. Neque porro quisquam est qui dolorem ips",
-          description:
-            "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.",
-          category: "Artifical Intelligence",
-          date: "12 May 2025",
-          pic: "/carousel/blogs/blog-3.png",
-          icon: "fa-solid fa-user text-xl text-white",
-          writer: "Caroline Mwikali",
-          writer_position: "Marketing Lead",
-        },
-        {
-          title:
-            "The role of AI lorem ipsum dolor sit amet. Neque porro quisquam est qui dolorem ips",
-          description:
-            "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.",
-          category: "Artifical Intelligence",
-          date: "12 May 2025",
-          pic: "/carousel/blogs/blog-4.png",
-          icon: "fa-solid fa-user text-xl text-white",
-          writer: "Caroline Mwikali",
-          writer_position: "Marketing Lead",
-        },
-        {
-          title:
-            "The role of AI lorem ipsum dolor sit amet. Neque porro quisquam est qui dolorem ips",
-          description:
-            "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.",
-          category: "Artifical Intelligence",
-          date: "12 May 2025",
-          pic: "/carousel/blogs/blog-5.png",
-          icon: "fa-solid fa-user text-xl text-white",
-          writer: "Caroline Mwikali",
-          writer_position: "Marketing Lead",
-        },
-        {
-          title:
-            "The role of AI lorem ipsum dolor sit amet. Neque porro quisquam est qui dolorem ips",
-          description:
-            "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.",
-          category: "Artifical Intelligence",
-          date: "12 May 2025",
-          pic: "/carousel/blogs/blog-6.png",
-          icon: "fa-solid fa-user text-xl text-white",
-          writer: "Caroline Mwikali",
-          writer_position: "Marketing Lead",
-        },
-      ],
+      blogs: [],
       categories: [
         { name: "All", category_class: "text-secondary" },
         { name: "Articles", category_class: "text-secondary" },
@@ -264,15 +173,17 @@ export default {
       ],
     };
   },
-  mounted() {
-    this.load_page();
+  async created() {
+    this.page_is_loading = true;
+    try {
+      await this.get_blogs();
+    } catch (error) {
+      console.error("Loading failed:", error);
+    } finally {
+      this.page_is_loading = false;
+    }
   },
   methods: {
-    load_page() {
-      setTimeout(() => {
-        this.page_is_loading = false;
-      }, 2000);
-    },
     change_category(item_index) {
       this.categories = this.categories.map((category, index) => {
         return {
@@ -289,6 +200,22 @@ export default {
           active_category: index === item_index ? "text-secondary" : "",
         };
       });
+    },
+    //get blogs
+    async get_blogs() {
+      try {
+        const { data, error } = await supabase.from("blogs").select("*");
+
+        if (error) {
+          console.log(error);
+          return;
+        }
+
+        this.blogs = data;
+        console.log(this.blogs);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

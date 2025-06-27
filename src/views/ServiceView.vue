@@ -402,7 +402,7 @@
             button_link="/contact"
             :button_text="
               service.has_demo === 1
-                ? 'BOOK A FREEM DEMO'
+                ? 'BOOK A FREE DEMO'
                 : service.has_demo === 2
                 ? 'BOOK A SITE VISIT'
                 : 'BOOK A FREE CALL'
@@ -593,10 +593,7 @@ onBeforeUnmount(() => {
 
 export default {
   name: "SingleService",
-  props: {
-    id: String,
-    service_id: String,
-  },
+  props: ["id"],
   components: {
     Spinner,
     Navbar,
@@ -627,7 +624,7 @@ export default {
       packages: [],
       intergrations: [],
       services: [],
-      // service_id: "",
+      service_id: "",
       channels: [],
       portfolio_items: [],
       related_story: [],
@@ -640,13 +637,11 @@ export default {
     this.randomize_color();
 
     try {
-      await Promise.all([
-        this.get_service(),
-        this.get_portfolio_items(),
-        this.get_main_service_features(),
-        this.get_features(),
-        this.get_packages(),
-      ]);
+      await this.get_service();
+      await this.get_portfolio_items();
+      await this.get_main_service_features();
+      await this.get_features();
+      await this.get_packages();
 
       if (this.service_id != "") {
         this.get_story();
@@ -665,13 +660,11 @@ export default {
         this.randomize_color();
 
         try {
-          await Promise.all([
-            this.get_service(),
-            this.get_portfolio_items(),
-            this.get_main_service_features(),
-            this.get_features(),
-            this.get_packages(),
-          ]);
+          await this.get_service();
+          await this.get_portfolio_items();
+          await this.get_main_service_features();
+          await this.get_features();
+          await this.get_packages();
 
           if (this.service_id != "") {
             this.get_story();
@@ -715,7 +708,7 @@ export default {
         this.service_description = this.services[0].product_subtitle;
         this.service_pic = this.services[0].imageUrl;
         this.content = this.services[0].description;
-        // this.service_id = this.services[0].id;
+        this.service_id = this.services[0].id;
       } catch (error) {
         console.log(error);
       }

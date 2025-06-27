@@ -255,7 +255,7 @@
                   </div>
                   <div class="w-full h-1/4 flex">
                     <Link
-                      :link_to="`/service/${product.name}/${product.id}`"
+                      :link_to="`/service/${product.name}`"
                       link_text="READ MORE"
                       class="h-fit"
                     />

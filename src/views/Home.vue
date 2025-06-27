@@ -29,7 +29,9 @@
               class="w-full flex-shrink-0 h-full flex"
             >
               <div class="w-1/2 h-full block">
-                <p class="text-secondary text-lg w-3/4">{{ slide.sm_title }}</p>
+                <p class="text-secondary text-lg w-3/4 uppercase">
+                  {{ slide.sub_title }}
+                </p>
                 <h1 class="text-4xl font-extrabold mt-10 w-3/4">
                   {{ slide.title }}
                 </h1>
@@ -171,7 +173,7 @@
             :card_description="service.title_description"
             card_class="w-[25%] "
             link_text="LEARN MORE"
-            link_to="#"
+            :link_to="`/service/${service.name}`"
           />
         </div>
       </div>
@@ -494,29 +496,7 @@ export default {
       scrollLeft: 0,
 
       //carousel data
-      carousel_data: [
-        {
-          sm_title: "UNIFIED. SIMPLIFIED",
-          title: "Handle All Customer Conversations from One Unified Platform",
-          description:
-            "Manage voice, chat, social, and email from one powerful system—streamline support, elevate customer experience.",
-          pic: "/carousel/cc web.svg",
-        },
-        {
-          sm_title: "STAFFING THAT SPEAKS",
-          title: "Scale Faster with Expert Agents Representing Your Brand",
-          description:
-            "We provide the expertise and support to propel your business forward in the digital landscape.",
-          pic: "/carousel/outsourced.jpg",
-        },
-        {
-          sm_title: "FAST, RELIABLE, EVERYWHERE",
-          title: "Dependable Internet Connectivity for Businesses",
-          description:
-            "Delivering high-speed, stable internet for homes and businesses—your gateway to a connected future.",
-          pic: "/carousel/network.png",
-        },
-      ],
+      carousel_data: [],
       home_services: [],
       portfolio_items: [],
       stories: [
@@ -590,11 +570,12 @@ export default {
       ],
     };
   },
-  async mounted() {
+  async created() {
     this.page_is_loading = true;
     try {
       await this.get_services();
       await this.get_portfolio_items();
+      await this.get_carousel();
     } catch (error) {
       console.error("Loading failed:", error);
     } finally {
@@ -672,7 +653,23 @@ export default {
         console.log(error);
       }
     },
-    //drag functions
+    //get carouses
+    async get_carousel() {
+      try {
+        const { data, error } = await supabase.from("carousel").select("*");
+
+        if (error) {
+          console.log(error);
+          return;
+        }
+        this.carousel_data = data;
+        this.total_slides = this.carousel_data.length;
+        console.log(this.carousel_data);
+        console.log(this.total_slides);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 };
 </script>
