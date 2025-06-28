@@ -26,7 +26,7 @@
             </div>
             <div class="w-full mt-10 flex">
               <RoundedButton
-                :button_link="`/blog/${this.id}`"
+                :button_link="`/resources/${is_blog}/${blog.title}`"
                 button_text="Read Full Story"
                 button_icon="fa-solid fa-angle-right text-white"
                 :defaultColor="'#333'"
@@ -95,7 +95,7 @@
             :blog_category="blog.category"
             :blog_date="`${format_date(blog.created_at)}`"
             card_class="w-[28%] min-w-[28%] m-2 mb-4"
-            :link_to="`/blog/${blog.title}`"
+            :link_to="`/resources/${is_blog}/${blog.title}`"
             :writer="blog.writer"
             :position="blog.position"
             is_blog
@@ -143,6 +143,7 @@ export default {
       all_blog_tracker: [],
       categories: [],
       blog_categories: [],
+      is_blog: "blog",
     };
   },
   async created() {

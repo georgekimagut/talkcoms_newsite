@@ -68,13 +68,6 @@ const routes = [
     meta: { title: "Resources" },
     props: true,
   },
-  {
-    path: "/blog/:id",
-    name: "Resource",
-    component: ResourceView,
-    meta: { title: "Resources" },
-    props: true,
-  },
 ];
 
 const router = createRouter({

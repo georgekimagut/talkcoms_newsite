@@ -3,18 +3,45 @@
   <Spinner v-if="page_is_loading" />
   <div v-if="page_is_loading === false" class="w-full">
     <Navbar />
-    <HeroSection
-      :class_height="
-        random_bg === '#fefffe'
-          ? 'h-[65vh] bg-[#131f6b] pb-16'
-          : 'h-[65vh] bg-[#131f6b] pb-16 text-white'
-      "
-      :bg_color="random_bg"
-      :big_pic="resource.pic"
-      :page_statement="resource.title"
-      :page_min_statement="resource.short_description"
-      is_shuffled
-    />
+    <!-- hero section -->
+    <div class="w-full flex justify-center">
+      <div
+        class="w-full flex justify-center h-[50vh] overflow-hidden relative"
+        :style="{
+          backgroundImage: `url('${resource.pic}')`,
+          backgroundAttachment: 'fixed',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+        }"
+      >
+        <div class="w-full h-full bg-black absolute opacity-50"></div>
+        <div class="w-[96%] flex justify-end mt-2 absolute">
+          <a href="#" class="mr-2"
+            ><i class="fa-brands fa-facebook-f text-secondary text-lg"></i
+          ></a>
+          <a href="#" class="mr-2"
+            ><i class="fa-brands fa-x-twitter text-secondary text-lg"></i
+          ></a>
+          <a href="#" class="mr-2"
+            ><i class="fa-brands fa-whatsapp text-secondary text-lg"></i
+          ></a>
+          <a href="#" class="mr-2"
+            ><i class="fa-brands fa-linkedin text-secondary text-lg"></i
+          ></a>
+        </div>
+        <div class="w-[90%] h-fit flex justify-center flex-wrap absolute z-20">
+          <BigTitle
+            :text="resource.title"
+            title_class="mt-10 w-[90%] text-center text-white text-5xl"
+          />
+          <p class="w-3/4 text-white text-center text-2xl mt-6">
+            {{ resource.short_description ?? resource.description ?? "" }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- end of hero section -->
     <div class="w-full flex justify-center">
       <div class="w-[90%] flex justify-center flex-wrap">
         <div class="w-[30%] relative">
@@ -33,7 +60,10 @@
         </div>
         <div class="w-[70%] flex justify-center flex-wrap">
           <!-- contents of the resource -->
-          <div v-html="resource.content" class="w-[80%] mt-20"></div>
+          <div
+            v-html="resource.content || resource.article"
+            class="w-[80%] mt-20"
+          ></div>
           <div class="mt-32 flex justify-center flex-wrap">
             <p class="text-lg">Was this story helpful?</p>
             <div class="w-full flex justify-center mt-8">
@@ -76,15 +106,16 @@ import Navbar from "../components/Navbar.vue";
 import Spinner from "../components/Spinner.vue";
 import { theme_colors, get_services } from "../store/store";
 import { supabase } from "../store/supabase";
+import BigTitle from "../components/text/BigTitle.vue";
 
 export default {
   name: "ResourceView",
   props: ["id", "type"],
-  components: { Navbar, Spinner, HeroSection, RoundedButton, Footer },
+  components: { Navbar, Spinner, HeroSection, RoundedButton, Footer, BigTitle },
   data() {
     return {
       page_is_loading: true,
-      resource: [],
+      resource: "",
       random_bg: "",
     };
   },
@@ -120,22 +151,22 @@ export default {
             console.log(error);
             return;
           }
-
-          this.services = data.map((service) => {
-            const { data: imageData } = supabase.storage
-              .from("talkcoms")
-              .getPublicUrl(`stories/${service.pic}`);
-
-            return {
-              ...service,
-              imageUrl: imageData.publicUrl,
-            };
-          });
-
           //map data
           this.resource = data[0];
-        } else {
-          alert("not story");
+        } else if (this.type === "blog") {
+          //get blog
+          const { data, error } = await supabase
+            .from("blogs")
+            .select("*")
+            .eq("title", this.id)
+            .limit(1);
+
+          if (error) {
+            console.log(error);
+            return;
+          }
+          //map data
+          this.resource = data[0];
         }
       } catch (error) {
         console.log(error);

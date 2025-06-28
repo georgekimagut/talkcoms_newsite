@@ -558,10 +558,6 @@ import ExternalLink from "../components/text/ExternalLink.vue";
 import SmallTitle from "../components/text/SmallTitle.vue";
 import { text_colors } from "../store/store";
 import { supabase } from "../store/supabase";
-// import { watch } from "vue";
-// import { useRoute } from "vue-router";
-
-// const route = useRoute();
 
 //scroll within features
 import { ref, onMounted, onBeforeUnmount } from "vue";
