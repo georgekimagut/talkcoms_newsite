@@ -106,6 +106,7 @@
             link_text="VISIT SITE"
             :link_to="project.link"
             has_external_link
+            has_link
           />
 
           <!-- <div

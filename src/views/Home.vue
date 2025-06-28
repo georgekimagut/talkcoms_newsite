@@ -174,6 +174,7 @@
             card_class="w-[25%] "
             link_text="LEARN MORE"
             :link_to="`/service/${service.name}`"
+            has_link
           />
         </div>
       </div>
@@ -334,6 +335,7 @@
             card_class="w-[25%]"
             link_text="READ MORE"
             :link_to="`/story/${story.name}`"
+            has_link
           />
         </div>
       </div>
