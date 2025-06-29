@@ -20,7 +20,9 @@
     </div>
     <div class="w-full mt-4">
       <router-link :to="link_to"
-        ><h3 class="font-semibold text-xl">{{ card_title }}</h3></router-link
+        ><h3 class="font-semibold text-xl hover:underline">
+          {{ card_title }}
+        </h3></router-link
       >
       <p class="mt-4">{{ card_description }}</p>
       <div v-show="is_blog" class="w-full flex pb-4 mt-8">

@@ -108,124 +108,89 @@
             has_external_link
             has_link
           />
-
-          <!-- <div
-            v-if="portfolio_items"
-            v-for="(project, index) in portfolio_items"
-            :key="index"
-            class="w-[25%] h-[90%] relative cursor-pointer overflow-hidden custom-portfolio-hover rounded-xl"
-          >
-            <img
-              :src="project.pic"
-              class="h-full absolute w-auto max-w-none object-cover"
-            />
-            <div class="h-full w-full flex flex-col absolute z-10">
-              <div class="h-[40%] w-full bg-white">
-                <BigTitle :text="project.name" title_class="text-5xl p-4" />
-              </div>
-            </div>
-            <div
-              class="h-full w-full absolute z-10 bg-black opacity-0 c-background"
-            ></div>
-            <div
-              class="h-full w-full absolute z-20 bg-transparent flex justify-center"
-            >
-              <div class="h-full flex-col justify-center c-layer hidden">
-                <BigTitle
-                  :text="project.name"
-                  title_class="text-5xl text-white ml-4"
-                />
-                <ExternalLink
-                  :link_to="project.link"
-                  link_text="Visit Site"
-                  class="w-fit mt-4 ml-6"
-                />
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
     <!-- description -->
-    <div class="w-full flex justify-center">
-      <div class="w-[90%] flex mt-30 gap-8 flex-wrap relative">
+    <!-- css only scroll -->
+    <div class="w-full flex justify-center py-20">
+      <div class="w-[90%] flex flex-wrap relative">
         <ScrollDots :bg_color="random_bg" />
-        <div ref="feature_section" class="w-full flex gap-8 relative z-10">
-          <!-- Left: Image -->
-          <div class="w-[40%] overflow-hidden rounded-xl sticky top-0 h-[80vh]">
+        <!-- Sticky sidebar -->
+        <div class="w-[40%] sticky top-[15vh] self-start">
+          <div class="w-full overflow-hidden rounded-xl h-[80vh]">
             <img
               :src="service.feature_pic"
               class="w-full h-full object-cover rounded-xl"
             />
           </div>
+        </div>
 
-          <!-- Right: Features -->
-          <div class="w-[60%] flex justify-end">
+        <!-- Scrollable content -->
+        <div class="w-[60%] flex justify-end">
+          <div
+            class="w-[80%] overflow-hidden transition-all duration-500 relative"
+          >
+            <h1 class="text-5xl font-extrabold text-default sticky top-0 py-4">
+              {{ this.id }}
+              <span class="text-secondary static">Features</span>
+            </h1>
             <div
-              class="w-[80%] overflow-hidden transition-all duration-500 relative"
-              :class="{ 'overflow-y-scroll h-[80vh] pr-4': isInView }"
+              v-for="(feature, index) in features"
+              :key="index"
+              class="w-[90%] py-4 border-b border-[#e3e3e3]"
             >
-              <h1
-                class="text-5xl font-extrabold text-default sticky top-0 py-4"
-              >
-                {{ this.id }}
-                <span class="text-secondary static">Features</span>
+              <h1 class="text-xl font-semibold mt-4">
+                {{ feature.feature_name }}
               </h1>
-              <div
-                v-for="(feature, index) in features"
-                :key="index"
-                class="w-[90%] py-4 border-b border-[#e3e3e3]"
-              >
-                <h1 class="text-xl font-semibold mt-4">
-                  {{ feature.feature_name }}
-                </h1>
-                <p class="mt-4 text-[#828282]">
-                  {{ feature.feature_description }}
-                </p>
-              </div>
-              <!-- call to action -->
-              <div class="w-full flex mt-8">
-                <RoundedButton
-                  button_link="/contact-us"
-                  button_text="Request Free Demo"
-                  button_icon="fa-solid fa-angle-right"
-                  :defaultColor="'#333'"
-                  :hoverColor="'#8dc63f'"
-                  :iconColor="'#262262'"
-                  button_circle_background="#262262"
-                />
-                <RoundedButton
-                  v-if="!service.material_link"
-                  class="ml-4"
-                  button_link="/contact-us"
-                  button_text="Learn More"
-                  button_icon="fa-solid fa-angle-right text-white"
-                  :defaultColor="'#333'"
-                  :hoverColor="'#262262'"
-                  :iconColor="'#f5f5f5'"
-                  button_border="#8dc63f"
-                  button_background="#f5f5f5"
-                  button_circle_background="#8dc63f"
-                />
-                <RoundedExternal
-                  v-if="service.material_link"
-                  class="ml-4"
-                  :button_link="service.material_link"
-                  button_text="Download Material"
-                  button_icon="fa-solid fa-angle-right text-white"
-                  :defaultColor="'#333'"
-                  :hoverColor="'#262262'"
-                  :iconColor="'#f5f5f5'"
-                  button_border="#8dc63f"
-                  button_background="#f5f5f5"
-                  button_circle_background="#8dc63f"
-                />
-              </div>
+              <p class="mt-4 text-[#828282]">
+                {{ feature.feature_description }}
+              </p>
+            </div>
+            <!-- call to action -->
+            <div class="w-full flex mt-8">
+              <RoundedButton
+                button_link="/contact-us"
+                button_text="Request Free Demo"
+                button_icon="fa-solid fa-angle-right"
+                :defaultColor="'#333'"
+                :hoverColor="'#8dc63f'"
+                :iconColor="'#262262'"
+                button_circle_background="#262262"
+              />
+              <RoundedButton
+                v-if="!service.material_link"
+                class="ml-4"
+                button_link="/contact-us"
+                button_text="Learn More"
+                button_icon="fa-solid fa-angle-right text-white"
+                :defaultColor="'#333'"
+                :hoverColor="'#262262'"
+                :iconColor="'#f5f5f5'"
+                button_border="#8dc63f"
+                button_background="#f5f5f5"
+                button_circle_background="#8dc63f"
+              />
+              <RoundedExternal
+                v-if="service.material_link"
+                class="ml-4"
+                :button_link="service.material_link"
+                button_text="Download Material"
+                button_icon="fa-solid fa-angle-right text-white"
+                :defaultColor="'#333'"
+                :hoverColor="'#262262'"
+                :iconColor="'#f5f5f5'"
+                button_border="#8dc63f"
+                button_background="#f5f5f5"
+                button_circle_background="#8dc63f"
+              />
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- end of new scroll -->
     <!-- intergrations -->
     <div v-if="intergrations != ''" class="w-full flex justify-center mt-32">
       <div class="w-[90%] flex gap-4">
@@ -305,56 +270,56 @@
     </div>
     <!-- PBX -->
     <!-- benefits -->
-    <div class="w-full flex justify-center mt-30 pb-20 bg-third">
-      <div class="w-[90%] flex mt-30 gap-8 flex-wrap relative">
-        <div ref="feature_section" class="w-full flex gap-8 relative z-10">
-          <!-- Right: Features -->
-          <div class="w-[50%] flex">
+
+    <div class="w-full flex justify-center py-20 bg-third">
+      <div class="w-[90%] flex flex-wrap relative">
+        <ScrollDots :bg_color="random_bg" />
+        <!-- Scrollable content -->
+        <div class="w-[50%] flex justify-end">
+          <div
+            class="w-[90%] overflow-hidden transition-all duration-500 relative"
+            :class="{ 'overflow-y-scroll h-[40vh] pr-4': isInView }"
+          >
+            <h1 class="text-5xl font-extrabold text-white sticky top-0 py-4">
+              Here’s Why You’ll Love Talkcoms'
+              <span class="text-white">{{ this.id }}</span>
+            </h1>
             <div
-              class="w-[90%] overflow-hidden transition-all duration-500 relative"
-              :class="{ 'overflow-y-scroll h-[40vh] pr-4': isInView }"
+              v-for="(benefit, index) in benefits"
+              :key="index"
+              class="w-[90%] py-4 border-b border-[#e3e3e3] flex gap-4"
             >
-              <h1 class="text-5xl font-extrabold text-white sticky top-0 py-4">
-                Here’s Why You’ll Love Talkcoms'
-                <span class="text-white">{{ this.id }}</span>
-              </h1>
-              <div
-                v-for="(benefit, index) in benefits"
-                :key="index"
-                class="w-[90%] py-4 border-b border-[#e3e3e3] flex gap-4"
-              >
-                <div class="">
-                  <i
-                    class="fa-regular fa-circle-check mt-6 text-2xl text-white"
-                  ></i>
-                </div>
-                <div class="">
-                  <h1 class="text-xl font-semibold text-default mt-4">
-                    {{ benefit.feature_name }}
-                  </h1>
-                  <p class="mt-4">
-                    {{ benefit.feature_description }}
-                  </p>
-                </div>
+              <div class="">
+                <i
+                  class="fa-regular fa-circle-check mt-6 text-2xl text-white"
+                ></i>
               </div>
-              <!-- call to action -->
-              <div class="w-full flex mt-8">
-                <RoundedButton
-                  button_link="/contact"
-                  button_text="Get Started"
-                  button_icon="fa-solid fa-angle-right"
-                  :defaultColor="'#333'"
-                  :hoverColor="'#8dc63f'"
-                  :iconColor="'#262262'"
-                  button_circle_background="#262262"
-                />
+              <div class="">
+                <h1 class="text-xl font-semibold text-default mt-4">
+                  {{ benefit.feature_name }}
+                </h1>
+                <p class="mt-4">
+                  {{ benefit.feature_description }}
+                </p>
               </div>
             </div>
+            <!-- call to action -->
+            <div class="w-full flex mt-8">
+              <RoundedButton
+                button_link="/contact"
+                button_text="Get Started"
+                button_icon="fa-solid fa-angle-right"
+                :defaultColor="'#333'"
+                :hoverColor="'#8dc63f'"
+                :iconColor="'#262262'"
+                button_circle_background="#262262"
+              />
+            </div>
           </div>
-          <!-- Left: Image -->
-          <div
-            class="w-[50%] overflow-hidden rounded-xl sticky top-0 h-[80vh] relative"
-          >
+        </div>
+        <!-- Sticky sidebar -->
+        <div class="w-[50%] sticky top-[15vh] self-start">
+          <div class="w-full overflow-hidden rounded-xl h-[80vh]">
             <div class="w-full absolute">
               <div
                 class="w-[300px] h-[300px] rounded-xl custom-linear-bg p-5 -z-10"
@@ -558,33 +523,6 @@ import ExternalLink from "../components/text/ExternalLink.vue";
 import SmallTitle from "../components/text/SmallTitle.vue";
 import { text_colors } from "../store/store";
 import { supabase } from "../store/supabase";
-
-//scroll within features
-import { ref, onMounted, onBeforeUnmount } from "vue";
-const isInView = ref(false);
-const feature_section = ref(null);
-
-let observer = null;
-
-onMounted(() => {
-  observer = new IntersectionObserver(
-    ([entry]) => {
-      isInView.value = entry.isIntersecting;
-    },
-    {
-      threshold: 0.3,
-    }
-  );
-  if (feature_section.value) {
-    observer.observe(feature_section.value);
-  }
-});
-
-onBeforeUnmount(() => {
-  if (observer && feature_section.value) {
-    observer.unobserve(feature_section.value);
-  }
-});
 
 //end of scrolling
 

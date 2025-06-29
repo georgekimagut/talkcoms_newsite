@@ -3,7 +3,7 @@
   <Spinner v-if="page_is_loading" />
   <div v-if="page_is_loading === false" class="w-full">
     <Navbar />
-    <div class="w-full flex justify-center flex-wrap h-[60vh]">
+    <div class="w-full flex justify-center flex-wrap h-[75vh]">
       <!-- <div class="w-full h-3/4 custom-linear-bg opacity-20 absolute"></div> -->
       <!-- new hero section -->
       <div
@@ -22,7 +22,10 @@
               <span class="bg-secondary rounded-full text-white pr-4 pl-4">
                 {{ blog.category }}
               </span>
-              <span class="ml-12"> {{ format_date(blog.created_at) }} </span>
+              <div class="bg-secondary h-[20px] w-[1px] ml-6">
+                <!-- this is the green line -->
+              </div>
+              <span class="ml-6"> {{ format_date(blog.created_at) }} </span>
             </div>
             <div class="w-full mt-10 flex">
               <RoundedButton

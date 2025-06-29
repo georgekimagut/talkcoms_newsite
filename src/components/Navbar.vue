@@ -83,16 +83,24 @@
             </div>
           </router-link>
           <router-link
-            to="/solutions"
+            to="#"
             class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
-            active-class="text-secondary font-medium"
+            @mouseenter="show_service_dropdown('solution')"
+            @mouseleave="hide_service_dropdown('solution')"
           >
             <div class="w-full h-full flex flex-row">
               <div class="h-full flex flex-col justify-center">
                 Solutions By Industry
               </div>
               <div class="h-full flex flex-col justify-center ml-1 mt-1">
-                <i class="fa-solid fa-angle-down"></i>
+                <i
+                  class="fa-solid fa-angle-down transition-all duration-300 ease-in-out"
+                  :style="{
+                    transform: solutions_dropdown
+                      ? 'rotate(180deg) translateY(2px)'
+                      : 'rotate(0deg) translateY(0)',
+                  }"
+                ></i>
               </div>
             </div>
           </router-link>
@@ -267,6 +275,60 @@
         </div>
       </div>
     </div>
+    <!-- solutions dropdown -->
+    <div
+      class="w-full h-[100vh] ml-0 absolute service-dropdown services top-[10vh] flex z-3000"
+      v-show="solutions_dropdown"
+    >
+      <div class="w-full h-full relative">
+        <div class="absolute w-full h-full z-20001 bg-default opacity-40">
+          <!-- dark panel -->
+        </div>
+        <div
+          class="absolute w-full flex flex-wrap justify-center"
+          @mouseenter="show_service_dropdown('solution')"
+          @mouseleave="hide_service_dropdown('solution')"
+        >
+          <div
+            class="w-[60%] flex h-fit bg-white z-20005 border-t-1 border-[#e3e3e3] rounded-b-sm flex-wrap"
+          >
+            <div class="w-1/2 flex flex-wrap pl-4 pr-4">
+              <h1 class="text-default font-semibold text-sm uppercase pt-4">
+                By Industry
+              </h1>
+              <div class="w-full mt-4 pb-6">
+                <p
+                  v-for="(industry, index) in industries"
+                  :key="index"
+                  class="mt-2 hover:underline w-fit"
+                >
+                  <router-link
+                    :to="`/resources/${is_solution}/${industry.name}`"
+                    >{{ industry.name }}</router-link
+                  >
+                </p>
+              </div>
+            </div>
+            <div class="w-1/2 flex flex-wrap pl-4 pr-4">
+              <h1 class="text-default font-semibold text-sm uppercase pt-4">
+                By Department
+              </h1>
+              <div class="w-full mt-4 pb-6">
+                <p
+                  v-for="(dep, index) in departments"
+                  :key="index"
+                  class="mt-2 hover:underline w-fit"
+                >
+                  <router-link :to="`/resources/${is_solution}/${dep.name}`">{{
+                    dep.name
+                  }}</router-link>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -281,6 +343,8 @@ export default {
     return {
       service_dropdown: false,
       product_dropdown: false,
+      solutions_dropdown: false,
+      is_solution: "solution",
       site_logo: "/logo.svg",
       products: [],
       socials: [
@@ -320,10 +384,13 @@ export default {
         { name: "Travel & Logistics" },
         { name: "Insurance" },
       ],
+      departments: [],
+      industries: [],
     };
   },
   created() {
     this.get_services();
+    this.get_solutions();
   },
   methods: {
     show_service_dropdown(key) {
@@ -331,6 +398,8 @@ export default {
         this.service_dropdown = true;
       } else if (key === "product") {
         this.product_dropdown = true;
+      } else if (key === "solution") {
+        this.solutions_dropdown = true;
       }
     },
     hide_service_dropdown(key) {
@@ -338,6 +407,8 @@ export default {
         this.service_dropdown = false;
       } else if (key === "product") {
         this.product_dropdown = false;
+      } else if (key === "solution") {
+        this.solutions_dropdown = false;
       }
     },
     async get_services() {
@@ -365,6 +436,30 @@ export default {
           }
         });
 
+        if (error) {
+          console.log(error);
+          return;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    //get solutions
+    async get_solutions() {
+      try {
+        const { data, error } = await supabase
+          .from("solutions_by_industry")
+          .select("id, name, is_department")
+          .order("created_at", { ascending: false });
+
+        const retrieved_data = data;
+        retrieved_data.forEach((item) => {
+          if (item.is_department === true) {
+            this.departments.push(item);
+          } else {
+            this.industries.push(item);
+          }
+        });
         if (error) {
           console.log(error);
           return;
