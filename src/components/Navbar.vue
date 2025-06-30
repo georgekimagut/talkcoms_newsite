@@ -300,12 +300,11 @@
                 <p
                   v-for="(industry, index) in industries"
                   :key="index"
-                  class="mt-2 hover:underline w-fit"
+                  class="mt-2 custom-default-hover w-fit"
                 >
-                  <router-link
-                    :to="`/resources/${is_solution}/${industry.name}`"
-                    >{{ industry.name }}</router-link
-                  >
+                  <router-link :to="`/solution/${industry.name}`">{{
+                    industry.name
+                  }}</router-link>
                 </p>
               </div>
             </div>
@@ -317,9 +316,9 @@
                 <p
                   v-for="(dep, index) in departments"
                   :key="index"
-                  class="mt-2 hover:underline w-fit"
+                  class="mt-2 custom-default-hover w-fit"
                 >
-                  <router-link :to="`/resources/${is_solution}/${dep.name}`">{{
+                  <router-link :to="`/solution/${dep.name}`">{{
                     dep.name
                   }}</router-link>
                 </p>
@@ -344,7 +343,6 @@ export default {
       service_dropdown: false,
       product_dropdown: false,
       solutions_dropdown: false,
-      is_solution: "solution",
       site_logo: "/logo.svg",
       products: [],
       socials: [

@@ -20,7 +20,7 @@
     </div>
     <div class="w-full mt-4">
       <router-link :to="link_to"
-        ><h3 class="font-semibold text-xl hover:underline">
+        ><h3 class="font-semibold text-xl custom-default-hover">
           {{ card_title }}
         </h3></router-link
       >

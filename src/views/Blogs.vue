@@ -97,7 +97,7 @@
             :card_title="blog.title"
             :blog_category="blog.category"
             :blog_date="`${format_date(blog.created_at)}`"
-            card_class="w-[28%] min-w-[28%] m-2 mb-4"
+            card_class="w-[31%] min-w-[28%] ml-[1.5%] mb-4"
             :link_to="`/resources/${is_blog}/${blog.title}`"
             :writer="blog.writer"
             :position="blog.position"

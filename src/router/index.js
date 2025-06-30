@@ -4,10 +4,13 @@ import About from "../views/About.vue";
 import ContactUs from "../views/ContactUs.vue";
 import Faqs from "../views/Faqs.vue";
 import Blogs from "../views/Blogs.vue";
-import ServiceView from "../views/ServiceView.vue";
+import ServiceView from "../views/dynamic/ServiceView.vue";
 import SuccessStories from "../views/SuccessStories.vue";
-import ResourceView from "../views/ResourceView.vue";
+import ResourceView from "../views/dynamic/ResourceView.vue";
 import NotFound from "../views/NotFound.vue";
+import SolutionView from "../views/dynamic/SolutionView.vue";
+import CaseStudies from "../views/CaseStudies.vue";
+import Testimonials from "../views/Testimonials.vue";
 
 const routes = [
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
@@ -45,14 +48,14 @@ const routes = [
     path: "/service/:id",
     name: "Single Service",
     component: ServiceView,
-    meta: { title: "Service" },
+    meta: { title: "Services" },
     props: true,
   },
   {
-    path: "/product/:id",
-    name: "Single Product",
-    component: ServiceView,
-    meta: { title: "Service" },
+    path: "/solution/:id",
+    name: "Single Industry",
+    component: SolutionView,
+    meta: { title: "Solutions by Industry" },
     props: true,
   },
   {
@@ -62,10 +65,23 @@ const routes = [
     meta: { title: "Success Stories" },
   },
   {
+    path: "/case-studies",
+    name: "Case Studies",
+    component: CaseStudies,
+    meta: { title: "Case Studies" },
+  },
+  {
     path: "/resources/:type/:id",
     name: "Resource",
     component: ResourceView,
     meta: { title: "Resources" },
+    props: true,
+  },
+  {
+    path: "/testimonials",
+    name: "Testimonials",
+    component: Testimonials,
+    meta: { title: "Testimonials" },
     props: true,
   },
 ];

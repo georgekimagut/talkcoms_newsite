@@ -560,16 +560,7 @@ export default {
           position: "IT Lead",
         },
       ],
-      industries: [
-        { icon: "fa solid fa-microchip", name: "Information Technology" },
-        { icon: "fa-solid fa-stethoscope", name: "Healthcare" },
-        { icon: "fa-solid fa-piggy-bank", name: "Banking" },
-        { icon: "fa-solid fa-coins", name: "Saccos and Chamas" },
-        { icon: "fa-solid fa-plane", name: "Travel & Logistics" },
-        { icon: "fa-solid fa-dollar-sign", name: "Insurance" },
-        { icon: "fa-solid fa-building", name: "Schools" },
-        { icon: "fa-solid fa-photo-film", name: "Media" },
-      ],
+      industries: [],
     };
   },
   async created() {
@@ -578,6 +569,7 @@ export default {
       await this.get_services();
       await this.get_portfolio_items();
       await this.get_carousel();
+      await this.get_solutions();
     } catch (error) {
       console.error("Loading failed:", error);
     } finally {
@@ -637,6 +629,24 @@ export default {
             imageUrl: imageData.publicUrl,
           };
         });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    //get solutions
+    async get_solutions() {
+      try {
+        const { data, error } = await supabase
+          .from("solutions_by_industry")
+          .select("id, name, is_department")
+          .order("created_at", { ascending: false });
+
+        this.industries = data;
+
+        if (error) {
+          console.log(error);
+          return;
+        }
       } catch (error) {
         console.log(error);
       }

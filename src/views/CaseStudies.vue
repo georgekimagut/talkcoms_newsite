@@ -6,12 +6,12 @@
     <!-- new hero -->
     <div class="w-full flex justify-center flex-wrap h-[75vh]">
       <div
-        v-for="(story, index) in all_stories_tracker.slice(0, 1)"
+        v-for="(story, index) in all_cases_tracker.slice(0, 1)"
         :key="index"
         class="w-[90%] flex h-full gap-4 overflow-hidden mt-16"
       >
         <div class="w-1/2">
-          <SmallTitle text="SUCCESS STORIES" />
+          <SmallTitle text="CASE STUDIES" />
           <BigTitle :text="story.title" title_class="mt-10 w-[90%]" />
           <p class="w-3/4 mt-10">
             {{ story.short_description }}
@@ -19,7 +19,7 @@
           <div class="w-full flex flex-wrap mt-8">
             <div class="w-full flex">
               <RoundedButton
-                :button_link="`/resources/${success_story}/${story.title}`"
+                :button_link="`/resources/${case_study}/${story.title}`"
                 button_text="Read Full Story"
                 button_icon="fa-solid fa-angle-right text-white"
                 :defaultColor="'#333'"
@@ -67,14 +67,14 @@
       </div>
       <div class="w-[90%] flex justify-center gap-4 mt-16">
         <CustomCard
-          v-for="(story, index) in success_stories"
+          v-for="(story, index) in case_studies"
           :key="index"
           :card_pic="story.pic"
           :card_title="story.client"
           :card_description="story.title"
           card_class="w-[31%] min-w-[28%] ml-[1.5%] mb-4"
           link_text="READ MORE"
-          :link_to="`/resources/${success_story}/${story.title}`"
+          :link_to="`/resources/${case_study}/${story.title}`"
           has_link
         />
       </div>
@@ -95,7 +95,7 @@ import SmallTitle from "../components/text/SmallTitle.vue";
 import { supabase } from "../store/supabase";
 
 export default {
-  name: "SuccesStories",
+  name: "CaseStudies",
   components: {
     Spinner,
     Navbar,
@@ -109,12 +109,24 @@ export default {
   data() {
     return {
       page_is_loading: true,
-      success_stories: [],
-      all_stories_tracker: [],
-      filtered_stories: [],
-      success_story: "story",
+      case_studies: [],
+      all_cases_tracker: [],
+      filtered_cases: [],
+      case_study: "case-study",
       services: [{ id: "0", name: "All", active_category: "" }],
     };
+  },
+  async created() {
+    this.page_is_loading = true;
+
+    try {
+      await this.get_studies();
+      await this.get_services();
+    } catch (error) {
+      console.error("Loading failed:", error);
+    } finally {
+      this.page_is_loading = false;
+    }
   },
   methods: {
     //change category
@@ -126,31 +138,29 @@ export default {
         };
       });
       // change categories
-      this.success_stories = this.all_stories_tracker;
+      this.case_studies = this.all_cases_tracker;
       if (item_id == "0") {
         return;
       }
       const selected_category = item_id;
-      this.filtered_stories = this.success_stories.filter(
+      this.filtered_cases = this.case_studies.filter(
         (story) => story.service_id === selected_category
       );
       // set stories to filtered
-      this.success_stories = this.filtered_stories;
+      this.case_studies = this.filtered_cases;
     },
     //get stories
-    async get_stories() {
+    async get_studies() {
       try {
-        const { data, error } = await supabase
-          .from("success_stories")
-          .select("*");
+        const { data, error } = await supabase.from("case_studies").select("*");
 
         if (error) {
           console.log(error);
           return;
         }
-        this.success_stories = data;
-        this.all_stories_tracker = this.success_stories;
-        this.filtered_stories = this.success_stories;
+        this.case_studies = data;
+        this.all_cases_tracker = this.case_studies;
+        this.filtered_cases = this.case_studies;
       } catch (error) {
         console.log(error);
       }
@@ -176,18 +186,6 @@ export default {
         console.log(error);
       }
     },
-  },
-  async mounted() {
-    this.page_is_loading = true;
-
-    try {
-      await this.get_stories();
-      await this.get_services();
-    } catch (error) {
-      console.error("Loading failed:", error);
-    } finally {
-      this.page_is_loading = false;
-    }
   },
 };
 </script>

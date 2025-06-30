@@ -6,12 +6,12 @@
     <!-- new hero -->
     <div class="w-full flex justify-center flex-wrap h-[75vh]">
       <div
-        v-for="(story, index) in all_stories_tracker.slice(0, 1)"
+        v-for="(story, index) in success_stories.slice(0, 1)"
         :key="index"
         class="w-[90%] flex h-full gap-4 overflow-hidden mt-16"
       >
         <div class="w-1/2">
-          <SmallTitle text="SUCCESS STORIES" />
+          <SmallTitle text="TESTIMONIALS" />
           <BigTitle :text="story.title" title_class="mt-10 w-[90%]" />
           <p class="w-3/4 mt-10">
             {{ story.short_description }}
@@ -54,17 +54,6 @@
           Stories from our clients
         </h1>
       </div>
-      <div class="w-[90%] mt-8 flex justify-end">
-        <div
-          v-for="(service, index) in services"
-          :key="index"
-          class="mr-4 cursor-pointer font-semibold custom-default-hover"
-          @click="change_category(index, service.id)"
-          :class="service.active_category"
-        >
-          {{ service.name }}
-        </div>
-      </div>
       <div class="w-[90%] flex justify-center gap-4 mt-16">
         <CustomCard
           v-for="(story, index) in success_stories"
@@ -79,13 +68,42 @@
         />
       </div>
     </div>
-    <!-- footer -->
+    <!-- testimonials -->
+    <div class="w-full flex justify-center flex-wrap mt-32 bg-white py-10">
+      <div class="w-[90%] flex justify-center flex-wrap mt-16">
+        <div
+          v-for="(testimonial, index) in testimonials"
+          :key="index"
+          class="w-[33%] mb-4 p-4 zoom-animate"
+        >
+          <div class="w-full mt-4 flex">
+            <div class="">
+              <i class="fa-solid fa-user p-6 bg-third text-white text-lg"></i>
+            </div>
+            <div class="ml-[10px]">
+              <h4 class="text-lg font-bold">{{ testimonial.reviewer }}</h4>
+              <h2>
+                {{ testimonial.company }}
+              </h2>
+            </div>
+          </div>
+          <div class="w-full">
+            <p class="mt-4">
+              {{ testimonial.review }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- footer & cta-->
+    <Cta />
     <Footer />
   </div>
 </template>
 <script>
 import RoundedButton from "../components/buttons/RoundedButton.vue";
 import CustomCard from "../components/cards/CustomCard.vue";
+import Cta from "../components/Cta.vue";
 import Footer from "../components/Footer.vue";
 import HeroSection from "../components/HeroSection.vue";
 import Navbar from "../components/Navbar.vue";
@@ -95,7 +113,7 @@ import SmallTitle from "../components/text/SmallTitle.vue";
 import { supabase } from "../store/supabase";
 
 export default {
-  name: "SuccesStories",
+  name: "Testimonials",
   components: {
     Spinner,
     Navbar,
@@ -105,84 +123,54 @@ export default {
     BigTitle,
     RoundedButton,
     CustomCard,
+    Cta,
   },
   data() {
     return {
       page_is_loading: true,
       success_stories: [],
-      all_stories_tracker: [],
-      filtered_stories: [],
+      testimonials: [],
       success_story: "story",
-      services: [{ id: "0", name: "All", active_category: "" }],
     };
   },
   methods: {
-    //change category
-    change_category(item_index, item_id) {
-      this.services = this.services.map((category, index) => {
-        return {
-          ...category,
-          active_category: index === item_index ? "text-secondary" : "",
-        };
-      });
-      // change categories
-      this.success_stories = this.all_stories_tracker;
-      if (item_id == "0") {
-        return;
-      }
-      const selected_category = item_id;
-      this.filtered_stories = this.success_stories.filter(
-        (story) => story.service_id === selected_category
-      );
-      // set stories to filtered
-      this.success_stories = this.filtered_stories;
-    },
     //get stories
     async get_stories() {
       try {
         const { data, error } = await supabase
           .from("success_stories")
-          .select("*");
+          .select("*")
+          .limit(6);
 
         if (error) {
           console.log(error);
           return;
         }
         this.success_stories = data;
-        this.all_stories_tracker = this.success_stories;
-        this.filtered_stories = this.success_stories;
       } catch (error) {
         console.log(error);
       }
     },
-    async get_services() {
+    async get_testimonials() {
       try {
-        const { data, error } = await supabase
-          .from("services")
-          .select("id, name")
-          .order("created_at", { ascending: false });
-        data.forEach((service) => {
-          this.services.push({
-            id: service.id,
-            name: service.name,
-            active_category: false,
-          });
-        });
+        const { data, error } = await supabase.from("testimonials").select("*");
+
         if (error) {
           console.log(error);
           return;
         }
+        this.testimonials = data;
       } catch (error) {
         console.log(error);
       }
     },
   },
-  async mounted() {
+  async created() {
     this.page_is_loading = true;
 
     try {
       await this.get_stories();
-      await this.get_services();
+      await this.get_testimonials();
     } catch (error) {
       console.error("Loading failed:", error);
     } finally {

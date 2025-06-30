@@ -15,7 +15,7 @@
           backgroundPosition: 'center',
         }"
       >
-        <div class="w-full h-full bg-black absolute opacity-60"></div>
+        <div class="w-full h-full bg-black absolute opacity-80"></div>
         <div class="w-[96%] flex justify-end mt-2 absolute">
           <a href="#" class="mr-2"
             ><i class="fa-brands fa-facebook-f text-secondary text-lg"></i
@@ -63,13 +63,25 @@
                 <p class="font-semibold">Table of Contents</p>
               </div>
               <ul class="content-body">
-                <li class="list-disc hover:underline">Heading</li>
-                <li class="list-disc hover:underline">Meeting and planning</li>
-                <li class="list-disc hover:underline">Implementation stage</li>
-                <li class="list-disc hover:underline">Implementation stage</li>
-                <li class="list-disc hover:underline">Implementation stage</li>
-                <li class="list-disc hover:underline">Implementation stage</li>
-                <li class="list-disc hover:underline">Implementation stage</li>
+                <li class="list-disc custom-default-hover">Heading</li>
+                <li class="list-disc custom-default-hover">
+                  Meeting and planning
+                </li>
+                <li class="list-disc custom-default-hover">
+                  Implementation stage
+                </li>
+                <li class="list-disc custom-default-hover">
+                  Implementation stage
+                </li>
+                <li class="list-disc custom-default-hover">
+                  Implementation stage
+                </li>
+                <li class="list-disc custom-default-hover">
+                  Implementation stage
+                </li>
+                <li class="list-disc custom-default-hover">
+                  Implementation stage
+                </li>
                 <!-- Add more as needed -->
               </ul>
             </div>
@@ -80,7 +92,7 @@
               <h3
                 v-for="(blog, index) in blogs"
                 :key="index"
-                class="mt-2 font-semibold hover:underline"
+                class="mt-2 font-semibold custom-default-hover"
               >
                 <router-link
                   :to="`/resources/${is_blog}/${blog.title}`"
@@ -137,18 +149,18 @@
   </div>
 </template>
 <script>
-import RoundedButton from "../components/buttons/RoundedButton.vue";
-import HeroSection from "../components/HeroSection.vue";
-import Footer from "../components/Footer.vue";
-import Navbar from "../components/Navbar.vue";
-import Spinner from "../components/Spinner.vue";
-import { supabase } from "../store/supabase";
-import BigTitle from "../components/text/BigTitle.vue";
+//new imports
+import RoundedButton from "../../components/buttons/RoundedButton.vue";
+import Footer from "../../components/Footer.vue";
+import Navbar from "../../components/Navbar.vue";
+import Spinner from "../../components/Spinner.vue";
+import { supabase } from "../../store/supabase";
+import BigTitle from "../../components/text/BigTitle.vue";
 
 export default {
   name: "ResourceView",
   props: ["id", "type"],
-  components: { Navbar, Spinner, HeroSection, RoundedButton, Footer, BigTitle },
+  components: { Navbar, Spinner, RoundedButton, Footer, BigTitle },
   data() {
     return {
       page_is_loading: true,
@@ -216,6 +228,19 @@ export default {
           //map data
           this.resource = data[0];
           this.get_blogs();
+        } else if (this.type === "case-study") {
+          const { data, error } = await supabase
+            .from("case_studies")
+            .select("*")
+            .eq("title", this.id)
+            .limit(1);
+
+          if (error) {
+            console.log(error);
+            return;
+          }
+          //map data
+          this.resource = data[0];
         }
       } catch (error) {
         console.log(error);

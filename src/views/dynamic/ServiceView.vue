@@ -508,21 +508,20 @@
   </div>
 </template>
 <script>
-import Accordion from "../components/Accordion.vue";
-import RoundedButton from "../components/buttons/RoundedButton.vue";
-import RoundedExternal from "../components/buttons/RoundedExternal.vue";
-import CustomCard from "../components/cards/CustomCard.vue";
-import Cta from "../components/Cta.vue";
-import Footer from "../components/Footer.vue";
-import HeroSection from "../components/HeroSection.vue";
-import Navbar from "../components/Navbar.vue";
-import ScrollDots from "../components/patterns/ScrollPattern.vue";
-import Spinner from "../components/Spinner.vue";
-import BigTitle from "../components/text/BigTitle.vue";
-import ExternalLink from "../components/text/ExternalLink.vue";
-import SmallTitle from "../components/text/SmallTitle.vue";
-import { text_colors } from "../store/store";
-import { supabase } from "../store/supabase";
+//new imports
+import RoundedButton from "../../components/buttons/RoundedButton.vue";
+import RoundedExternal from "../../components/buttons/RoundedExternal.vue";
+import CustomCard from "../../components/cards/CustomCard.vue";
+import Cta from "../../components/Cta.vue";
+import Footer from "../../components/Footer.vue";
+import Navbar from "../../components/Navbar.vue";
+import ScrollDots from "../../components/patterns/ScrollPattern.vue";
+import Spinner from "../../components/Spinner.vue";
+import BigTitle from "../../components/text/BigTitle.vue";
+import ExternalLink from "../../components/text/ExternalLink.vue";
+import SmallTitle from "../../components/text/SmallTitle.vue";
+import { text_colors } from "../../store/store";
+import { supabase } from "../../store/supabase";
 
 //end of scrolling
 
@@ -532,10 +531,8 @@ export default {
   components: {
     Spinner,
     Navbar,
-    HeroSection,
     RoundedButton,
     Footer,
-    Accordion,
     SmallTitle,
     BigTitle,
     Cta,
