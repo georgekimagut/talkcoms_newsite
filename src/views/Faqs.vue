@@ -56,7 +56,7 @@ import HeroSection from "../components/HeroSection.vue";
 import Navbar from "../components/Navbar.vue";
 import Spinner from "../components/Spinner.vue";
 import DefaultInput from "../components/inputs/DefaultInput.vue";
-import { supabase } from "../store/supabase";
+import { supabase } from "../assets/js/supabase";
 
 export default {
   name: "Faqs",

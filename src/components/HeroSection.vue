@@ -1,190 +1,188 @@
 <template>
-  <div
-    class="w-full flex justify-center"
-    :class="class_height"
-    :style="{ backgroundColor: bg_color }"
-  >
-    <div class="w-3/4 flex justify-center mt-16">
-      <div class="w-1/2" :class="is_shuffled ? 'order-1' : 'order-2'">
-        <p class="text-secondary w-3/4">{{ page_title }}</p>
-        <h1 class="text-4xl font-extrabold mt-10 w-3/4">
-          {{ page_statement }}
-        </h1>
-        <div v-if="is_blog" class="w-full flex mt-6">
-          <span
-            class="pr-4 pl-4 rounded-full text-sm bg-secondary text-white"
-            >{{ blog_category }}</span
-          >
-          <div class="bg-secondary h-[20px] w-[1px] ml-6">
-            <!-- this is the green line -->
-          </div>
-          <span class="ml-6 text-sm">{{ blog_date }}</span>
-        </div>
-        <p class="mt-10 w-3/4">
-          {{ page_min_statement }}
+  <HeroPattern />
+  <div class="w-full flex justify-center flex-wrap pb-10">
+    <div class="w-[90%] flex h-full gap-4 overflow-hidden mt-16">
+      <div class="w-1/2">
+        <SmallTitle :text="small_title" />
+        <BigTitle :text="big_title" title_class="mt-4 w-[90%]" />
+        <p class="w-3/4 mt-4">
+          {{ hero_description }}
         </p>
-        <p v-if="has_link" class="mt-4">
-          <router-link :to="blog_link" class="custom-link text-secondary mt-4">
-            Read More
-            <i class="fa-solid fa-angle-right text-xl ml-1 rotate-[-45deg]"></i>
-          </router-link>
-        </p>
-        <RoundedButton
-          v-if="has_demo_link"
-          button_link="/contact-us"
-          button_text="Get A Free Demo"
-          button_icon="fa-solid fa-angle-right"
-          :defaultColor="'#333'"
-          :hoverColor="'#8dc63f'"
-          :iconColor="'#262262'"
-          button_circle_background="#262262"
-          class="w-fit mt-4 p-2"
-        />
-        <div v-if="is_blog" class="w-full mt-4">
-          <router-link :to="blog_link" class="custom-link text-secondary">
-            Read More
-            <i class="fa-solid fa-angle-right text-xl ml-1 rotate-[-45deg]"></i>
-          </router-link>
-        </div>
-        <div v-if="is_service" class="w-full mt-4 flex">
-          <RoundedButton
-            v-if="has_demo"
-            button_link="/contact-us"
-            button_text="Get A Free Demo"
-            button_icon="fa-solid fa-angle-right"
-            :defaultColor="'#333'"
-            :hoverColor="'#8dc63f'"
-            :iconColor="'#262262'"
-            button_circle_background="#262262"
-            class="p-2"
-          />
-          <RoundedButton
-            class="ml-4 p-2"
-            button_link="/contact"
-            button_text="Talk To Sales"
-            button_icon="fa-solid fa-angle-right text-white"
-            :defaultColor="'#333'"
-            :hoverColor="'#262262'"
-            :iconColor="'#f5f5f5'"
-            button_border="#8dc63f"
-            button_background="#f5f5f5"
-            button_circle_background="#8dc63f"
-          />
-        </div>
-        <!-- contact us page -->
-        <div v-if="is_contact_us" class="w-full mt-10">
-          <div class="w-3/4 flex h-[10vh] p-2 rounded-xl">
-            <div
-              class="w-[50px] h-full rounded-lg flex justify-center bg-secondary"
-            >
-              <div class="h-full flex flex-col justify-center">
-                <i class="fa-solid fa-phone text-white text-xl"></i>
-              </div>
+        <div class="w-full flex flex-wrap mt-4">
+          <div v-show="is_blog" class="w-full flex">
+            <span class="bg-secondary rounded-full text-white pr-4 pl-4">
+              {{ blog_category ? blog_category : blog_type }}
+            </span>
+            <div class="bg-secondary h-[20px] w-[1px] ml-6">
+              <!-- this is the green line -->
             </div>
-            <!-- content side -->
-            <div class="ml-2">
-              <h1 class="font-semibold">Phone</h1>
-              <p class="">+254 746 433 163</p>
-            </div>
+            <span class="ml-6"> {{ blog_date }} </span>
           </div>
-          <!-- email -->
-          <div class="w-3/4 flex h-[10vh] p-2 rounded-xl">
-            <div
-              class="w-[50px] h-full rounded-lg flex justify-center bg-secondary"
-            >
-              <div class="h-full flex flex-col justify-center">
-                <i class="fa-solid fa-envelope text-white text-xl"></i>
-              </div>
-            </div>
-            <!-- content side -->
-            <div class="ml-2">
-              <h1 class="font-semibold">Email</h1>
-              <p class="">support@talkcoms.co.uk</p>
-            </div>
+          <!-- if it's a blog -->
+          <div v-show="is_blog" class="w-full mt-10 flex">
+            <RoundedButton
+              :button_link="read_more_link"
+              button_text="Read Full Blog"
+              button_icon="fa-solid fa-angle-right text-white"
+              :defaultColor="'#333'"
+              :hoverColor="'#262262'"
+              :iconColor="'#ffffff'"
+              button_border="#8dc63f"
+              button_background="#ffffff"
+              button_circle_background="#8dc63f"
+              class="w-fit"
+            />
           </div>
-          <!-- physical offices -->
-          <div class="w-3/4 flex h-[10vh] p-2 rounded-xl">
-            <div
-              class="w-[50px] h-full rounded-lg flex justify-center bg-secondary"
-            >
-              <div class="h-full flex flex-col justify-center">
-                <i class="fa-solid fa-location-dot text-white text-xl"></i>
+          <!-- if it's a service -->
+          <div v-show="is_service" class="w-full flex mt-10">
+            <RoundedButton
+              :button_link="demo_link"
+              button_text="Book A Free Demo"
+              button_icon="fa-solid fa-angle-right"
+              :defaultColor="'#333'"
+              :hoverColor="'#8dc63f'"
+              :iconColor="'#262262'"
+              button_circle_background="#262262"
+            />
+            <RoundedButton
+              class="ml-4"
+              button_link="/contact-us"
+              button_text="Talk to sales"
+              button_icon="fa-solid fa-angle-right text-white"
+              :defaultColor="'#333'"
+              :hoverColor="'#262262'"
+              :iconColor="'#ffffff'"
+              button_border="#8dc63f"
+              button_background="#ffffff"
+              button_circle_background="#8dc63f"
+            />
+          </div>
+          <!-- industry -->
+          <div v-show="is_industry" class="w-full mt-10 flex">
+            <RoundedButton
+              :button_link="read_more_link"
+              button_text="Read Full Blog"
+              button_icon="fa-solid fa-angle-right text-white"
+              :defaultColor="'#333'"
+              :hoverColor="'#262262'"
+              :iconColor="'#ffffff'"
+              button_border="#8dc63f"
+              button_background="#ffffff"
+              button_circle_background="#8dc63f"
+              class="w-fit"
+            />
+          </div>
+          <!-- contacts -->
+          <div v-show="is_contact" class="w-full mt-6 flex flex-wrap">
+            <!-- offices -->
+            <div class="w-full flex flex-wrap mt-4">
+              <div class="w-full flex flex-nowrap">
+                <div
+                  class="w-[30px] min-w-[e0px] h-[30px] max-h-[30px] flex justify-center p-4 rounded-sm bg-secondary"
+                >
+                  <div class="h-full flex flex-col justify-center">
+                    <i class="fa-solid fa-envelope text-white"></i>
+                  </div>
+                </div>
+                <!-- title -->
+                <div class="w-full ml-4 h-full flex flex-col justify-end">
+                  <h1 class="font-semibold">Offices</h1>
+                </div>
+              </div>
+
+              <!-- emails -->
+              <div class="w-full mt-4">
+                <div
+                  v-for="(office, index) in offices"
+                  :key="index"
+                  class="w-full"
+                >
+                  <p class="font-semibold">{{ office.name }}</p>
+                  <p class="mb-2">{{ office.location }}</p>
+                </div>
               </div>
             </div>
-            <!-- content side -->
-            <div class="ml-2">
-              <h1 class="font-semibold">Our Offices</h1>
-              <p class="">The Well Mall, Karen</p>
-              <p class="">Skyrise Plaza, Eldama Ravine</p>
+            <!-- phone -->
+            <div class="w-1/2 flex flex-wrap mt-10">
+              <div class="w-full flex flex-nowrap">
+                <div
+                  class="w-[30px] min-w-[e0px] h-[30px] max-h-[30px] flex justify-center p-4 rounded-sm bg-secondary"
+                >
+                  <div class="h-full flex flex-col justify-center">
+                    <i class="fa-solid fa-phone text-white"></i>
+                  </div>
+                </div>
+                <!-- title -->
+                <div class="w-full ml-4 h-full flex flex-col justify-end">
+                  <h1 class="font-semibold">Phone</h1>
+                </div>
+              </div>
+
+              <!-- phone -->
+              <div class="w-full mt-4">
+                <p
+                  v-for="(phone, index) in phones"
+                  :key="index"
+                  class="text-sm"
+                >
+                  <a :href="`tel:${phone.phone}`" class="custom-default-hover">
+                    {{ phone.phone }}
+                  </a>
+                </p>
+              </div>
+            </div>
+            <!-- emails -->
+            <div class="w-1/2 flex flex-wrap mt-10">
+              <div class="w-full flex flex-nowrap">
+                <div
+                  class="w-[30px] min-w-[e0px] h-[30px] max-h-[30px] flex justify-center p-4 rounded-sm bg-secondary"
+                >
+                  <div class="h-full flex flex-col justify-center">
+                    <i class="fa-solid fa-envelope text-white"></i>
+                  </div>
+                </div>
+                <!-- title -->
+                <div class="w-full ml-4 h-full flex flex-col justify-end">
+                  <h1 class="font-semibold">Email</h1>
+                </div>
+              </div>
+
+              <!-- emails -->
+              <div class="w-full mt-4">
+                <p v-for="(email, index) in emails" :key="index">
+                  <a
+                    :href="`mailto:${email.email}`"
+                    class="custom-default-hover"
+                  >
+                    {{ email.email }}
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div
-        class="w-1/2 flex justify-center"
-        :class="is_shuffled ? 'order-1' : 'order-2'"
-      >
-        <div v-if="small_pic" class="w-[30%] min-w-[30%] h-full mr-8 relative">
-          <!-- review -->
+      <div class="w-1/2 h-[55vh]">
+        <div class="w-full h-full flex rounded-xl overflow-hidden">
           <div
-            v-if="f_review"
-            class="w-[200px] p-2 top-52 left-[75%] z-100 absolute bg-secondary rounded-full flex"
-          >
-            <img src="/icons/profile.png" class="h-full w-auto" />
-            <div class="ml-[16px] h-full flex-col justify-center">
-              <p class="text-sm">{{ f_review }}</p>
-            </div>
-          </div>
-          <div class="h-full w-full overflow-hidden rounded-xl">
-            <img :src="small_pic" class="h-full max-w-none" />
-          </div>
-        </div>
-        <div
-          class="h-full relative"
-          :style="{ width: small_pic ? '70%' : '100%' }"
-        >
-          <!-- google stat -->
-          <div
-            v-if="sec_review"
-            class="w-[200px] h-[100px] top-10 left-[75%] z-100 absolute"
-          >
-            <div class="h-full w-full relative">
-              <di
-                class="absolute mt-[-18px] w-full flex justify-center h-[40px] overflow-hidden"
-              >
-                <img src="/icons/google-g.svg" />
-              </di>
-              <div class="bg-white w-full h-full mt-[20px] rounded-xl">
-                <p class="text-sm w-full flex justify-center pt-6">
-                  200+ Reviews
-                </p>
-                <div class="w-full flex justify-center mt-2">
-                  <img
-                    v-for="index in 5"
-                    :key="index"
-                    src="/icons/Star.svg"
-                    class="w-[16px]"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- review -->
-          <div
-            v-if="sec_review"
-            class="w-[200px] p-2 top-52 left-[75%] z-100 absolute bg-secondary rounded-full flex"
-          >
-            <img src="/icons/profile.png" class="h-full w-auto" />
-            <div class="ml-[16px] h-full flex-col justify-center">
-              <p class="text-sm">{{ sec_review }}</p>
-            </div>
-          </div>
-          <div
-            class="h-full w-full overflow-hidden rounded-xl flex justify-center"
+            v-if="hero_small_image"
+            class="h-full w-[30%] overflow-hidden rounded-xl"
           >
             <img
-              :src="big_pic"
-              class="h-auto w-auto min-h-full min-w-full max-w-none"
+              :src="hero_small_image"
+              alt="Blog image header"
+              class="h-full min-w-full w-auto max-w-none max-h-none object-cover rounded-xl"
+            />
+          </div>
+          <div
+            class="h-full overflow-hidden rounded-xl"
+            :class="hero_small_image ? 'w-[67%] ml-[3%]' : 'w-full ml-0'"
+          >
+            <img
+              :src="hero_image"
+              alt="Blog image header"
+              class="w-full min-w-full max-w-none h-auto max-h-none object-cover rounded-xl"
+              :class="hero_small_image ? 'min-h-full ' : ''"
             />
           </div>
         </div>
@@ -194,30 +192,55 @@
 </template>
 <script>
 import RoundedButton from "./buttons/RoundedButton.vue";
+import HeroPattern from "./patterns/HeroPattern.vue";
+import BigTitle from "./text/BigTitle.vue";
+import SmallTitle from "./text/SmallTitle.vue";
 
 export default {
   name: "HeroSection",
-  components: { RoundedButton },
+  components: { RoundedButton, HeroPattern, SmallTitle, BigTitle },
   props: {
-    page_title: String,
-    page_statement: String,
-    page_min_statement: String,
-    small_pic: String,
-    big_pic: String,
-    f_review: String,
-    sec_review: String,
-    class_height: String,
-    blog_category: String,
-    blog_date: String,
-    blog_link: String,
-    is_contact_us: Boolean,
+    small_title: String,
+    big_title: String,
+    hero_description: String,
     is_blog: Boolean,
+    blog_category: String,
+    blog_type: String,
+    blog_date: String,
+    read_more_link: String,
+    demo_link: String,
+    hero_image: String,
     is_service: Boolean,
-    has_demo: Boolean,
-    is_shuffled: Boolean,
-    has_link: Boolean,
-    has_demo_link: Boolean,
-    bg_color: String,
+    is_industry: Boolean,
+    has_double_images: Boolean,
+    hero_small_image: String,
+    is_contact: Boolean,
+  },
+  data() {
+    return {
+      phones: [{ phone: "+2547 592 009 98" }, { phone: "+254 746 433 163" }],
+      emails: [
+        { email: "support@talkcoms.co.uk" },
+        { email: "solutions@talkcoms.co.uk" },
+      ],
+      offices: [
+        {
+          name: "UK OFFICE",
+          location:
+            "The Kings Centre Main Road, Barleythorpe Oakham, LE15 7WD, United Kingdom",
+        },
+        {
+          name: "NAIROBI OFFICE",
+          location:
+            "Great Jubilee Center ( The Well), Karen, Nairobi 1’st Floor Unit No. 07, Kenya",
+        },
+        {
+          name: "ELDAMA RAVINE OFFICE",
+          location:
+            "3rd Floor, Skyrise Plaza, Eldama Ravine Township, Along Ravine - Nakuru Road",
+        },
+      ],
+    };
   },
 };
 </script>

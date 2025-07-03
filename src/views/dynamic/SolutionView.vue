@@ -3,51 +3,15 @@
   <Spinner v-if="page_is_loading" />
   <div v-if="page_is_loading === false" class="w-full">
     <Navbar />
-    <!-- hero section -->
-    <div class="w-full flex justify-center flex-wrap h-[60vh] bg-white">
-      <!-- <div class="w-full h-3/4 custom-linear-bg opacity-20 absolute"></div> -->
-      <div class="w-[90%] flex h-full gap-4 overflow-hidden mt-16">
-        <div class="w-1/2">
-          <SmallTitle :text="this.id" />
-          <BigTitle :text="solution.title" title_class="mt-10 w-[90%]" />
-          <p class="w-3/4 mt-10">
-            {{ solution.description }}
-          </p>
-          <div class="w-full flex mt-10">
-            <RoundedButton
-              :button_link="`/demo/${this.id}`"
-              button_text="Get Started"
-              button_icon="fa-solid fa-angle-right"
-              :defaultColor="'#333'"
-              :hoverColor="'#8dc63f'"
-              :iconColor="'#262262'"
-              button_circle_background="#262262"
-            />
-            <RoundedButton
-              class="ml-4"
-              button_link="/contact-us"
-              button_text="Talk to sales"
-              button_icon="fa-solid fa-angle-right text-white"
-              :defaultColor="'#333'"
-              :hoverColor="'#262262'"
-              :iconColor="'#ffffff'"
-              button_border="#8dc63f"
-              button_background="#ffffff"
-              button_circle_background="#8dc63f"
-            />
-          </div>
-        </div>
-        <div class="w-1/2 h-full">
-          <div class="w-full h-[90%] rounded-xl overflow-hidden">
-            <img
-              :src="solution.pic"
-              class="w-full min-w-full max-w-none h-auto max-h-none object-cover"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end of hero section -->
+    <HeroSection
+      :small_title="this.id"
+      :big_title="solution.title"
+      :hero_description="solution.description"
+      :read_more_link="`/demo/${this.id}`"
+      :hero_image="solution.pic"
+      is_service
+    />
+
     <!-- advantages section -->
     <div class="w-full flex justify-center mt-32 py-16">
       <div class="w-[90%] flex flex-wrap relative">
@@ -189,13 +153,14 @@
 import Spinner from "../../components/Spinner.vue";
 import Navbar from "../../components/Navbar.vue";
 import RoundedButton from "../../components/buttons/RoundedButton.vue";
-import { supabase } from "../../store/supabase";
+import { supabase } from "../../assets/js/supabase";
 import SmallTitle from "../../components/text/SmallTitle.vue";
 import BigTitle from "../../components/text/BigTitle.vue";
 import Footer from "../../components/Footer.vue";
 import Cta from "../../components/Cta.vue";
 import CustomCard from "../../components/cards/CustomCard.vue";
 import IconCard from "../../components/cards/IconCard.vue";
+import HeroSection from "../../components/HeroSection.vue";
 
 export default {
   name: "SolutionView",
@@ -210,6 +175,7 @@ export default {
     Cta,
     CustomCard,
     IconCard,
+    HeroSection,
   },
   data() {
     return {

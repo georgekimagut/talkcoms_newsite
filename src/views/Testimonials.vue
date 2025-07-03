@@ -110,7 +110,7 @@ import Navbar from "../components/Navbar.vue";
 import Spinner from "../components/Spinner.vue";
 import BigTitle from "../components/text/BigTitle.vue";
 import SmallTitle from "../components/text/SmallTitle.vue";
-import { supabase } from "../store/supabase";
+import { supabase } from "../assets/js/supabase";
 
 export default {
   name: "Testimonials",

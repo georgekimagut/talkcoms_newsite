@@ -1,142 +1,93 @@
 <template>
   <!-- load spinner before -->
   <Spinner v-if="page_is_loading" />
-  <div v-if="page_is_loading === false" class="w-full">
+  <div v-if="page_is_loading === false" class="w-full bg-white">
     <Navbar />
-    <!-- hero section -->
-    <div class="w-full flex justify-center">
-      <div
-        class="w-full flex justify-center h-[50vh] overflow-hidden relative"
-        :style="{
-          backgroundImage: `url('${resource.pic}')`,
-          backgroundAttachment: 'fixed',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-        }"
-      >
-        <div class="w-full h-full bg-black absolute opacity-80"></div>
-        <div class="w-[96%] flex justify-end mt-2 absolute">
-          <a href="#" class="mr-2"
-            ><i class="fa-brands fa-facebook-f text-secondary text-lg"></i
-          ></a>
-          <a href="#" class="mr-2"
-            ><i class="fa-brands fa-x-twitter text-secondary text-lg"></i
-          ></a>
-          <a href="#" class="mr-2"
-            ><i class="fa-brands fa-whatsapp text-secondary text-lg"></i
-          ></a>
-          <a href="#" class="mr-2"
-            ><i class="fa-brands fa-linkedin text-secondary text-lg"></i
-          ></a>
-        </div>
-        <div class="w-[90%] h-fit absolute z-20">
-          <BigTitle
-            :text="resource.title"
-            title_class="mt-10 w-[90%] text-white text-5xl"
-          />
-          <p class="w-full text-white text-2xl mt-6">
-            {{ resource.short_description ?? resource.description ?? "" }}
-          </p>
-          <!-- author -->
-          <p class="w-full text-secondary mt-4">
-            <span v-if="type === 'blog'"
-              >By: {{ resource.writer }} ,
-              {{ format_date(resource.created_at) }}</span
-            >
-            <span v-else class="text-2xl font-bold">{{ resource.client }}</span>
-          </p>
-        </div>
-      </div>
-    </div>
-    <!-- end of hero section -->
-
-    <div class="w-full flex justify-center">
-      <div class="w-[90%] flex">
+    <div class="w-full flex justify-center flex-wrap">
+      <div class="w-[90%] flex flex-wrap">
         <!-- Sticky sidebar -->
         <div class="w-[30%] sticky top-[15vh] self-start">
           <div class="w-full pt-4 pb-4">
             <div
-              class="w-full max-h-[50vh] overflow-y-scroll hide-scrollbar bg-white p-4"
+              class="w-full overflow-y-scroll hide-scrollbar bg-white p-4 shadow-sm"
             >
               <div class="w-full pb-4 border-b border-[#82bc00]">
                 <p class="font-semibold">Table of Contents</p>
               </div>
-              <ul class="content-body">
-                <li class="list-disc custom-default-hover">Heading</li>
-                <li class="list-disc custom-default-hover">
-                  Meeting and planning
+              <ul class="content-body px-4">
+                <li
+                  v-for="(item, index) in table_of_contents"
+                  :key="index"
+                  class="list-disc"
+                >
+                  <a
+                    :href="'#' + item.id"
+                    class="custom-default-hover"
+                    active-class="text-third"
+                  >
+                    {{ item.text }}
+                  </a>
                 </li>
-                <li class="list-disc custom-default-hover">
-                  Implementation stage
-                </li>
-                <li class="list-disc custom-default-hover">
-                  Implementation stage
-                </li>
-                <li class="list-disc custom-default-hover">
-                  Implementation stage
-                </li>
-                <li class="list-disc custom-default-hover">
-                  Implementation stage
-                </li>
-                <li class="list-disc custom-default-hover">
-                  Implementation stage
-                </li>
-                <!-- Add more as needed -->
               </ul>
-            </div>
-            <div v-if="type === 'blog'" class="mt-10 bg-white p-4">
-              <div class="w-full bg-white pb-4 border-b border-[#82bc00]">
-                <p class="font-semibold">Other Blogs</p>
-              </div>
-              <h3
-                v-for="(blog, index) in blogs"
-                :key="index"
-                class="mt-2 font-semibold custom-default-hover"
-              >
-                <router-link
-                  :to="`/resources/${is_blog}/${blog.title}`"
-                  :class="resource.title === blog.title ? 'text-third' : ''"
-                >
-                  {{ blog.title }}</router-link
-                >
-              </h3>
             </div>
           </div>
         </div>
 
         <!-- Scrollable content -->
         <div class="w-[70%] pl-8">
-          <div class="mt-10 space-y-20">
+          <div class="w-[95%] ml-[5%] mt-10 space-y-20">
+            <!-- resource details -->
+            <div class="w-full">
+              <BigTitle :text="resource.Title" title_class="mt-4 text-2xl" />
+              <!-- <p class="w-full mt-6">
+                {{ resource.short_description ?? resource.description ?? "" }}
+              </p> -->
+              <!-- author -->
+              <div class="w-full flex">
+                <div class="w-1/2">
+                  <p class="w-full text-secondary mt-4">
+                    <span v-if="type === 'blog'"
+                      >By: {{ resource.author }} ,
+                      {{ format_date(resource.createdAt) }}</span
+                    >
+                    <span v-else class="font-bold">{{ resource.client }}</span>
+                  </p>
+                </div>
+                <div class="w-1/2 flex justify-end">
+                  <p class="w-full text-end mt-4">
+                    <span v-if="type === 'blog'">
+                      {{ resource.read_time }} mins</span
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- image -->
+            <div class="w-full h-[60vh] overflow-hidden mt-[-8vh]">
+              <img
+                :src="`${resource_image_url}/${resource.hero_media.url}`"
+                class="w-full h-auto object-cover"
+              />
+            </div>
+
             <!-- contents of the resource -->
             <div
-              v-html="resource.content || resource.article"
-              class="w-[95%] ml-[5%] mt-20"
+              ref="content_body"
+              v-html="sanitized_resource || sanitized_resource"
+              class="w-full mt-10 block"
             ></div>
-            <div class="w-full mt-32 flex justify-center flex-wrap">
-              <p class="text-lg">Was this story helpful?</p>
-              <div class="w-full flex justify-center mt-8">
-                <RoundedButton
-                  button_link="#"
-                  button_text="No"
-                  button_icon="fa-solid fa-angle-right"
-                  :defaultColor="'#333'"
-                  :hoverColor="'#8dc63f'"
-                  :iconColor="'#262262'"
-                  button_circle_background="#262262"
-                  class="w-[100px]"
+            <div class="w-full mt-20 flex justify-center flex-wrap">
+              <p class="text-lg">Was this helpful?</p>
+              <div class="w-full flex justify-center flex-nowrap mt-8">
+                <SquareButton
+                  button_text="Yes, Thank You!"
+                  button_class="bg-default border-1 text-white rounded-lg p-3 h-fit w-fit cursor-pointer"
+                  hover_color="bg-secondary"
                 />
-                <RoundedButton
-                  class="ml-4"
-                  button_link="#"
-                  button_text="Yes"
-                  button_icon="fa-solid fa-angle-right text-white"
-                  :defaultColor="'#333'"
-                  :hoverColor="'#262262'"
-                  :iconColor="'#f5f5f5'"
-                  button_border="#8dc63f"
-                  button_background="#f5f5f5"
-                  button_circle_background="#8dc63f"
+                <SquareButton
+                  button_text="No, not really"
+                  button_class="bg-secondary ml-4 text-white rounded-lg p-3 h-fit w-fit cursor-pointer"
+                  hover_color="bg-default"
                 />
               </div>
             </div>
@@ -145,6 +96,7 @@
       </div>
     </div>
     <!-- footer  -->
+    <Cta class="mt-40" />
     <Footer />
   </div>
 </template>
@@ -154,19 +106,40 @@ import RoundedButton from "../../components/buttons/RoundedButton.vue";
 import Footer from "../../components/Footer.vue";
 import Navbar from "../../components/Navbar.vue";
 import Spinner from "../../components/Spinner.vue";
-import { supabase } from "../../store/supabase";
+import { supabase } from "../../assets/js/supabase";
 import BigTitle from "../../components/text/BigTitle.vue";
+import SquareButton from "../../components/buttons/SquareButton.vue";
+import { baseUrl } from "../../assets/js/store";
+
+import Cta from "../../components/Cta.vue";
+
+//markup content
+import DOMPurify from "dompurify";
+import { marked } from "marked";
 
 export default {
   name: "ResourceView",
   props: ["id", "type"],
-  components: { Navbar, Spinner, RoundedButton, Footer, BigTitle },
+  components: {
+    Navbar,
+    Spinner,
+    RoundedButton,
+    Footer,
+    BigTitle,
+    SquareButton,
+    Cta,
+  },
+
   data() {
     return {
       page_is_loading: true,
+      has_no_hero: false,
       is_blog: "blog",
       resource: "",
-      blogs: [],
+      sanitized_resource: "",
+      resource_image_url: baseUrl,
+      // blogs: [],
+      table_of_contents: [],
     };
   },
   async created() {
@@ -178,25 +151,27 @@ export default {
       console.error("Loading failed:", error);
     } finally {
       this.page_is_loading = false;
+      this.$nextTick(() => {
+        setTimeout(() => this.generate_table_of_contents(), 200);
+      });
     }
-
-    //watch route changes
-    this.$watch(
-      () => this.$route.params,
-      async () => {
-        this.page_is_loading = true;
-
-        try {
-          await this.get_resource();
-        } catch (error) {
-          console.error("Loading failed:", error);
-        } finally {
-          this.page_is_loading = false;
-        }
-      }
-    );
   },
   methods: {
+    //create table of contents
+    generate_table_of_contents() {
+      const headings = this.$refs.content_body.querySelectorAll("h1, h2, h3");
+      this.table_of_contents = [];
+
+      headings.forEach((heading, index) => {
+        if (!heading.id) heading.id = `heading-${index}`;
+        this.table_of_contents.push({
+          id: heading.id,
+          text: heading.innerText,
+          level: heading.tagName,
+        });
+      });
+      // console.log(this.table_of_contents);
+    },
     async get_resource() {
       try {
         //check the type of service before retrieval
@@ -214,20 +189,37 @@ export default {
           //map data
           this.resource = data[0];
         } else if (this.type === "blog") {
-          //get blog
-          const { data, error } = await supabase
-            .from("blogs")
-            .select("*")
-            .eq("title", this.id)
-            .limit(1);
+          const response = await fetch(
+            `${baseUrl}/api/blog-posts?filters[slug][$eq]=${this.id}&populate=*`
+          );
 
-          if (error) {
-            console.log(error);
-            return;
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
           }
-          //map data
-          this.resource = data[0];
-          this.get_blogs();
+
+          const response_data = await response.json();
+
+          if (response_data.data) {
+            const data = Array.isArray(response_data.data)
+              ? response_data.data[0]
+              : response_data.data;
+
+            this.resource = data;
+            let markdown = this.resource?.articles_section || "";
+            marked.setOptions({
+              headerIds: true,
+              headerPrefix: "",
+              mangle: false,
+            });
+
+            const html = marked.parse(markdown);
+            this.sanitized_resource = DOMPurify.sanitize(html);
+            console.log(data);
+          } else {
+            throw new Error("No data found in response");
+          }
+
+          // this.get_blogs();
         } else if (this.type === "case-study") {
           const { data, error } = await supabase
             .from("case_studies")
@@ -247,20 +239,20 @@ export default {
       }
     },
     //get blogs
-    async get_blogs() {
-      try {
-        const { data, error } = await supabase.from("blogs").select("title");
+    // async get_blogs() {
+    //   try {
+    //     const { data, error } = await supabase.from("blogs").select("title");
 
-        if (error) {
-          console.log(error);
-          return;
-        }
+    //     if (error) {
+    //       console.log(error);
+    //       return;
+    //     }
 
-        this.blogs = data;
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    //     this.blogs = data;
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
     //change date format
     format_date(date_to_change) {
       const date = new Date(date_to_change);

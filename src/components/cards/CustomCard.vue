@@ -35,7 +35,7 @@
         </div>
         <div class="ml-4">
           <p class="font-semibold">{{ writer }}</p>
-          <p class="text-sm">{{ position }}</p>
+          <p class="text-sm">{{ read_time }}</p>
         </div>
       </div>
       <div v-show="has_link" class="w-full flex justify-end pb-4 mt-10">
@@ -74,7 +74,7 @@ export default {
     blog_category: String,
     blog_date: String,
     writer: String,
-    position: String,
+    read_time: String,
   },
 };
 </script>

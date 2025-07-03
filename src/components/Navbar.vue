@@ -332,7 +332,7 @@
 </template>
 <script>
 import DefaultButton from "./buttons/RoundedButton.vue";
-import { supabase } from "../store/supabase.js";
+import { supabase } from "../assets/js/supabase.js";
 import Link from "./text/Link.vue";
 
 export default {

@@ -4,13 +4,11 @@
   <div v-if="page_is_loading === false" class="w-full">
     <Navbar />
     <HeroSection
-      class_height="h-[70vh]"
-      page_title="CONTACT US"
-      big_pic="/carousel/about-us.png"
-      small_pic="/carousel/about-us.png"
-      page_min_statement="Drop us a message or contact us directly via our phone
-    numbers below."
-      is_contact_us="true"
+      small_title="CONTACT US"
+      hero_description="Drop us a message or contact us directly via our phone numbers below."
+      hero_image="/static/pic-3.png"
+      hero_small_image="/static/about-us.png"
+      is_contact
     />
     <!-- contact us -->
     <div class="w-full flex mt-32 justify-center">

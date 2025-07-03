@@ -4,12 +4,11 @@
   <div v-if="page_is_loading === false" class="w-full">
     <Navbar />
     <HeroSection
-      class_height="h-[60vh]"
-      page_title="ABOUT US"
-      page_statement="Creating Intelligent Digital Solutions For Ambitious Businesses That Want To Keep Moving Foward"
-      big_pic="/carousel/about-us.png"
-      small_pic="/carousel/about-us.png"
-      page_min_statement="Talkcoms is a Leading IT Solutions Provider Incorporated in the UK in 2016."
+      small_title="ABOUT US"
+      big_title="Creating Intelligent Digital Solutions For Ambitious Businesses That Want To Keep Moving Foward"
+      hero_description="Talkcoms is a Leading IT Solutions Provider Incorporated in the UK in 2016."
+      hero_image="/static/pic-3.png"
+      hero_small_image="/static/about-us.png"
     />
     <!-- main about us -->
     <div class="w-full flex justify-center mt-32">

@@ -3,52 +3,14 @@
   <Spinner v-if="page_is_loading" />
   <div v-if="page_is_loading === false" class="w-full">
     <Navbar />
-    <div class="w-full flex justify-center flex-wrap h-[60vh] bg-white">
-      <!-- <div class="w-full h-3/4 custom-linear-bg opacity-20 absolute"></div> -->
-      <div class="w-[90%] flex h-full gap-4 overflow-hidden mt-16">
-        <div class="w-1/2">
-          <SmallTitle :text="this.id" />
-          <BigTitle
-            :text="service.title_description"
-            title_class="mt-10 w-[90%]"
-          />
-          <p class="w-3/4 mt-10">
-            {{ service.product_subtitle }}
-          </p>
-          <div class="w-full flex mt-10">
-            <RoundedButton
-              :button_link="`/demo/${this.id}`"
-              button_text="Book A Free Demo"
-              button_icon="fa-solid fa-angle-right"
-              :defaultColor="'#333'"
-              :hoverColor="'#8dc63f'"
-              :iconColor="'#262262'"
-              button_circle_background="#262262"
-            />
-            <RoundedButton
-              class="ml-4"
-              button_link="/contact"
-              button_text="Talk to sales"
-              button_icon="fa-solid fa-angle-right text-white"
-              :defaultColor="'#333'"
-              :hoverColor="'#262262'"
-              :iconColor="'#ffffff'"
-              button_border="#8dc63f"
-              button_background="#ffffff"
-              button_circle_background="#8dc63f"
-            />
-          </div>
-        </div>
-        <div class="w-1/2 h-full">
-          <div class="w-full h-[90%] rounded-xl overflow-hidden">
-            <img
-              :src="service.imageUrl"
-              class="w-full min-w-full max-w-none h-auto max-h-none object-cover"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+    <HeroSection
+      :small_title="this.id"
+      :big_title="service.title_description"
+      :hero_description="service.product_subtitle"
+      :read_more_link="`/demo/${this.id}`"
+      :hero_image="service.imageUrl"
+      is_service
+    />
     <!-- main features -->
     <div class="w-full flex flex-wrap justify-center bg-white py-30">
       <div
@@ -121,13 +83,13 @@
           <div class="w-full overflow-hidden rounded-xl h-[80vh]">
             <img
               :src="service.feature_pic"
-              class="w-full h-full object-cover rounded-xl"
+              class="w-full h-full object-cover rounded-xl imageReveal"
             />
           </div>
         </div>
 
         <!-- Scrollable content -->
-        <div class="w-[60%] flex justify-end">
+        <div class="w-[60%] flex justify-end autoShow">
           <div
             class="w-[80%] overflow-hidden transition-all duration-500 relative"
           >
@@ -277,7 +239,7 @@
         <!-- Scrollable content -->
         <div class="w-[50%] flex justify-end">
           <div
-            class="w-[90%] overflow-hidden transition-all duration-500 relative"
+            class="w-[90%] overflow-hidden transition-all duration-500 relative autoShow"
             :class="{ 'overflow-y-scroll h-[40vh] pr-4': isInView }"
           >
             <h1 class="text-5xl font-extrabold text-white sticky top-0 py-4">
@@ -336,7 +298,7 @@
             <div class="h-full w-full p-8 absolute z-20">
               <img
                 :src="service.benefit_pic"
-                class="w-full h-full object-cover rounded-xl"
+                class="w-full h-full object-cover rounded-xl imageReveal"
               />
             </div>
           </div>
@@ -514,14 +476,15 @@ import RoundedExternal from "../../components/buttons/RoundedExternal.vue";
 import CustomCard from "../../components/cards/CustomCard.vue";
 import Cta from "../../components/Cta.vue";
 import Footer from "../../components/Footer.vue";
+import HeroSection from "../../components/HeroSection.vue";
 import Navbar from "../../components/Navbar.vue";
 import ScrollDots from "../../components/patterns/ScrollPattern.vue";
 import Spinner from "../../components/Spinner.vue";
 import BigTitle from "../../components/text/BigTitle.vue";
 import ExternalLink from "../../components/text/ExternalLink.vue";
 import SmallTitle from "../../components/text/SmallTitle.vue";
-import { text_colors } from "../../store/store";
-import { supabase } from "../../store/supabase";
+import { text_colors } from "../../assets/js/store";
+import { supabase } from "../../assets/js/supabase";
 
 //end of scrolling
 
@@ -540,6 +503,7 @@ export default {
     ExternalLink,
     RoundedExternal,
     CustomCard,
+    HeroSection,
   },
   data() {
     return {

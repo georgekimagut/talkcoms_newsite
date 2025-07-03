@@ -11,12 +11,12 @@
       <div class="w-full h-full flex justify-center overflow-hidden">
         <div class="w-[90%] flex flex-wrap mt-16 relative overflow-hidden">
           <!-- animation classes -->
-          <div
+          <!-- <div
             class="w-[100px] h-[100px] border-8 bg-body rounded-full absolute top-[40vh] border-[#8dc63f] opacity-15 custom-anime-random"
           ></div>
           <div
             class="w-[70px] h-[70px] left-[150px] border-8 bg-default rounded-full absolute top-[40vh] border-white opacity-15 custom-anime-movedown"
-          ></div>
+          ></div> -->
           <!-- Carousel Holder -->
           <div
             class="carousel-holder flex flex-nowrap transition-transform duration-500 ease-in-out w-full h-[60vh]"
@@ -153,7 +153,7 @@
     </div>
     <!-- services highlights -->
     <div
-      class="w-full flex flex-wrap justify-center overflow-hidden top-56 mt-30"
+      class="w-full flex flex-wrap justify-center overflow-hidden mt-16 autoShow"
     >
       <div class="w-[90%] flex justify-center flex-wrap">
         <div class="w-full">
@@ -164,7 +164,12 @@
             To Meet Your Business Needs
           </h1>
         </div>
-        <div class="w-full flex justify-center mt-16 gap-4">
+        <MotionGroup
+          preset="slideVisibleLeft"
+          :duration="600"
+          is="div"
+          class="w-full flex justify-center mt-16 gap-4"
+        >
           <CustomCard
             v-for="(service, index) in home_services"
             :key="index"
@@ -176,7 +181,7 @@
             :link_to="`/service/${service.name}`"
             has_link
           />
-        </div>
+        </MotionGroup>
       </div>
     </div>
     <!-- portfolio -->
@@ -280,7 +285,7 @@
       </div>
     </div>
     <!-- industry -->
-    <div class="w-full flex justify-center bg-white mt-32 pb-16">
+    <div class="w-full flex justify-center bg-white mt-32 pb-16 autoShow">
       <div class="w-[90%]">
         <div class="w-full">
           <h1
@@ -295,24 +300,29 @@
             :key="index"
             class="industry-card w-[49%] ml-[1%] flex flex-nowrap cursor-pointer pt-3 pb-3 ease-in-out border-b-1 border-[#dfdfdf] hover:border-b-2"
           >
-            <div class="w-[90%] flex flex-nowrap">
-              <div class="w-[20px]">
-                <i :class="industry.icon" class="text-secondary ml-2 pt-2"></i>
-              </div>
+            <router-link :to="`/solution/${industry.name}`" class="w-full flex"
+              ><div class="w-[90%] flex flex-nowrap">
+                <div class="w-[20px]">
+                  <i
+                    :class="industry.icon"
+                    class="text-secondary ml-2 pt-2"
+                  ></i>
+                </div>
 
-              <p class="ml-4 text-2xl">{{ industry.name }}</p>
-            </div>
-            <div class="w-[10%] flex justify-end">
-              <i
-                class="fa-solid fa-arrow-right mr-6 opacity-0 mt-2 text-xl text-default"
-              ></i>
-            </div>
+                <p class="ml-4 text-2xl">{{ industry.name }}</p>
+              </div>
+              <div class="w-[10%] flex justify-end">
+                <i
+                  class="fa-solid fa-arrow-right mr-6 opacity-0 mt-2 text-xl text-default"
+                ></i>
+              </div>
+            </router-link>
           </div>
         </div>
       </div>
     </div>
     <!-- partners/companies -->
-    <Partners />
+    <Partners class="autoShow" />
     <!-- stories -->
     <div class="w-full mt-36 p-4 flex justify-center">
       <div class="w-[90%] flex justify-center flex-wrap">
@@ -327,14 +337,14 @@
         </div>
         <div class="w-full flex justify-center mt-16 gap-4">
           <CustomCard
-            v-for="(story, index) in stories"
+            v-for="(story, index) in success_stories"
             :key="index"
             :card_pic="story.pic"
-            :card_title="story.company_name"
-            :card_description="story.description"
+            :card_title="story.client"
+            :card_description="story.title"
             card_class="w-[25%]"
             link_text="READ MORE"
-            :link_to="`/story/${story.name}`"
+            :link_to="`/resources/${success_story}/${story.title}`"
             has_link
           />
         </div>
@@ -355,8 +365,8 @@
         <div class="w-[80%] flex">
           <div class="w-[40%] m-1 flex justify-center">
             <div
-              v-for="blog in blogs.slice(0, 1)"
-              :key="blog.id"
+              v-for="(blog, index) in blogs.slice(0, 1)"
+              :key="index"
               class="w-[90%] m-2 bg-white overflow-hidden zoom-animate p-2"
             >
               <div class="w-full h-[40vh] overflow-hidden relative">
@@ -365,11 +375,13 @@
                   style="rotate: -45deg"
                 >
                   <div class="h-full flex flex-col justify-center">
-                    <i class="fa-solid fa-angle-right text-2xl"></i>
+                    <router-link :to="`/resources/${is_blog}/${blog.slug}`"
+                      ><i class="fa-solid fa-angle-right text-2xl"></i
+                    ></router-link>
                   </div>
                 </div>
                 <img
-                  :src="blog.pic"
+                  :src="`${image_url}/${blog.hero_media.url}`"
                   class="min-h-full h-full min-w-full w-auto max-w-none"
                 />
               </div>
@@ -377,14 +389,16 @@
                 <div class="w-full pt-2 pb-2 flex">
                   <span
                     class="bg-secondary text-sm text-white rounded-full pl-2 pr-2"
-                    >{{ blog.category }}</span
+                    >{{ blog.category ? blog.category : blog.Type }}</span
                   >
                   <div class="line w-[1px] bg-secondary ml-6 h-[23px]"></div>
-                  <span class="ml-6 text-sm">{{ blog.date }}</span>
+                  <span class="ml-6 text-sm">{{
+                    format_date(blog.createdAt)
+                  }}</span>
                 </div>
-                <router-link to="#"
-                  ><h3 class="font-normal text-3xl">
-                    {{ blog.title }}
+                <router-link :to="`/resources/${is_blog}/${blog.slug}`"
+                  ><h3 class="font-semibold text-xl custom-default-hover">
+                    {{ blog.Title }}
                   </h3></router-link
                 >
                 <div class="w-full mt-10 flex">
@@ -392,8 +406,8 @@
                     <img src="/icons/profile.png" />
                   </div>
                   <div class="pl-4 pr-4" style="width: calc(100% - 50px)">
-                    <p class="text-sm">{{ blog.writer }}</p>
-                    <p class="text-sm">{{ blog.position }}</p>
+                    <p class="text-sm">{{ blog.author }}</p>
+                    <p class="text-sm">{{ blog.read_time }} mins</p>
                   </div>
                 </div>
               </div>
@@ -401,13 +415,13 @@
           </div>
           <div class="w-[60%] m-1 flex flex-col">
             <div
-              v-for="blog in blogs.slice(1, 3)"
-              :key="blog.id"
+              v-for="(blog, index) in blogs.slice(1, 3)"
+              :key="index"
               class="w-full mb-2 flex bg-white h-[40vh] zoom-animate"
             >
               <div class="w-[40%] h-full overflow-hidden relative">
                 <img
-                  :src="blog.pic"
+                  :src="`${image_url}/${blog.hero_media.url}`"
                   class="min-h-full h-full min-w-full w-auto max-w-none"
                 />
                 <div
@@ -415,24 +429,28 @@
                   style="rotate: -45deg"
                 >
                   <div class="h-full flex flex-col justify-center">
-                    <i class="fa-solid fa-angle-right text-2xl"></i>
+                    <router-link :to="`/resources/${is_blog}/${blog.slug}`"
+                      ><i class="fa-solid fa-angle-right text-2xl"></i
+                    ></router-link>
                   </div>
                 </div>
               </div>
               <div class="w-[60%] overflow-hidden p-4">
-                <router-link to="#"
-                  ><h3 class="font-normal text-2xl">
-                    {{ blog.title }}
+                <router-link :to="`/resources/${is_blog}/${blog.slug}`"
+                  ><h3 class="font-semibold text-xl custom-default-hover">
+                    {{ blog.Title }}
                   </h3></router-link
                 >
                 <div class="w-full h-full flex flex-col justify-around pb-4">
                   <div class="w-full pt-2 pb-2 flex">
                     <span
                       class="bg-secondary h-fit text-sm text-white rounded-full pl-2 pr-2"
-                      >{{ blog.category }}</span
+                      >{{ blog.category ? blog.category : blog.Type }}</span
                     >
                     <div class="line w-[1px] bg-secondary ml-6 h-[23px]"></div>
-                    <span class="ml-6 text-sm">{{ blog.date }}</span>
+                    <span class="ml-6 text-sm">{{
+                      format_date(blog.createdAt)
+                    }}</span>
                   </div>
                   <div class="w-full mt-10 flex">
                     <div class="w-[50px] h-[50px]">
@@ -442,8 +460,8 @@
                       class="pl-4 pr-4 pb-4"
                       style="width: calc(100% - 50px)"
                     >
-                      <p class="text-sm">{{ blog.writer }}</p>
-                      <p class="text-sm">{{ blog.position }}</p>
+                      <p class="text-sm">{{ blog.author }}</p>
+                      <p class="text-sm">{{ blog.read_time }} mins</p>
                     </div>
                   </div>
                 </div>
@@ -465,10 +483,14 @@ import RoundedButton from "../components/buttons/RoundedButton.vue";
 import Spinner from "../components/Spinner.vue";
 import Cta from "../components/Cta.vue";
 import Partners from "../components/Partners.vue";
-import { supabase } from "../store/supabase";
+import { supabase } from "../assets/js/supabase";
 import CustomCard from "../components/cards/CustomCard.vue";
 import ExternalLink from "../components/text/ExternalLink.vue";
 import BigTitle from "../components/text/BigTitle.vue";
+import { apiEndpoint, baseUrl } from "../assets/js/store";
+
+//data imports
+// import api from "../store/api";
 
 export default {
   name: "Home",
@@ -496,11 +518,15 @@ export default {
       isDragging: false,
       startX: 0,
       scrollLeft: 0,
+      success_story: "story",
+      is_blog: "blog",
+      image_url: baseUrl,
 
       //carousel data
       carousel_data: [],
       home_services: [],
       portfolio_items: [],
+      success_stories: [],
       stories: [
         {
           id: 1,
@@ -531,45 +557,19 @@ export default {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed aliquet tellus, et dignissim leo. ",
         },
       ],
-      blogs: [
-        {
-          id: 1,
-          title: "OpenAI launches new alignment division",
-          category: "Airtifical Intelligence",
-          date: "12 May 2025",
-          pic: "/blogs/1.png",
-          writer: "Caroline Mwikali",
-          position: "Marketing Lead",
-        },
-        {
-          id: 2,
-          title: "Optimizing Page Load Animations for Modern Web",
-          category: "Development",
-          date: "25 May 2025",
-          pic: "/blogs/2.png",
-          writer: "Danile Mwashumbe",
-          position: "Dev Lead",
-        },
-        {
-          id: 3,
-          title: "The Tech Behind Seamless Page Load Effects",
-          category: "Technology",
-          date: "1 June 2025",
-          pic: "/blogs/3.png",
-          writer: "Billy Mild",
-          position: "IT Lead",
-        },
-      ],
+      blogs: [],
       industries: [],
     };
   },
   async created() {
     this.page_is_loading = true;
     try {
-      await this.get_services();
-      await this.get_portfolio_items();
       await this.get_carousel();
-      await this.get_solutions();
+      this.get_services();
+      this.get_portfolio_items();
+      this.get_solutions();
+      this.fetch_blogs();
+      this.get_stories();
     } catch (error) {
       console.error("Loading failed:", error);
     } finally {
@@ -603,6 +603,72 @@ export default {
         this.autoSlide();
       }, 7000);
     },
+
+    //GET BLOGS
+    async fetch_blogs() {
+      // Cache setup (10 minute expiry)
+      const cacheKey = "blogPostsCache";
+      const cacheExpiry = 10 * 60 * 1000; // 10 minutes in milliseconds
+
+      // Try to load from cache first
+      const cachedData = localStorage.getItem(cacheKey);
+      const now = Date.now();
+
+      if (cachedData) {
+        const { data, timestamp } = JSON.parse(cachedData);
+        if (now - timestamp < cacheExpiry) {
+          this.blogs = data;
+          return; // Exit after using cached data
+        }
+      }
+
+      try {
+        const response = await fetch(apiEndpoint);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const responseData = await response.json();
+
+        // Check if 'data' exists
+        if (responseData.data) {
+          const dataArray = Array.isArray(responseData.data)
+            ? responseData.data
+            : [responseData.data];
+
+          //map
+          this.blogs = data;
+          // Save to cache
+          localStorage.setItem(
+            cacheKey,
+            JSON.stringify({
+              data: dataArray,
+              timestamp: now,
+            })
+          );
+        } else {
+          console.error("Invalid response structure:", responseData);
+          // Fallback to cached data if available (even if expired)
+          if (cachedData) {
+            console.log("Falling back to stale cache");
+            const { data } = JSON.parse(cachedData);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching resources:", error);
+
+        // Fallback to cached data if available
+        if (cachedData) {
+          console.log("Using cached data after error");
+          const { data } = JSON.parse(cachedData);
+          this.blogs = data;
+        }
+      }
+    },
+    format_date(date_to_change) {
+      const date = new Date(date_to_change);
+      const date_options = { month: "long", day: "numeric", year: "numeric" };
+      return date.toLocaleDateString("en-US", date_options);
+    },
     // get services
     async get_services() {
       try {
@@ -633,16 +699,31 @@ export default {
         console.log(error);
       }
     },
+    //get stories
+    async get_stories() {
+      try {
+        const { data, error } = await supabase
+          .from("success_stories")
+          .select("*");
+
+        if (error) {
+          console.log(error);
+          return;
+        }
+        this.success_stories = data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     //get solutions
     async get_solutions() {
       try {
         const { data, error } = await supabase
           .from("solutions_by_industry")
-          .select("id, name, is_department")
+          .select("id, name, is_department, icon")
           .order("created_at", { ascending: false });
 
         this.industries = data;
-
         if (error) {
           console.log(error);
           return;
@@ -676,8 +757,8 @@ export default {
         }
         this.carousel_data = data;
         this.total_slides = this.carousel_data.length;
-        console.log(this.carousel_data);
-        console.log(this.total_slides);
+        // console.log(this.carousel_data);
+        // console.log(this.total_slides);
       } catch (error) {
         console.log(error);
       }

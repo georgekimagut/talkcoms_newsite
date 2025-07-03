@@ -19,6 +19,7 @@
         </div>
         <div class="w-full flex justify-center mt-14">
           <RoundedButton
+            v-motion-pop
             button_link="/contact"
             button_text="Get Started"
             button_icon="fa-solid fa-angle-right text-white"
@@ -30,6 +31,7 @@
             button_circle_background="#8dc63f"
           />
           <RoundedButton
+            v-motion-pop
             class="ml-4"
             button_link="/contact"
             button_text="Contact us"
