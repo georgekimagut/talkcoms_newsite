@@ -39,33 +39,25 @@
                   {{ slide.description }}
                 </p>
                 <div class="w-full flex mt-16">
-                  <RoundedButton
-                    button_link="/contact"
+                  <DarkButton
+                    button_link="/contact-Us"
                     button_text="Learn More"
-                    button_icon="fa-solid fa-angle-right"
-                    :defaultColor="'#333'"
-                    :hoverColor="'#8dc63f'"
-                    :iconColor="'#262262'"
-                    button_circle_background="#262262"
                   />
-                  <RoundedButton
+                  <LightButton
+                    button_link="#"
+                    button_text="Learn
+                  More"
                     class="ml-4"
-                    button_link="/contact"
-                    button_text="Let's Talk"
-                    button_icon="fa-solid fa-angle-right text-white"
-                    :defaultColor="'#333'"
-                    :hoverColor="'#262262'"
-                    :iconColor="'#f5f5f5'"
-                    button_border="#8dc63f"
-                    button_background="#f5f5f5"
-                    button_circle_background="#8dc63f"
                   />
                 </div>
               </div>
               <div class="w-1/2 h-full">
                 <div class="w-full h-full relative">
-                  <div class="img-holder h-full overflow-hidden">
-                    <img :src="slide.pic" class="rounded-2xl" />
+                  <div class="img-holder h-[55vh] overflow-hidden rounded-2xl">
+                    <img
+                      :src="slide.pic"
+                      class="rounded-2xl min-w-full object-cover"
+                    />
                   </div>
                   <!-- stats board -->
                   <div
@@ -324,7 +316,7 @@
     <!-- partners/companies -->
     <Partners class="autoShow" />
     <!-- stories -->
-    <div class="w-full mt-36 p-4 flex justify-center">
+    <div class="w-full pt-36 p-4 flex justify-center bg-white">
       <div class="w-[90%] flex justify-center flex-wrap">
         <div class="w-full">
           <p class="text-secondary text-center text-lg">
@@ -342,7 +334,7 @@
             :card_pic="story.pic"
             :card_title="story.client"
             :card_description="story.title"
-            card_class="w-[25%]"
+            card_class="w-[25%] border-1 border-[#e3e3e3]"
             link_text="READ MORE"
             :link_to="`/resources/${success_story}/${story.title}`"
             has_link
@@ -351,7 +343,7 @@
       </div>
     </div>
     <!-- blogs -->
-    <div class="w-full flex justify-center flex-wrap mt-36 p-4">
+    <div class="w-full flex justify-center flex-wrap mt-36 p-4 pb-20">
       <div class="w-[90%]">
         <p class="text-secondary w-full flex justify-center">
           <router-link to="/blogs" class="text-lg">BLOG</router-link>
@@ -488,6 +480,8 @@ import CustomCard from "../components/cards/CustomCard.vue";
 import ExternalLink from "../components/text/ExternalLink.vue";
 import BigTitle from "../components/text/BigTitle.vue";
 import { apiEndpoint, baseUrl } from "../assets/js/store";
+import DarkButton from "@/components/ui/button/DarkButton.vue";
+import LightButton from "@/components/ui/button/LightButton.vue";
 
 //data imports
 // import api from "../store/api";
@@ -504,6 +498,8 @@ export default {
     CustomCard,
     ExternalLink,
     BigTitle,
+    DarkButton,
+    LightButton,
   },
   data() {
     return {

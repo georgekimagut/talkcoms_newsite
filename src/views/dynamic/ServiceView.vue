@@ -111,40 +111,21 @@
             </div>
             <!-- call to action -->
             <div class="w-full flex mt-8">
-              <RoundedButton
+              <DarkButton
                 button_link="/contact-us"
                 button_text="Request Free Demo"
-                button_icon="fa-solid fa-angle-right"
-                :defaultColor="'#333'"
-                :hoverColor="'#8dc63f'"
-                :iconColor="'#262262'"
-                button_circle_background="#262262"
               />
-              <RoundedButton
+              <LightButton
                 v-if="!service.material_link"
-                class="ml-4"
                 button_link="/contact-us"
                 button_text="Learn More"
-                button_icon="fa-solid fa-angle-right text-white"
-                :defaultColor="'#333'"
-                :hoverColor="'#262262'"
-                :iconColor="'#f5f5f5'"
-                button_border="#8dc63f"
-                button_background="#f5f5f5"
-                button_circle_background="#8dc63f"
-              />
-              <RoundedExternal
-                v-if="service.material_link"
                 class="ml-4"
+              />
+              <LightButton
+                v-if="service.material_link"
                 :button_link="service.material_link"
                 button_text="Download Material"
-                button_icon="fa-solid fa-angle-right text-white"
-                :defaultColor="'#333'"
-                :hoverColor="'#262262'"
-                :iconColor="'#f5f5f5'"
-                button_border="#8dc63f"
-                button_background="#f5f5f5"
-                button_circle_background="#8dc63f"
+                class="ml-4"
               />
             </div>
           </div>
@@ -171,26 +152,11 @@
           </div>
 
           <div class="w-[90%] flex mt-20">
-            <RoundedButton
-              button_link="/contact"
-              button_text="Get Started"
-              button_icon="fa-solid fa-angle-right"
-              :defaultColor="'#333'"
-              :hoverColor="'#8dc63f'"
-              :iconColor="'#262262'"
-              button_circle_background="#262262"
-            />
-            <RoundedButton
-              class="ml-4"
-              button_link="/contact"
+            <DarkButton button_link="/contact-us" button_text="Get Started" />
+            <LightButton
+              button_link="/contact-us"
               button_text="Learn More"
-              button_icon="fa-solid fa-angle-right text-white"
-              :defaultColor="'#333'"
-              :hoverColor="'#262262'"
-              :iconColor="'#f5f5f5'"
-              button_border="#8dc63f"
-              button_background="#f5f5f5"
-              button_circle_background="#8dc63f"
+              class="ml-4"
             />
           </div>
         </div>
@@ -240,7 +206,6 @@
         <div class="w-[50%] flex justify-end">
           <div
             class="w-[90%] overflow-hidden transition-all duration-500 relative autoShow"
-            :class="{ 'overflow-y-scroll h-[40vh] pr-4': isInView }"
           >
             <h1 class="text-5xl font-extrabold text-white sticky top-0 py-4">
               Here’s Why You’ll Love Talkcoms'
@@ -267,15 +232,7 @@
             </div>
             <!-- call to action -->
             <div class="w-full flex mt-8">
-              <RoundedButton
-                button_link="/contact"
-                button_text="Get Started"
-                button_icon="fa-solid fa-angle-right"
-                :defaultColor="'#333'"
-                :hoverColor="'#8dc63f'"
-                :iconColor="'#262262'"
-                button_circle_background="#262262"
-              />
+              <DarkButton button_link="/contact-us" button_text="Get Started" />
             </div>
           </div>
         </div>
@@ -324,10 +281,8 @@
             and see how our solution can simplify your workflow and boost
             efficiency—live and personalized.
           </p>
-
-          <RoundedButton
-            class="m-4 w-fit"
-            button_link="/contact"
+          <LightButton
+            button_link="/contact-us"
             :button_text="
               service.has_demo === 1
                 ? 'BOOK A FREE DEMO'
@@ -335,13 +290,7 @@
                 ? 'BOOK A SITE VISIT'
                 : 'BOOK A FREE CALL'
             "
-            button_icon="fa-solid fa-angle-right text-white"
-            :defaultColor="'#333'"
-            :hoverColor="'#262262'"
-            :iconColor="'#ffffff'"
-            button_border="#8dc63f"
-            button_background="#ffffff"
-            button_circle_background="#8dc63f"
+            class="m-4"
           />
         </div>
         <div class="w-[35%] flex justify-center overflow-hidden">
@@ -485,6 +434,8 @@ import ExternalLink from "../../components/text/ExternalLink.vue";
 import SmallTitle from "../../components/text/SmallTitle.vue";
 import { text_colors } from "../../assets/js/store";
 import { supabase } from "../../assets/js/supabase";
+import DarkButton from "@/components/ui/button/DarkButton.vue";
+import LightButton from "@/components/ui/button/LightButton.vue";
 
 //end of scrolling
 
@@ -504,6 +455,8 @@ export default {
     RoundedExternal,
     CustomCard,
     HeroSection,
+    LightButton,
+    DarkButton,
   },
   data() {
     return {

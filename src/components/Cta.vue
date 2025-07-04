@@ -18,28 +18,11 @@
           </p>
         </div>
         <div class="w-full flex justify-center mt-14">
-          <RoundedButton
-            v-motion-pop
-            button_link="/contact"
-            button_text="Get Started"
-            button_icon="fa-solid fa-angle-right text-white"
-            :defaultColor="'#333'"
-            :hoverColor="'#262262'"
-            :iconColor="'#fefffe'"
-            button_border="#8dc63f"
-            button_background="#fefffe"
-            button_circle_background="#8dc63f"
-          />
-          <RoundedButton
-            v-motion-pop
+          <DarkButton button_link="/contact-us" button_text="Get Started" />
+          <LightButton
+            button_link="/contact-us"
+            button_text="Contact Us"
             class="ml-4"
-            button_link="/contact"
-            button_text="Contact us"
-            button_icon="fa-solid fa-angle-right"
-            :defaultColor="'#333'"
-            :hoverColor="'#8dc63f'"
-            :iconColor="'#262262'"
-            button_circle_background="#262262"
           />
         </div>
       </div>
@@ -48,10 +31,12 @@
 </template>
 <script>
 import RoundedButton from "./buttons/RoundedButton.vue";
+import DarkButton from "./ui/button/DarkButton.vue";
+import LightButton from "./ui/button/LightButton.vue";
 
 export default {
   name: "Cta",
-  components: { RoundedButton },
+  components: { RoundedButton, DarkButton, LightButton },
   props: { cta_class: String },
 };
 </script>

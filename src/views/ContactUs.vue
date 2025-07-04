@@ -45,7 +45,7 @@
         </div>
         <div class="w-1/2 flex h-full justify-center">
           <!-- contact us form -->
-          <div class="w-[90%]">
+          <div class="w-[90%] bg-white">
             <form @submit.prevent="" class="w-full flex flex-wrap">
               <div class="w-full flex flex-wrap">
                 <div class="w-1/2 p-2">

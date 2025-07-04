@@ -27,7 +27,7 @@
   >
     <div class="w-[90%] h-[12vh] flex justify-center">
       <div class="w-full flex">
-        <div class="w-1/6 flex justify-start p-4">
+        <div class="w-1/6 flex justify-start p-4 w-16">
           <router-link to="/"
             ><img :src="site_logo" class="custom-logo min-w-[50px]"
           /></router-link>
@@ -151,17 +151,8 @@
             >About us</router-link
           >
         </div>
-        <div class="w-1/6 flex justify-end p-4">
-          <DefaultButton
-            button_link="/contact-us"
-            button_text="Contact Us"
-            button_icon="fa-solid fa-angle-right"
-            :defaultColor="'#333'"
-            :hoverColor="'#8dc63f'"
-            :iconColor="'#262262'"
-            button_circle_background="#262262"
-            class="w-fit h-fit"
-          />
+        <div class="w-1/6 flex justify-end p-4 btn-side">
+          <DarkButton button_link="/contact-us" button_text="Contact Us" />
         </div>
       </div>
     </div>
@@ -329,20 +320,177 @@
       </div>
     </div>
   </div>
+  <!-- phone navigation bar -->
+  <div
+    class="w-full flex justify-center flex-wrap sticky top-0 z-[1000] phone-navigation"
+  >
+    <div class="w-full bg-white flex justify-center">
+      <div class="w-[90%] flex mt-6 py-4">
+        <div class="w-1/2">
+          <router-link to="/"
+            ><img :src="site_logo" class="custom-logo min-w-[50px]"
+          /></router-link>
+        </div>
+        <div class="w-1/2 flex justify-end">
+          <i
+            class="fa-solid fa-bars text-2xl rounded-sm text-white p-4 bg-third"
+            @click="phone_navigation = !phone_navigation"
+          ></i>
+        </div>
+      </div>
+    </div>
+    <!-- dropdowns -->
+    <div
+      v-show="phone_navigation"
+      class="w-full bg-white flex justify-center h-[100vh]"
+    >
+      <div class="nav-bar-innner w-[90%] h-full">
+        <li class="list-none">
+          <router-link
+            to="/"
+            class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
+            active-class="text-secondary font-medium"
+          >
+            Home
+          </router-link>
+        </li>
+        <li class="list-none">
+          <router-link
+            to="#"
+            class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
+            @mouseenter="show_service_dropdown('product')"
+            @mouseleave="hide_service_dropdown('product')"
+          >
+            <div class="w-full h-full flex flex-row">
+              <div class="h-full flex flex-col justify-center">Products</div>
+              <div class="h-full flex flex-col justify-center ml-1 mt-1">
+                <i
+                  class="fa-solid fa-angle-down transition-all duration-300 ease-in-out"
+                  :style="{
+                    transform: product_dropdown
+                      ? 'rotate(180deg) translateY(2px)'
+                      : 'rotate(0deg) translateY(0)',
+                  }"
+                ></i>
+              </div>
+            </div>
+          </router-link>
+        </li>
+        <li class="list-none">
+          <router-link
+            to="#"
+            class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
+            @mouseenter="show_service_dropdown('service')"
+            @mouseleave="hide_service_dropdown('service')"
+          >
+            <div class="w-full h-full flex flex-row">
+              <div class="h-full flex flex-col justify-center">Services</div>
+              <div class="h-full flex flex-col justify-center ml-1 mt-1">
+                <i
+                  class="fa-solid fa-angle-down transition-all duration-300 ease-in-out"
+                  :style="{
+                    transform: service_dropdown
+                      ? 'rotate(180deg) translateY(2px)'
+                      : 'rotate(0deg) translateY(0)',
+                  }"
+                ></i>
+              </div>
+            </div>
+          </router-link>
+        </li>
+        <li class="list-none">
+          <router-link
+            to="#"
+            class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
+            @mouseenter="show_service_dropdown('solution')"
+            @mouseleave="hide_service_dropdown('solution')"
+          >
+            <div class="w-full h-full flex flex-row">
+              <div class="h-full flex flex-col justify-center">
+                Solutions By Industry
+              </div>
+              <div class="h-full flex flex-col justify-center ml-1 mt-1">
+                <i
+                  class="fa-solid fa-angle-down transition-all duration-300 ease-in-out"
+                  :style="{
+                    transform: solutions_dropdown
+                      ? 'rotate(180deg) translateY(2px)'
+                      : 'rotate(0deg) translateY(0)',
+                  }"
+                ></i>
+              </div>
+            </div>
+          </router-link>
+
+          <div
+            class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4 relative drop-resource"
+            active-class="text-secondary font-medium"
+          >
+            <div class="w-full h-full flex flex-row cursor-pointer">
+              <div class="h-full flex flex-col justify-center">Resources</div>
+              <div class="h-full flex flex-col justify-center ml-1 mt-1">
+                <i class="fa-solid fa-angle-down"></i>
+              </div>
+            </div>
+            <div
+              class="w-[200px] absolute bg-white p-4 pt-0 top-[12vh] z-[100] resource-dropdown border-1 border-[#e3e3e3] rounded-b-sm"
+            >
+              <li class="mb-2 list-none">
+                <router-link to="/blogs" class="custom-default-hover"
+                  >Blogs</router-link
+                >
+              </li>
+              <li class="mb-2 list-none">
+                <router-link to="/success-stories" class="custom-default-hover"
+                  >Success stories</router-link
+                >
+              </li>
+              <li class="mb-2 list-none">
+                <router-link to="/testimonials" class="custom-default-hover"
+                  >Testimonials</router-link
+                >
+              </li>
+              <li class="mb-2 list-none">
+                <router-link to="/faqs" class="custom-default-hover"
+                  >FAQs</router-link
+                >
+              </li>
+              <li class="mb-2 list-none">
+                <router-link to="/case-studies" class="custom-default-hover"
+                  >Case Studies</router-link
+                >
+              </li>
+            </div>
+          </div>
+        </li>
+        <li class="list-none">
+          <router-link
+            to="/about"
+            class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
+            active-class="text-secondary font-medium"
+            >About us</router-link
+          >
+        </li>
+      </div>
+    </div>
+  </div>
+  <!-- drop down  -->
 </template>
 <script>
 import DefaultButton from "./buttons/RoundedButton.vue";
 import { supabase } from "../assets/js/supabase.js";
 import Link from "./text/Link.vue";
+import DarkButton from "./ui/button/DarkButton.vue";
 
 export default {
   name: "Navbar",
-  components: { DefaultButton, Link },
+  components: { DefaultButton, Link, DarkButton },
   data() {
     return {
       service_dropdown: false,
       product_dropdown: false,
       solutions_dropdown: false,
+      phone_navigation: false,
       site_logo: "/logo.svg",
       products: [],
       socials: [
@@ -469,3 +617,4 @@ export default {
   },
 };
 </script>
+<style scoped></style>

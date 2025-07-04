@@ -11,6 +11,7 @@ import NotFound from "../views/NotFound.vue";
 import SolutionView from "../views/dynamic/SolutionView.vue";
 import CaseStudies from "../views/CaseStudies.vue";
 import Testimonials from "../views/Testimonials.vue";
+import Privacy from "../views/dynamic/Policies.vue";
 
 const routes = [
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
@@ -82,6 +83,13 @@ const routes = [
     name: "Testimonials",
     component: Testimonials,
     meta: { title: "Testimonials" },
+    props: true,
+  },
+  {
+    path: "/legal/:id",
+    name: "Privacy Policy",
+    component: Privacy,
+    meta: { title: "Legal" },
     props: true,
   },
 ];

@@ -78,17 +78,10 @@
             boost efficiency—live and personalized.
           </p>
 
-          <RoundedButton
-            class="m-4 w-fit"
-            button_link="/contact"
-            button_text="Get Started"
-            button_icon="fa-solid fa-angle-right text-white"
-            :defaultColor="'#333'"
-            :hoverColor="'#262262'"
-            :iconColor="'#ffffff'"
-            button_border="#8dc63f"
-            button_background="#ffffff"
-            button_circle_background="#8dc63f"
+          <LightButton
+            button_link="/contact-us"
+            button_text="Read Full Story"
+            class="m-4"
           />
         </div>
         <div class="w-[35%] flex justify-center overflow-hidden">
@@ -129,16 +122,9 @@
           </div>
         </div>
         <div class="w-full mt-10 flex">
-          <RoundedButton
+          <LightButton
             :button_link="`/resources/${success_story}/${related_story.title}`"
             button_text="Read Full Story"
-            button_icon="fa-solid fa-angle-right text-white"
-            :defaultColor="'#333'"
-            :hoverColor="'#262262'"
-            :iconColor="'#ffffff'"
-            button_border="#8dc63f"
-            button_background="#ffffff"
-            button_circle_background="#8dc63f"
           />
         </div>
       </div>
@@ -161,6 +147,7 @@ import Cta from "../../components/Cta.vue";
 import CustomCard from "../../components/cards/CustomCard.vue";
 import IconCard from "../../components/cards/IconCard.vue";
 import HeroSection from "../../components/HeroSection.vue";
+import LightButton from "@/components/ui/button/LightButton.vue";
 
 export default {
   name: "SolutionView",
@@ -175,6 +162,7 @@ export default {
     Cta,
     CustomCard,
     IconCard,
+    LightButton,
     HeroSection,
   },
   data() {

@@ -20,41 +20,27 @@
           </div>
           <!-- if it's a blog -->
           <div v-show="is_blog" class="w-full mt-10 flex">
-            <RoundedButton
+            <LightButton
               :button_link="read_more_link"
               button_text="Read Full Blog"
-              button_icon="fa-solid fa-angle-right text-white"
-              :defaultColor="'#333'"
-              :hoverColor="'#262262'"
-              :iconColor="'#ffffff'"
-              button_border="#8dc63f"
-              button_background="#ffffff"
-              button_circle_background="#8dc63f"
-              class="w-fit"
             />
           </div>
           <!-- if it's a service -->
           <div v-show="is_service" class="w-full flex mt-10">
-            <RoundedButton
+            <DarkButton
               :button_link="demo_link"
               button_text="Book A Free Demo"
-              button_icon="fa-solid fa-angle-right"
-              :defaultColor="'#333'"
-              :hoverColor="'#8dc63f'"
-              :iconColor="'#262262'"
-              button_circle_background="#262262"
             />
-            <RoundedButton
-              class="ml-4"
+            <LightButton
               button_link="/contact-us"
               button_text="Talk to sales"
-              button_icon="fa-solid fa-angle-right text-white"
-              :defaultColor="'#333'"
-              :hoverColor="'#262262'"
-              :iconColor="'#ffffff'"
-              button_border="#8dc63f"
-              button_background="#ffffff"
-              button_circle_background="#8dc63f"
+              class="ml-4"
+            />
+          </div>
+          <div v-show="is_story" class="w-full mt-10 flex">
+            <LightButton
+              :button_link="read_more_link"
+              button_text="Read Full Story"
             />
           </div>
           <!-- industry -->
@@ -195,10 +181,19 @@ import RoundedButton from "./buttons/RoundedButton.vue";
 import HeroPattern from "./patterns/HeroPattern.vue";
 import BigTitle from "./text/BigTitle.vue";
 import SmallTitle from "./text/SmallTitle.vue";
+import DarkButton from "./ui/button/DarkButton.vue";
+import LightButton from "./ui/button/LightButton.vue";
 
 export default {
   name: "HeroSection",
-  components: { RoundedButton, HeroPattern, SmallTitle, BigTitle },
+  components: {
+    RoundedButton,
+    HeroPattern,
+    SmallTitle,
+    BigTitle,
+    DarkButton,
+    LightButton,
+  },
   props: {
     small_title: String,
     big_title: String,
@@ -215,6 +210,8 @@ export default {
     has_double_images: Boolean,
     hero_small_image: String,
     is_contact: Boolean,
+    button_text: String,
+    is_story: Boolean,
   },
   data() {
     return {

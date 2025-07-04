@@ -174,9 +174,9 @@ export default {
         { title: "PBX", link: "#" },
       ],
       footer_legal: [
-        { title: "Cookie Policy", link: "#" },
-        { title: "Terms & Conditions", link: "#" },
-        { title: "Privacy Policy", link: "#" },
+        { title: "Cookie Policy", link: "/legal/cookie-policy" },
+        { title: "Terms & Conditions", link: "/legal/Terms & Conditions" },
+        { title: "Privacy Policy", link: "/legal/privacy-policy" },
         { title: "Sitemap", link: "#" },
       ],
       footer_contacts: [

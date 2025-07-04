@@ -3,14 +3,15 @@
   <Spinner v-if="page_is_loading" />
   <div v-if="page_is_loading === false" class="w-full">
     <Navbar />
+
     <HeroSection
-      class_height="h-[60vh]"
-      page_title="FAQs"
-      page_statement="Frequently Asked Questions"
-      big_pic="/carousel/faqs-banner-big.png"
-      small_pic="/carousel/faqs-banner.png"
-      page_min_statement="These are the most commonly asked questions about our products  "
+      small_title="FAQs"
+      big_title="Got Questions? We’ve Got Real Answers"
+      hero_description="Have a question in mind? You're not alone. Browse through the most common questions our users ask — and find the answers you need in seconds"
+      hero_image="/static/pic-3.png"
+      hero_small_image="/static/about-us.png"
     />
+
     <div class="mt-32 w-full flex flex-wrap justify-center">
       <div class="w-[80%] flex justify-center">
         <div

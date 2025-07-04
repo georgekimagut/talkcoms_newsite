@@ -9,12 +9,12 @@
         <div class="w-[30%] sticky top-[15vh] self-start">
           <div class="w-full pt-4 pb-4">
             <div
-              class="w-full overflow-y-scroll hide-scrollbar bg-white p-4 shadow-sm"
+              class="w-full overflow-y-scroll hide-scrollbar bg-white p-4 border-1 border-[#e3e3e3]"
             >
               <div class="w-full pb-4 border-b border-[#82bc00]">
                 <p class="font-semibold">Table of Contents</p>
               </div>
-              <ul class="content-body px-4">
+              <ul class="content-body px-4 mt-4">
                 <li
                   v-for="(item, index) in table_of_contents"
                   :key="index"
