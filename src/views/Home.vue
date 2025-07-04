@@ -602,11 +602,9 @@ export default {
 
     //GET BLOGS
     async fetch_blogs() {
-      // Cache setup (10 minute expiry)
       const cacheKey = "blogPostsCache";
-      const cacheExpiry = 10 * 60 * 1000; // 10 minutes in milliseconds
+      const cacheExpiry = 10 * 60 * 1000; // 10 minutes
 
-      // Try to load from cache first
       const cachedData = localStorage.getItem(cacheKey);
       const now = Date.now();
 
@@ -614,7 +612,7 @@ export default {
         const { data, timestamp } = JSON.parse(cachedData);
         if (now - timestamp < cacheExpiry) {
           this.blogs = data;
-          return; // Exit after using cached data
+          return;
         }
       }
 
@@ -623,17 +621,16 @@ export default {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
+
         const responseData = await response.json();
 
-        // Check if 'data' exists
         if (responseData.data) {
           const dataArray = Array.isArray(responseData.data)
             ? responseData.data
             : [responseData.data];
 
-          //map
-          this.blogs = data;
-          // Save to cache
+          this.blogs = dataArray;
+
           localStorage.setItem(
             cacheKey,
             JSON.stringify({
@@ -643,16 +640,14 @@ export default {
           );
         } else {
           console.error("Invalid response structure:", responseData);
-          // Fallback to cached data if available (even if expired)
           if (cachedData) {
             console.log("Falling back to stale cache");
             const { data } = JSON.parse(cachedData);
+            this.blogs = data;
           }
         }
       } catch (error) {
         console.error("Error fetching resources:", error);
-
-        // Fallback to cached data if available
         if (cachedData) {
           console.log("Using cached data after error");
           const { data } = JSON.parse(cachedData);
