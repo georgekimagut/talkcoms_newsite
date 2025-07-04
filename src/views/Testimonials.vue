@@ -40,11 +40,11 @@
     </div>
     <!-- testimonials -->
     <div class="w-full flex justify-center flex-wrap mt-32 bg-white py-10">
-      <div class="w-[90%] flex justify-center flex-wrap mt-16">
+      <div class="w-[90%] flex justify-center flex-wrap mt-16 gap-2">
         <div
           v-for="(testimonial, index) in testimonials"
           :key="index"
-          class="w-[33%] mb-4 p-4 zoom-animate"
+          class="w-[31%] mb-4 p-4 zoom-animate border-1"
         >
           <div class="w-full mt-4 flex">
             <div class="">

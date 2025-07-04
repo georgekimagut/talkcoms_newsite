@@ -1,15 +1,18 @@
 <template>
-  <div class="w-full flex justify-center flex-wrap">
+  <Spinner v-if="page_is_loading" />
+  <div
+    v-if="page_is_loading === false"
+    class="w-full flex justify-center flex-wrap"
+  >
     <Navbar />
     <div v-if="this.id === 'cookie-policy'" class="w-[90%] mt-20">
       <h1 class="font-bold text-3xl">Cookie Policy</h1>
       <p class="text-xl mb-4"><strong>Effective Date:</strong> [Insert Date]</p>
       <p class="text-xl mb-4">
-        This Cookie Policy explains how [Your Company Name] ("we", "us", and
-        "our") uses cookies and similar technologies to recognize you when you
-        visit our website or use our services. It explains what these
-        technologies are and why we use them, as well as your rights to control
-        our use of them.
+        This Cookie Policy explains how Talkcoms Limited ("we", "us", and "our")
+        uses cookies and similar technologies to recognize you when you visit
+        our website or use our services. It explains what these technologies are
+        and why we use them, as well as your rights to control our use of them.
       </p>
 
       <h1 class="font-bold text-3xl">1. What Are Cookies?</h1>
@@ -66,19 +69,13 @@
         If you have any questions about our use of cookies, please contact us
         at:
       </p>
-      <p class="text-xl mb-4">
-        [Your Company Name]<br />
-        [Company Address]<br />
-        Email: [Insert Email]<br />
-        Phone: [Insert Phone Number]
-      </p>
     </div>
     <div v-if="this.id === 'Terms & Conditions'" class="w-[90%] mt-20">
       <h1 class="font-bold text-3xl">Terms and Conditions</h1>
       <p class="text-xl mb-4"><strong>Effective Date:</strong> [Insert Date]</p>
       <p class="text-xl mb-4">
         These Terms and Conditions ("Terms") govern your use of the services,
-        products, and website operated by [Your Company Name]. By accessing or
+        products, and website operated by Talkcoms Limited. By accessing or
         using our services, you agree to be bound by these Terms.
       </p>
 
@@ -92,9 +89,9 @@
       <h1 class="font-bold text-3xl">2. Intellectual Property</h1>
       <p class="text-xl mb-4">
         All content on our website, including logos, text, graphics, software,
-        and service names, is the intellectual property of [Your Company Name]
-        or its licensors. You may not use, copy, or distribute our content
-        without written permission.
+        and service names, is the intellectual property of Talkcoms Limited or
+        its licensors. You may not use, copy, or distribute our content without
+        written permission.
       </p>
 
       <h1 class="font-bold text-3xl">3. User Accounts</h1>
@@ -113,8 +110,8 @@
 
       <h1 class="font-bold text-3xl">5. Limitation of Liability</h1>
       <p class="text-xl mb-4">
-        [Your Company Name] is not liable for any direct, indirect, incidental,
-        or consequential damages resulting from your use of our services or
+        Talkcoms Limited is not liable for any direct, indirect, incidental, or
+        consequential damages resulting from your use of our services or
         website. We provide services "as is" without warranties of any kind.
       </p>
 
@@ -142,19 +139,13 @@
       <p class="text-xl mb-4">
         If you have any questions about these Terms, please contact us at:
       </p>
-      <p class="text-xl mb-4">
-        [Your Company Name]<br />
-        [Company Address]<br />
-        Email: [Insert Email]<br />
-        Phone: [Insert Phone Number]
-      </p>
     </div>
 
     <div v-if="this.id === 'privacy-policy'" class="w-[90%] mt-20">
       <h1 class="text-3xl font-bold">Privacy Policy</h1>
       <p class="text-xl mb-4"><strong>Effective Date:</strong> [Insert Date]</p>
       <p class="text-xl mb-4">
-        At [Your Company Name], we are committed to protecting your privacy and
+        At Talkcoms Limited, we are committed to protecting your privacy and
         ensuring that your personal information is handled in a safe and
         responsible manner. This Privacy Policy outlines how we collect, use,
         disclose, and protect your information when you interact with our
@@ -299,27 +290,28 @@
         If you have any questions or concerns about this Privacy Policy or our
         data practices, please contact us:
       </p>
-      <p class="text-xl mb-4">
-        <strong>[Your Company Name]</strong><br />
-        [Company Address]<br />
-        Email: [Insert Contact Email]<br />
-        Phone: [Insert Phone Number]<br />
-        Website: [Insert Website URL]
-      </p>
     </div>
   </div>
   <Footer />
 </template>
 <script>
-import Navbar from "../../components/Navbar.vue";
-import Footer from "../../components/Footer.vue";
+import Navbar from "@/components/Navbar.vue";
+import Footer from "@/components/Footer.vue";
+import Spinner from "@/components/Spinner.vue";
 
 export default {
   name: "Privacy",
   props: ["id"],
-  components: { Navbar, Footer },
-  // created() {
-  //   this.$watch(() => this.$route.params);
-  // },
+  components: { Navbar, Footer, Spinner },
+  data() {
+    return {
+      page_is_loading: true,
+    };
+  },
+  created() {
+    setTimeout(() => {
+      this.page_is_loading = false;
+    }, 2000);
+  },
 };
 </script>

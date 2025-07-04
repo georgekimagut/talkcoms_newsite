@@ -93,11 +93,15 @@ const routes = [
     props: true,
   },
 ];
-
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    // always scroll to top
+    return { top: 0 };
+  },
 });
+/* scroll behaviour */
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta?.title ? `Talkcoms - ${to.meta.title}` : "Talkcoms";
