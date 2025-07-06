@@ -56,7 +56,7 @@ import Footer from "../components/Footer.vue";
 import HeroSection from "../components/HeroSection.vue";
 import Navbar from "../components/Navbar.vue";
 import Spinner from "../components/Spinner.vue";
-import DefaultInput from "../components/inputs/DefaultInput.vue";
+import DefaultInput from "../components/ui/input/DefaultInput.vue";
 import { supabase } from "../assets/js/supabase";
 
 export default {

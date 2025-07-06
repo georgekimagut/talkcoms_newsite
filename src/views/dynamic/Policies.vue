@@ -5,7 +5,10 @@
     class="w-full flex justify-center flex-wrap"
   >
     <Navbar />
-    <div v-if="this.id === 'cookie-policy'" class="w-[90%] mt-20">
+    <div
+      v-if="this.id === 'cookie-policy'"
+      class="w-[90%] mt-10 p-10 bg-white rounded-2xl"
+    >
       <h1 class="font-bold text-3xl">Cookie Policy</h1>
       <p class="text-xl mb-4"><strong>Effective Date:</strong> [Insert Date]</p>
       <p class="text-xl mb-4">
@@ -70,7 +73,10 @@
         at:
       </p>
     </div>
-    <div v-if="this.id === 'Terms & Conditions'" class="w-[90%] mt-20">
+    <div
+      v-if="this.id === 'Terms & Conditions'"
+      class="w-[90%] mt-10 p-10 bg-white rounded-2xl"
+    >
       <h1 class="font-bold text-3xl">Terms and Conditions</h1>
       <p class="text-xl mb-4"><strong>Effective Date:</strong> [Insert Date]</p>
       <p class="text-xl mb-4">
@@ -141,7 +147,10 @@
       </p>
     </div>
 
-    <div v-if="this.id === 'privacy-policy'" class="w-[90%] mt-20">
+    <div
+      v-if="this.id === 'privacy-policy'"
+      class="w-[90%] mt-10 p-10 bg-white rounded-2xl"
+    >
       <h1 class="text-3xl font-bold">Privacy Policy</h1>
       <p class="text-xl mb-4"><strong>Effective Date:</strong> [Insert Date]</p>
       <p class="text-xl mb-4">

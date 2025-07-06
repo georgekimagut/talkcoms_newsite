@@ -10,6 +10,10 @@
       hero_small_image="/static/about-us.png"
       is_contact
     /> -->
+    <div class="bg-danger text-white p-4">
+      If this is red, Tailwind config is working
+    </div>
+    <Input type="email" placeholder="Test" />
     <!-- contact us -->
     <div class="w-full flex mt-16 justify-center">
       <div class="w-[90%] flex flex-wrap">
@@ -49,7 +53,7 @@
         </div>
         <div class="w-1/2 flex h-full">
           <!-- contact us form -->
-          <div class="w-full bg-white p-5 rounded-xl shadow-xl">
+          <div class="w-full bg-white p-5 rounded-xl shadow-sm">
             <form @submit.prevent="" class="w-full flex flex-wrap">
               <div class="w-full flex flex-wrap">
                 <div class="w-1/2 p-2">
@@ -147,6 +151,19 @@
         </div>
       </div>
     </div>
+    <!-- contact details -->
+    <div class="w-full flex justify-center">
+      <div class="w-[905] flex">
+        <Card>
+          <CardHeader>
+            <CardTitle>Card Title</CardTitle>
+            <CardDescription>Card Description</CardDescription>
+          </CardHeader>
+          <CardContent> Card Content </CardContent>
+          <CardFooter> Card Footer </CardFooter>
+        </Card>
+      </div>
+    </div>
     <!-- maps -->
     <div class="w-full mt-32 h-[80vh]">
       <Maps map_class="w-full h-full" />
@@ -159,14 +176,21 @@
 import Navbar from "../components/Navbar.vue";
 import Spinner from "../components/Spinner.vue";
 import HeroSection from "../components/HeroSection.vue";
-import DefaultInput from "../components/inputs/DefaultInput.vue";
+import DefaultInput from "../components/ui/input/DefaultInput.vue";
 import DefaultSelect from "../components/inputs/DefaultSelect.vue";
 import DefaultTextArea from "../components/inputs/DefaultTextArea.vue";
 import Maps from "../components/Maps.vue";
 import SquareButton from "../components/buttons/SquareButton.vue";
 import Footer from "../components/Footer.vue";
 import BigTitle from "@/components/text/BigTitle.vue";
-import SmallTitle from "@/components/text/SmallTitle.vue";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default {
   name: "Contact us",

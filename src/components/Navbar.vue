@@ -82,7 +82,35 @@
               </div>
             </div>
           </router-link>
-          <router-link
+          <div
+            class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4 relative drop-resource"
+            active-class="text-secondary font-medium"
+          >
+            <div class="w-full h-full flex flex-row cursor-pointer">
+              <div class="h-full flex flex-col justify-center">
+                Solutions By Industry
+              </div>
+              <div class="h-full flex flex-col justify-center ml-1 mt-1">
+                <i class="fa-solid fa-angle-down"></i>
+              </div>
+            </div>
+            <div
+              class="w-[300px] absolute bg-white p-4 pt-0 top-[12vh] z-[100] resource-dropdown border-1 border-[#e3e3e3] rounded-b-sm"
+            >
+              <li
+                v-for="(industry, index) in industries"
+                :key="index"
+                class="mb-2 list-none"
+              >
+                <router-link
+                  :to="`/solution/${industry.name}`"
+                  class="custom-default-hover"
+                  >{{ industry.name }}</router-link
+                >
+              </li>
+            </div>
+          </div>
+          <!-- <router-link
             to="#"
             class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4"
             @mouseenter="show_service_dropdown('solution')"
@@ -103,7 +131,7 @@
                 ></i>
               </div>
             </div>
-          </router-link>
+          </router-link> -->
           <div
             class="pl-4 pr-4 h-full flex flex-col justify-center transition duration-500 ease-in-out p-4 relative drop-resource"
             active-class="text-secondary font-medium"
@@ -598,14 +626,15 @@ export default {
           .select("id, name, is_department")
           .order("created_at", { ascending: false });
 
-        const retrieved_data = data;
-        retrieved_data.forEach((item) => {
-          if (item.is_department === true) {
-            this.departments.push(item);
-          } else {
-            this.industries.push(item);
-          }
-        });
+        this.industries = data;
+        // const retrieved_data = data;
+        // retrieved_data.forEach((item) => {
+        //   if (item.is_department === true) {
+        //     this.departments.push(item);
+        //   } else {
+        //     this.industries.push(item);
+        //   }
+        // });
         if (error) {
           console.log(error);
           return;

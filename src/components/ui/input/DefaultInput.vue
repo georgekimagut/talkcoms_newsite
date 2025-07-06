@@ -1,9 +1,8 @@
 <template>
-  <input
+  <Input
     :type="input_type"
     :placeholder="input_placeholder"
-    :class="input_class"
-    :required="is_required"
+    class="border-1 border-[#e3e3e3] p-2 w-full mt-[5px]"
   />
 </template>
 <script>
@@ -11,7 +10,6 @@ export default {
   name: "DefaultInput",
   props: {
     input_type: String,
-    input_class: String,
     input_placeholder: String,
     is_required: Boolean,
   },

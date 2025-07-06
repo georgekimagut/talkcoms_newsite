@@ -147,7 +147,7 @@
 </template>
 <script>
 import DefaultSquareButton from "./buttons/SquareButton.vue";
-import DefaultInput from "./inputs/DefaultInput.vue";
+import DefaultInput from "./ui/input/DefaultInput.vue";
 import BigTitle from "./text/BigTitle.vue";
 import Chat from "./Chat.vue";
 
