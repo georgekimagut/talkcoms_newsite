@@ -13,7 +13,7 @@
     <div class="bg-danger text-white p-4">
       If this is red, Tailwind config is working
     </div>
-    <Input type="email" placeholder="Test" />
+    <!-- <Input type="email" placeholder="Test" /> -->
     <!-- contact us -->
     <div class="w-full flex mt-16 justify-center">
       <div class="w-[90%] flex flex-wrap">
@@ -154,14 +154,14 @@
     <!-- contact details -->
     <div class="w-full flex justify-center">
       <div class="w-[905] flex">
-        <Card>
+        <!-- <Card>
           <CardHeader>
             <CardTitle>Card Title</CardTitle>
             <CardDescription>Card Description</CardDescription>
           </CardHeader>
           <CardContent> Card Content </CardContent>
           <CardFooter> Card Footer </CardFooter>
-        </Card>
+        </Card> -->
       </div>
     </div>
     <!-- maps -->

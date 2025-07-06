@@ -130,11 +130,11 @@
             <div class="h-full flex flex-col justify-center">
               <div class="flex flex-row flex-nowrap">
                 <i
-                  class="fa-solid fa-angle-left text-2xl text-secondary p-2 pr-4 pl-4 border border-[#8dc63f] cursor-pointer"
+                  class="fa-solid fa-angle-left text-2xl text-secondary p-2 pr-4 pl-4 border border-[#8dc63f] cursor-pointer hover:bg-secondary hover:text-white"
                   @click="prevSlide"
                 ></i>
                 <i
-                  class="fa-solid fa-angle-right text-2xl text-secondary p-2 pr-4 pl-4 border border-[#8dc63f] ml-6 cursor-pointer"
+                  class="fa-solid fa-angle-right text-2xl text-secondary p-2 pr-4 pl-4 border border-[#8dc63f] ml-6 cursor-pointer hover:bg-secondary hover:text-white"
                   @click="nextSlide"
                 ></i>
               </div>
